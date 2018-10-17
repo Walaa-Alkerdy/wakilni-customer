@@ -1,0 +1,46 @@
+PODS:
+  - Firebase/CoreOnly (5.8.1):
+    - FirebaseCore (= 5.1.3)
+  - Firebase/Messaging (5.8.1):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (= 3.1.2)
+  - FirebaseCore (5.1.3):
+    - GoogleUtilities/Logger (~> 5.2)
+  - FirebaseInstanceID (3.2.1):
+    - FirebaseCore (~> 5.1)
+    - GoogleUtilities/Environment (~> 5.2)
+  - FirebaseMessaging (3.1.2):
+    - FirebaseCore (~> 5.0)
+    - FirebaseInstanceID (~> 3.0)
+    - GoogleUtilities/Reachability (~> 5.2)
+    - Protobuf (~> 3.1)
+  - GoogleUtilities/Environment (5.3.0)
+  - GoogleUtilities/Logger (5.3.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/Reachability (5.3.0):
+    - GoogleUtilities/Logger
+  - Protobuf (3.6.1)
+
+DEPENDENCIES:
+  - Firebase/Messaging
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Firebase
+    - FirebaseCore
+    - FirebaseInstanceID
+    - FirebaseMessaging
+    - GoogleUtilities
+    - Protobuf
+
+SPEC CHECKSUMS:
+  Firebase: a870ed114d769b424021a0c8ddb0c86c3250a0c5
+  FirebaseCore: 27bd80e5bfaaf9552a1f5cacb4c7e8bb925bab22
+  FirebaseInstanceID: ea5af6920d0a4a29b40459d055bebe4a6c1333c4
+  FirebaseMessaging: d6feeb06218d2675b4149b0ada925a6b707a74cf
+  GoogleUtilities: 760ccb53b7c7f40f9c02d8c241f76f841a7a6162
+  Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+
+PODFILE CHECKSUM: aebd66e63df05f55ac97a452231cbaa4ea3de9ed
+
+COCOAPODS: 1.5.3
