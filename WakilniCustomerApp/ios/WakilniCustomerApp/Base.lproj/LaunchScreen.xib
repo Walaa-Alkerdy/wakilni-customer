@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,9 +16,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wakilniLogoMain" translatesAutoresizingMaskIntoConstraints="NO" id="MjU-Yh-rek">
-                    <rect key="frame" x="90" y="220" width="300" height="40"/>
+                    <rect key="frame" x="90" y="222.5" width="300" height="35"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="cwf-zs-pfK"/>
+                        <constraint firstAttribute="height" constant="35" id="hot-x4-N82"/>
                     </constraints>
                 </imageView>
             </subviews>
@@ -35,6 +35,6 @@
         </view>
     </objects>
     <resources>
-        <image name="wakilniLogoMain" width="1775" height="267"/>
+        <image name="wakilniLogoMain" width="426" height="64.080001831054688"/>
     </resources>
 </document>
