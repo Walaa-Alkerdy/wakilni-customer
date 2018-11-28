@@ -8,17 +8,21 @@ export default (state, action) => {
                 case STATE.SUCCESS:
                     let temp = action.data.data ? action.data.data : []
 
-                    if (action.pageNumber) {
-                        if (action.pageNumber != 1) {//not the first page
-                            if (action.isPaging) {
-                                temp = state.customerOrders
-                                action.data.data.forEach((alert) => {
-                                    temp.push(alert)
-                                })
+                    if (temp.length == 0) {
+                        return { ...state, customerOrders: state.customerOrders, canLoadMoreOrders: false, successMessage: action.data.meta.message ? action.data.meta.message : locals.message_sent_successfully, state: action.state, action: action.type }
+                    } else {
+                        if (action.pageNumber) {
+                            if (action.pageNumber != 1) {//not the first page
+                                if (action.isPaging) {
+                                    temp = state.customerOrders
+                                    action.data.data.forEach((alert) => {
+                                        temp.push(alert)
+                                    })
+                                }
                             }
                         }
+                        return { ...state, customerOrders: temp, canLoadMoreOrders: action.isPaging ? action.data.meta.pagination.total == temp.length ? false : true : true, successMessage: action.data.meta.message ? action.data.meta.message : locals.message_sent_successfully, state: action.state, action: action.type }
                     }
-                    return { ...state, customerOrders: temp, canLoadMoreOrders: action.isPaging ? action.data.meta.pagination.total == temp.length ? false : true : true, successMessage: action.data.meta.message ? action.data.meta.message : locals.message_sent_successfully, state: action.state, action: action.type }
                 case STATE.FAILED:
                     return { ...state, errorMessage: action.data, state: action.state, action: action.type }
                 case STATE.LOADING:

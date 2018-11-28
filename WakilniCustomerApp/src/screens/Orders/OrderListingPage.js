@@ -161,7 +161,7 @@ export default class OrderListingPage extends Component {
                     <Image style={styles.motoIconStyle} source={require('../../images/common/motoIconHelp.png')} />
 
                     {
-                        this.props.appState.state == STATE.LOADING ? <Loaders.Loader />
+                        this.state.isInitalLoading ? <Loaders.Loader />
                             :
                             this.state.ordersList.length == 0 ?
                                 <View style={{ flex: 1, width: '100%', marginTop: 10, marginBottom: 50 }}>

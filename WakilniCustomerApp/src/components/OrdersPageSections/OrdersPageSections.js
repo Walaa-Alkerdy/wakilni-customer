@@ -214,7 +214,7 @@ export default class OrdersPageSection extends Component {
                         <View style={[styles.bodySection]}>
                             <View style={[styles.bodySubContainerSubSubCSS, { height: 40, width: '45%', flexDirection: 'column', alignItems: null, justifyContent: 'center' }]}>
                                 <Text style={styles.bodySubContainerSubSubTextCSS}>{'Receiver Name'}:</Text>
-                                <Text style={[styles.bodySubContainerSubSubTextCSS, { fontSize: 12, fontFamily: Fonts.SUB_FONT, color: '#a9a9a9' }]}>
+                                <Text numberOfLines={1} style={[styles.bodySubContainerSubSubTextCSS, { fontSize: 12, fontFamily: Fonts.SUB_FONT, color: '#a9a9a9' }]}>
                                     {this.props.order.orderDetails.receiverable ? this.props.order.orderDetails.receiverable.name : ''}
                                 </Text>
                             </View>
