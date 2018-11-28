@@ -421,8 +421,9 @@ export default class ProfilePage extends Component {
         if (newProps.appState.state === STATE.SUCCESS && newProps.appState.action === ACTION_USER.CHANGE_PASSWORD) {
 
             this.props.resetState();
-            console.log('i am here and received success');
-            this.notification.showNotification(newProps.appState.successMessage, false)
+            this.setState({ subTabSelectedIndex: 0 }, () => {
+                this.notification.showNotification(newProps.appState.successMessage, false)
+            })
 
         } else if (newProps.appState.state === STATE.FAILED && newProps.appState.action === ACTION_USER.CHANGE_PASSWORD) {
             this.setState({ alertMessageToShow: newProps.appState.errorMessage, selectedSectionForAlert: null })
@@ -728,7 +729,15 @@ export default class ProfilePage extends Component {
                         autoCorrect={false}
                         value={this.state.phone}
                         onChangeText={phone => {
-                            this.setState({ phone: phone });
+                            if (phone.trim().length == 0) {
+                                this.setState({ phone: '+' });
+                            } else {
+                                if (phone.includes('+')) {
+                                    this.setState({ phone: `${phone}` })
+                                } else {
+                                    this.setState({ phone: `+${phone}` })
+                                }
+                            }
                         }} />
 
                     {

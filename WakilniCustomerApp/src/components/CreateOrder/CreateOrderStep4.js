@@ -171,7 +171,16 @@ export default class CreateOrderStep4 extends Component {
                                         </View>
                                         <View style={styles.parentSubSubStyle}>
                                             <Image source={require('../../images/createOrder/clock.png')} style={{ width: 15, height: 15, resizeMode: 'contain' }} />
-                                            <Text numberOfLines={1} style={styles.normalTextStyle}>{this.props.step1Data ? `${moment(this.props.step1Data.selectedFromTime).format('hh:mm A')} till ${moment(this.props.step1Data.selectedToTime).format('hh:mm A')}` : ''}</Text>
+                                            {
+                                                this.props.step1Data ?
+                                                    this.props.step1Data.selectedFromTime && this.props.step1Data.selectedToTime ?
+                                                        <Text numberOfLines={1} style={styles.normalTextStyle}>{`${moment(this.props.step1Data.selectedFromTime).format('hh:mm A')} till ${moment(this.props.step1Data.selectedToTime).format('hh:mm A')}`}</Text>
+                                                        :
+                                                        <Text numberOfLines={1} style={styles.normalTextStyle}>{'No Preferred Time'}</Text>
+                                                    :
+                                                    <Text numberOfLines={1} style={styles.normalTextStyle}>{'No Preferred Time'}</Text>
+                                            }
+
                                         </View>
                                     </View>
                                 </View>
@@ -250,7 +259,7 @@ export default class CreateOrderStep4 extends Component {
                                                         <View style={[styles.parentSubStyle, { paddingTop: 0, paddingBottom: 10 }]}>
                                                             <View style={[styles.parentSubSubStyle, { flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }]}>
                                                                 <Text numberOfLines={1} style={styles.boldTextStyle}>{Locals.CREATE_ORDER_CURRENCY}</Text>
-                                                                <Text numberOfLines={1} style={[styles.normalTextStyle, { paddingLeft: 0 }]}>{receiver.selectedCurrency == objectTypes.CURRENCY.USD.id ? objectTypes.CURRENCY.USD.type.toUpperCase() : objectTypes.CURRENCY.LBP.type.toUpperCase()}</Text>
+                                                                <Text numberOfLines={1} style={[styles.normalTextStyle, { paddingLeft: 0 }]}>{receiver.selectedCurrencyId == objectTypes.CURRENCY.USD.id ? objectTypes.CURRENCY.USD.type.toUpperCase() : objectTypes.CURRENCY.LBP.type.toUpperCase()}</Text>
                                                             </View>
                                                             <View style={[styles.parentSubSubStyle, { flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }]}>
                                                                 <Text numberOfLines={1} style={styles.boldTextStyle}>{Locals.CREATE_ORDER_COLLECTION_AMOUNT}</Text>
@@ -260,7 +269,7 @@ export default class CreateOrderStep4 extends Component {
                                                         {
                                                             receiver.selectedDescription ?
                                                                 <View style={[styles.parentSubStyle, { paddingTop: 0, paddingBottom: this.props.step3Data.isSignatureRequired == false && this.props.step3Data.isPictureRequired == false ? 0 : 10 }]}>
-                                                                    <Text style={[styles.normalTextStyle, { paddingLeft: 0 }]}>{receiver.selectedDescription.value}</Text>
+                                                                    <Text style={[styles.normalTextStyle, { paddingLeft: 0 }]}>{receiver.customNote != '' ? receiver.customNote : receiver.selectedDescription.value}</Text>
                                                                 </View>
                                                                 :
                                                                 null
@@ -305,7 +314,7 @@ export default class CreateOrderStep4 extends Component {
                         </View>
 
                         {/* buttons here */}
-                        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'center', marginBottom: 50 }}>
+                        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'center', marginBottom: 90 }}>
 
                             <Buttons.RoundCornerButton
                                 buttonStyle={[styles.button, { width: null, flex: 1, shadowColor: '#919191', backgroundColor: '#919191', borderWidth: 0 }]}

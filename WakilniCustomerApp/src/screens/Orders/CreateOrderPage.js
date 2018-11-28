@@ -81,6 +81,7 @@ export default class CreateOrderPage extends Component {
 
             // step 2
             selectedReceiverLocation: null,
+            selectedReceiverIndex: 0,
             step2Data: null,
             step3Data: null,
             step4Data: null,
@@ -114,10 +115,13 @@ export default class CreateOrderPage extends Component {
         if (newProps.appState.state === STATE.SUCCESS && newProps.appState.action === ACTION_LOCATION.GET_LOCATIONS) {
 
             if (!this.state.isLoadingLocations) {
+
+                let selectedPickUpLocation = newProps.appState.pickUpLocations.length > 0 ? newProps.appState.pickUpLocations[newProps.appState.pickUpLocations.length - 1] : null
+                let selectedReceiverLocation = newProps.appState.receiverLocations.length > 0 ? newProps.appState.receiverLocations[newProps.appState.receiverLocations.length - 1] : null
                 this.setState({
                     isLoadingLocations: false,
-                    selectedPickUpLocation: newProps.appState.pickUpLocations.length > 0 ? newProps.appState.pickUpLocations[newProps.appState.pickUpLocations.length - 1] : null,
-                    selectedReceiverLocation: newProps.appState.receiverLocations.length > 0 ? newProps.appState.receiverLocations[newProps.appState.receiverLocations.length - 1] : null
+                    selectedPickUpLocation: selectedPickUpLocation,
+                    selectedReceiverLocation: selectedReceiverLocation,
                 })
             } else {
                 this.setState({ isLoadingLocations: false })
@@ -188,7 +192,7 @@ export default class CreateOrderPage extends Component {
     }
 
     //step 2 actions
-    createReceiverPressed(receivedData) {
+    createReceiverPressed(receivedData, receiverIndex) {
 
         let values = {
             accessToken: this.props.appState.user.tokenData.accessToken,
@@ -212,6 +216,7 @@ export default class CreateOrderPage extends Component {
             }
         }
 
+        this.setState({ selectedReceiverIndex: receiverIndex })
         this.props.createNewReceiver(values)
     }
 
@@ -239,17 +244,17 @@ export default class CreateOrderPage extends Component {
         switch (this.state.mainTabSelectedIndex) {
             case 0://Step 1
                 if (receivedData) {
-                    this.setState({ step1Data: receivedData, step2Data: this.state.step1Data ? this.state.step1Data.selectedPaymentType.id != receivedData.selectedPaymentType.id ? null : this.state.step2Data : null, mainTabSelectedIndex: this.state.mainTabSelectedIndex + 1 })
+                    this.setState({ step1Data: receivedData, step2Data: this.state.step1Data ? this.state.step1Data.selectedPaymentType.id != receivedData.selectedPaymentType.id ? null : this.state.step2Data : null, mainTabSelectedIndex: this.state.mainTabSelectedIndex + 1, selectedReceiverIndex: 0 })
                 }
                 break;
             case 1://Step 2
                 if (receivedData) {
-                    this.setState({ step2Data: receivedData, mainTabSelectedIndex: this.state.mainTabSelectedIndex + 1 })
+                    this.setState({ step2Data: receivedData, mainTabSelectedIndex: this.state.mainTabSelectedIndex + 1, selectedReceiverIndex: 0 })
                 }
                 break;
             case 2://Step 3
                 if (receivedData) {
-                    this.setState({ step3Data: receivedData, mainTabSelectedIndex: this.state.mainTabSelectedIndex + 1 })
+                    this.setState({ step3Data: receivedData, mainTabSelectedIndex: this.state.mainTabSelectedIndex + 1, selectedReceiverIndex: 0 })
                 }
                 break;
             case 3://Step 4
@@ -373,7 +378,8 @@ export default class CreateOrderPage extends Component {
                         orderTypeId={this.state.step1Data.selectedPaymentType.id}
                         step2Data={this.state.step2Data ? this.state.step2Data.selectedData : null}
                         backPressed={() => { this.backPressed() }}
-                        createReceiverPressed={(receivedData) => { this.createReceiverPressed(receivedData) }}
+                        selectedReceiverIndex={this.state.selectedReceiverIndex}
+                        createReceiverPressed={(receivedData, receiverIndex) => { this.createReceiverPressed(receivedData, receiverIndex) }}
                         showNotification={() => { this.notification.showNotification('Not all required fields are filled', true) }}
                         nextPressed={(receivedData) => { this.nextPressed(receivedData) }}
                     />

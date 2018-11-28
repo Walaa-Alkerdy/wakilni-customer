@@ -73,7 +73,8 @@ export default class CreateOrderStep1 extends Component {
 
             data.constantsList.paymentMethodTypes.forEach((paymentMethodType, index) => {
                 paymentMethodType.isSelected = false
-                if (paymentMethodType.id == objectTypes.PAYMENT_METHOD.ON_ACCOUNT.id || paymentMethodType.id == objectTypes.PAYMENT_METHOD.CASH_ON_DELIVERY.id || paymentMethodType.id == objectTypes.PAYMENT_METHOD.CASH_ON_PICKUP.id || paymentMethodType.id == objectTypes.PAYMENT_METHOD.CREDIT_CARD.id || paymentMethodType.id == objectTypes.PAYMENT_METHOD.CREDIT_CARD2.id || paymentMethodType.id == objectTypes.PAYMENT_METHOD.CREDIT_CARD3.id) {
+                // || paymentMethodType.id == objectTypes.PAYMENT_METHOD.CREDIT_CARD.id || paymentMethodType.id == objectTypes.PAYMENT_METHOD.CREDIT_CARD2.id || paymentMethodType.id == objectTypes.PAYMENT_METHOD.CREDIT_CARD3.id
+                if (paymentMethodType.id == objectTypes.PAYMENT_METHOD.ON_ACCOUNT.id || paymentMethodType.id == objectTypes.PAYMENT_METHOD.CASH_ON_DELIVERY.id || paymentMethodType.id == objectTypes.PAYMENT_METHOD.CASH_ON_PICKUP.id) {
                     let temp = paymentMethodType
                     temp.name = this.getName(paymentMethodType, 1)
                     temp.isNotSelectedIcon = this.getImage(paymentMethodType, 1, false)
@@ -282,15 +283,15 @@ export default class CreateOrderStep1 extends Component {
                                                 <TouchableOpacity
                                                     style={[{
                                                         marginTop: 5,
-                                                        width: (Dimensions.get('screen').width - 40 - 20) / 4,
-                                                        height: 90,
-                                                        borderTopRightRadius: index % 3 == 0 && index != 0 ? 5 : 0,
-                                                        borderBottomRightRadius: index % 3 == 0 && index != 0 ? 5 : 0,
-                                                        borderTopLeftRadius: index % 4 == 0 || index == 0 ? 5 : 0,
-                                                        borderBottomLeftRadius: index % 4 == 0 || index == 0 ? 5 : 0,
-                                                        justifyContent: 'center',
+                                                        width: (Dimensions.get('screen').width - 40 - 20) / 3,
+                                                        height: 80,
+                                                        borderTopRightRadius: index % 2 == 0 && index != 0 ? 5 : 0,
+                                                        borderBottomRightRadius: index % 2 == 0 && index != 0 ? 5 : 0,
+                                                        borderTopLeftRadius: index % 3 == 0 || index == 0 ? 5 : 0,
+                                                        borderBottomLeftRadius: index % 3 == 0 || index == 0 ? 5 : 0,
                                                         borderRightColor: '#c4c4c4',
-                                                        borderRightWidth: index % 4 != 0 || index == 0 ? 0.5 : 0,
+                                                        borderRightWidth: index % 2 != 0 || index == 0 ? 0.5 : 0,
+                                                        justifyContent: 'center',
                                                         alignItems: 'center',
                                                         backgroundColor: item.isSelected ? Colors.SUB_COLOR : '#ffffff',
                                                         shadowColor: '#919191',
@@ -298,6 +299,25 @@ export default class CreateOrderStep1 extends Component {
                                                         shadowOpacity: 0.5,
                                                         shadowRadius: 2,
                                                         elevation: 1
+
+                                                        // in case 4 are displayed
+                                                        // marginTop: 5,
+                                                        // width: (Dimensions.get('screen').width - 40 - 20) / 4,
+                                                        // height: 90,
+                                                        // borderTopRightRadius: index % 3 == 0 && index != 0 ? 5 : 0,
+                                                        // borderBottomRightRadius: index % 3 == 0 && index != 0 ? 5 : 0,
+                                                        // borderTopLeftRadius: index % 4 == 0 || index == 0 ? 5 : 0,
+                                                        // borderBottomLeftRadius: index % 4 == 0 || index == 0 ? 5 : 0,
+                                                        // justifyContent: 'center',
+                                                        // borderRightColor: '#c4c4c4',
+                                                        // borderRightWidth: index % 4 != 0 || index == 0 ? 0.5 : 0,
+                                                        // alignItems: 'center',
+                                                        // backgroundColor: item.isSelected ? Colors.SUB_COLOR : '#ffffff',
+                                                        // shadowColor: '#919191',
+                                                        // shadowOffset: { width: 2, height: 2 },
+                                                        // shadowOpacity: 0.5,
+                                                        // shadowRadius: 2,
+                                                        // elevation: 1
                                                     }]}
                                                     key={index}
                                                     onPress={() => {
@@ -484,13 +504,13 @@ export default class CreateOrderStep1 extends Component {
             locationValid = false
         }
 
-        if (this.state.isInitialPreferredFrom) {
-            fromTimeValid = false
-        }
+        // if (this.state.isInitialPreferredFrom) {
+        //     fromTimeValid = false
+        // }
 
-        if (this.state.isInitialPreferredTo) {
-            toTimeValid = false
-        }
+        // if (this.state.isInitialPreferredTo) {
+        //     toTimeValid = false
+        // }
 
         this.setState({ isPickUpError: !locationValid, fromTimeError: !fromTimeValid, toTimeError: !toTimeValid })
 
@@ -507,8 +527,8 @@ export default class CreateOrderStep1 extends Component {
                 selectedDeliveryPaymentType: this.state.deliveryPaymentTypes.find((item) => { return item.isSelected == true }),
                 selectedPickUpLocation: this.state.selectedPickUpLocation,
                 selectedDate: this.state.preferredDate,
-                selectedFromTime: this.state.preferredFrom,
-                selectedToTime: this.state.preferredTo,
+                selectedFromTime: this.state.isInitialPreferredFrom ? null : this.state.preferredFrom,
+                selectedToTime: this.state.isInitialPreferredTo ? null : this.state.preferredTo,
             }
 
             this.props.nextPressed(values)

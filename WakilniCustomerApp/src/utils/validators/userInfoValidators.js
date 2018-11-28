@@ -44,6 +44,6 @@ export function isEmpty(field) {
  * @param {string} field Field to validate
  */
 export function isPhoneValid(field) {
-    var re = /^961([0-9]{7,8})$/;
+    var re = /^\+961([0-9]{7,8})$/
     return re.test(String(field).toLowerCase());
 }

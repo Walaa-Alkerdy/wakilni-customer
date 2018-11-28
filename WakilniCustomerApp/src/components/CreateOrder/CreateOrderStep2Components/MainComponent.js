@@ -100,7 +100,7 @@ export default class MainComponent extends Component {
                     //     }
 
                     // } else {
-                    if (index == 0) {
+                    if (index == 1) {
                         temp.isSelected = true
                     }
                     // }
@@ -173,10 +173,14 @@ export default class MainComponent extends Component {
             packageTypes: tempPackageTypes,
             packagesToDeliverList: tempDeliver,
             packagesToReturnList: tempReturn,
+            selectedDescription: data.receivedData ? data.receivedData.selectedDescription ? data.receivedData.selectedDescription : null : null,
+            customNote: data.receivedData ? data.receivedData.customNote ? data.receivedData.customNote : '' : '',
             orderTypeId: data.orderTypeId,
             allowDriverContact: data.receivedData ? data.receivedData.allowDriverContact : false,
             allowSendingDirectMessage: data.receivedData ? data.receivedData.allowSendingDirectMessage : false
-        }, () => { })
+        }, () => {
+            // this.props.onChangeData(this.state)
+        })
     }
 
     getPackageText(packageId, type) {
@@ -365,6 +369,27 @@ export default class MainComponent extends Component {
                             : null : null
                     }
 
+                    {/* Way Bill */}
+                    <Text style={styles.subHeaders}>{Locals.CREATE_ORDER_WAY_BILL}</Text>
+                    <TextInput
+                        selectionColor='#919191'
+                        style={[styles.inputFields, this.state.collectionAmountError ? styles.inputFieldsError : null]}
+                        underlineColorAndroid={'transparent'}
+                        placeholder={''}
+                        returnKeyType={'done'}
+                        keyboardType={'numeric'}
+                        // placeholder={Locals.EMAIL_PLACEHOLDER}
+                        // placeholderTextColor={Colors.TEXT_COLOR}
+                        // placeholderStyle={styles.inputFieldsPlaceholder}
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        value={this.state.wayBill}
+                        onChangeText={wayBill => {
+                            this.setState({ wayBill: wayBill }, () => {
+                                this.props.onChangeData(this.state)
+                            });
+                        }} />
+
                     {/* currency section */}
                     <Text style={styles.subHeaders}>{Locals.CREATE_ORDER_CURRENCY}</Text>
                     <View style={{ flexDirection: 'row', width: '100%' }}>
@@ -426,47 +451,32 @@ export default class MainComponent extends Component {
                         </TouchableOpacity>
                     </View>
 
-                    {/* Way Bill */}
-                    <Text style={styles.subHeaders}>{Locals.CREATE_ORDER_WAY_BILL}</Text>
-                    <TextInput
-                        selectionColor='#919191'
-                        style={[styles.inputFields, this.state.collectionAmountError ? styles.inputFieldsError : null]}
-                        underlineColorAndroid={'transparent'}
-                        placeholder={''}
-                        returnKeyType={'done'}
-                        keyboardType={'numeric'}
-                        // placeholder={Locals.EMAIL_PLACEHOLDER}
-                        // placeholderTextColor={Colors.TEXT_COLOR}
-                        // placeholderStyle={styles.inputFieldsPlaceholder}
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        value={this.state.wayBill}
-                        onChangeText={wayBill => {
-                            this.setState({ wayBill: wayBill }, () => {
-                                this.props.onChangeData(this.state)
-                            });
-                        }} />
-
                     {/* collection amount */}
-                    <Text style={styles.subHeaders}>{Locals.CREATE_ORDER_COLLECTION_AMOUNT}</Text>
-                    <TextInput
-                        selectionColor='#919191'
-                        style={[styles.inputFields, this.state.collectionAmountError ? styles.inputFieldsError : null]}
-                        underlineColorAndroid={'transparent'}
-                        placeholder={''}
-                        returnKeyType={'done'}
-                        keyboardType={'numeric'}
-                        // placeholder={Locals.EMAIL_PLACEHOLDER}
-                        // placeholderTextColor={Colors.TEXT_COLOR}
-                        // placeholderStyle={styles.inputFieldsPlaceholder}
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        value={this.state.collectionAmount}
-                        onChangeText={collectionAmount => {
-                            this.setState({ collectionAmount: collectionAmount }, () => {
-                                this.props.onChangeData(this.state)
-                            });
-                        }} />
+                    {
+                        this.state.collectionTypes.filter((item) => { return item.id == objectTypes.CASH_COLLECTION.PAID.id && item.isSelected == true }).length > 0 ?
+                            null :
+                            [
+                                <Text style={styles.subHeaders}>{Locals.CREATE_ORDER_COLLECTION_AMOUNT}</Text>,
+                                <TextInput
+                                    selectionColor='#919191'
+                                    style={[styles.inputFields, this.state.collectionAmountError ? styles.inputFieldsError : null]}
+                                    underlineColorAndroid={'transparent'}
+                                    placeholder={''}
+                                    returnKeyType={'done'}
+                                    keyboardType={'numeric'}
+                                    // placeholder={Locals.EMAIL_PLACEHOLDER}
+                                    // placeholderTextColor={Colors.TEXT_COLOR}
+                                    // placeholderStyle={styles.inputFieldsPlaceholder}
+                                    autoCapitalize='none'
+                                    autoCorrect={false}
+                                    value={this.state.collectionAmount}
+                                    onChangeText={collectionAmount => {
+                                        this.setState({ collectionAmount: collectionAmount }, () => {
+                                            this.props.onChangeData(this.state)
+                                        });
+                                    }} />
+                            ]
+                    }
 
                     {/* collection type */}
                     <Text style={styles.subHeaders}>{Locals.CREATE_ORDER_COLLECTION_TYPE}</Text>
@@ -504,7 +514,7 @@ export default class MainComponent extends Component {
                                                 }
                                             })
 
-                                            this.setState({ collectionTypes: temp }, () => {
+                                            this.setState({ collectionTypes: temp, collectionAmount: item.id == objectTypes.CASH_COLLECTION.PAID ? '' : this.state.collectionAmount }, () => {
                                                 this.props.onChangeData(this.state)
                                             })
                                         }}

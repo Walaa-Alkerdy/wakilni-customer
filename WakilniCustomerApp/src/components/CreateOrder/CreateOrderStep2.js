@@ -88,6 +88,12 @@ export default class CreateOrderStep2 extends Component {
 
         if (data.step2Data) {
             this.setState({ accordionData: data.step2Data })
+        } else {
+            // let temp = this.state.accordionData
+            // if (data.selectedReceiverLocation) {
+            //     temp[this.props.selectedReceiverIndex].selectedReceiverLocation = { key: data.selectedReceiverLocation.id, value: data.selectedReceiverLocation.location }
+            // }
+            // this.setState({ accordionData: temp })
         }
     }
 
@@ -140,7 +146,7 @@ export default class CreateOrderStep2 extends Component {
                                                     receivedData={items}
                                                     onChangeData={(data) => this.mainComponentDataChanged(items.key, data)}
                                                     openPopUp={() => {
-                                                        this.newLocationPopUp.show(this.props.constantsList ? this.props.constantsList.locationTypes : [], this.props.areaList)
+                                                        this.newLocationPopUp.show(this.props.constantsList ? this.props.constantsList.locationTypes : [], this.props.areaList, index)
                                                     }}
                                                 />
                                             );
@@ -156,7 +162,7 @@ export default class CreateOrderStep2 extends Component {
                                             receivedData={this.state.accordionData[0]}
                                             onChangeData={(data) => this.mainComponentDataChanged(0, data)}
                                             openPopUp={() => {
-                                                this.newLocationPopUp.show(this.props.constantsList ? this.props.constantsList.locationTypes : [], this.props.areaList)
+                                                this.newLocationPopUp.show(this.props.constantsList ? this.props.constantsList.locationTypes : [], this.props.areaList, 0)
                                             }}
                                         />
                                         :
@@ -224,8 +230,8 @@ export default class CreateOrderStep2 extends Component {
                     ref={newLocationPopUp => this.newLocationPopUp = newLocationPopUp}
                     typesList={this.props.constantsList ? this.props.constantsList.locationTypes : []}
                     areasList={this.props.areaList}
-                    onCreatePress={(receivedData) => {
-                        this.props.createReceiverPressed(receivedData)
+                    onCreatePress={(receivedData, index) => {
+                        this.props.createReceiverPressed(receivedData, index)
                         // this.props.createCustomerLocationPressed(receivedData)
                     }}
                 />
@@ -247,7 +253,7 @@ export default class CreateOrderStep2 extends Component {
 
         this.setState({ accordionData: temp })
 
-        if(!locationValid){
+        if (!locationValid) {
             this.props.showNotification()
         }
 

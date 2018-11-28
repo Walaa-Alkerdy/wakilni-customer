@@ -32,8 +32,9 @@ export default class NewReceiverPopUp extends Component {
         directions: '',
         selectedDOB: null,
         note: '',
-        allowDriverContact: true
+        allowDriverContact: true,
 
+        selectedReceiverIndex: 0,
     }
 
     dimissAlert = () => {
@@ -42,7 +43,7 @@ export default class NewReceiverPopUp extends Component {
         })
     }
 
-    show = (typesList, areaList) => {
+    show = (typesList, areaList, index) => {
 
         let tempTypes = []
         let tempAreas = []
@@ -69,7 +70,8 @@ export default class NewReceiverPopUp extends Component {
                 selectedType: null,
                 mustShow: true,
                 typesList: tempTypes,
-                areaList: tempAreas
+                areaList: tempAreas,
+                selectedReceiverIndex: index
             },
             () => {
 
@@ -229,7 +231,16 @@ export default class NewReceiverPopUp extends Component {
                                         autoCorrect={false}
                                         value={this.state.phoneNumber}
                                         onChangeText={phoneNumber => {
-                                            this.setState({ phoneNumber: phoneNumber });
+                                            if (phoneNumber.trim().length == 0) {
+                                                this.setState({ phoneNumber: '+' });
+                                            } else {
+                                                if (phoneNumber.includes('+')) {
+                                                    this.setState({ phoneNumber: `${phoneNumber}` })
+                                                } else {
+                                                    this.setState({ phoneNumber: `+${phoneNumber}` })
+                                                }
+                                            }
+                                            // this.setState({ phoneNumber: phoneNumber });
                                         }} />
                                     <TextInput
                                         selectionColor='#919191'
@@ -245,7 +256,15 @@ export default class NewReceiverPopUp extends Component {
                                         autoCorrect={false}
                                         value={this.state.secondaryPhoneNumber}
                                         onChangeText={secondaryPhoneNumber => {
-                                            this.setState({ secondaryPhoneNumber: secondaryPhoneNumber });
+                                            if (secondaryPhoneNumber.trim().length == 0) {
+                                                this.setState({ secondaryPhoneNumber: '+' });
+                                            } else {
+                                                if (secondaryPhoneNumber.includes('+')) {
+                                                    this.setState({ secondaryPhoneNumber: `${secondaryPhoneNumber}` })
+                                                } else {
+                                                    this.setState({ secondaryPhoneNumber: `+${secondaryPhoneNumber}` })
+                                                }
+                                            }
                                         }} />
                                     <TextInput
                                         selectionColor='#919191'
@@ -491,9 +510,9 @@ export default class NewReceiverPopUp extends Component {
             areaValid = false
         }
 
-        if (!this.state.selectedDOB) {
-            dobValid = false
-        }
+        // if (!this.state.selectedDOB) {
+        //     dobValid = false
+        // }
 
         if (validators.isEmpty(this.state.firstName)) {
             firstNameValid = false
@@ -514,6 +533,12 @@ export default class NewReceiverPopUp extends Component {
             }
         } else {
             phoneNumberValid = false
+        }
+
+        if (!validators.isEmpty(this.state.secondaryPhoneNumber)) {
+            if (!validators.isPhoneValid(this.state.secondaryPhoneNumber)) {
+                secondaryPhoneNumberValid = false
+            }
         }
 
         // if (validators.isEmpty(this.state.building)) {
@@ -569,13 +594,13 @@ export default class NewReceiverPopUp extends Component {
                 secondaryPhoneNumber: this.state.secondaryPhoneNumber,
                 gender: this.state.radioButtonIndex,
                 email: this.state.email,
-                dob: moment(this.state.selectedDOB).format('YYYY-MM-DD'),
+                dob: this.state.selectedDOB ? moment(this.state.selectedDOB).format('YYYY-MM-DD') : null,
                 note: this.state.note,
                 allowDriverContact: this.state.allowDriverContact
             }
 
             this.setState({ mustShow: false }, () => { })
-            this.props.onCreatePress(values)
+            this.props.onCreatePress(values, this.state.selectedReceiverIndex)
         }
     }
 }

@@ -118,13 +118,13 @@ export function loginAPI(values, onSuccess, onFailure) {
                     // userType: result.user_info.role_name,
                     isUserCheckIn: userCheckInStatus,
                     roleId: roleData.id,
-                    isLastLogin: result.info.last_login ? true : false,
+                    isLastLogin: true,
                 }
             }
 
             if (helpers.saveUser(user)) {
                 let temp = userCheckInStatus ? "true" : "false";
-                if (helpers.saveCheckInOutStatus(temp)) {
+                // if (helpers.saveCheckInOutStatus(temp)) {
 
                     let lang = values.language_type == '4' ? 'ar' : 'en'
                     if (helpers.saveLanguage(lang)) {
@@ -134,9 +134,9 @@ export function loginAPI(values, onSuccess, onFailure) {
 
                         return onFailure('failed to selected language');
                     }
-                } else {
-                    return onFailure('failed to save user status');
-                }
+                // } else {
+                //     return onFailure('failed to save user status');
+                // }
             } else {
                 return onFailure('failed to save user');
             }
@@ -203,19 +203,12 @@ export function getUserInfo(values, onSuccess, onFailure) {
                 roleId: roleData.id,
                 // languageType: result.data.language_type,
                 // userType: result.user_info.role_name,
-                isUserCheckIn: userCheckInStatus
+                isUserCheckIn: true
             }
         }
 
-        console.log(user, 'hina')
-
         if (helpers.saveUser(user)) {
-            let temp = userCheckInStatus ? "true" : "false";
-            if (helpers.saveCheckInOutStatus(temp)) {
-                return onSuccess({ data: user, meta: result.meta });
-            } else {
-                return onFailure('failed to save user status');
-            }
+            return onSuccess({ data: user, meta: result.meta });
         } else {
             return onFailure('failed to save user');
         }
@@ -321,11 +314,11 @@ export function updateUserInfo(accessToken, driverId, email, password, pattern, 
 
             if (helpers.saveUser(newUser)) {
                 let temp = userCheckInStatus ? "true" : "false";
-                if (helpers.saveCheckInOutStatus(temp)) {
+                // if (helpers.saveCheckInOutStatus(temp)) {
                     onSuccess({ data: newUser, meta: result.meta });
-                } else {
-                    return onFailure({ data: 'failed to save user status' });
-                }
+                // } else {
+                //     return onFailure({ data: 'failed to save user status' });
+                // }
             } else {
                 return onFailure({ data: 'failed to save user' });
             }
