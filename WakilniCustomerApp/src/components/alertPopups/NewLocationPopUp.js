@@ -6,7 +6,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import * as validators from '../../utils/validators/userInfoValidators';
 import MapView, { Marker } from 'react-native-maps';
 import { Pickers, Buttons } from '../../components';
-import AutoComplete from 'react-native-autocomplete-select';
 
 export default class NewLocationPopUp extends Component {
 
@@ -187,23 +186,6 @@ export default class NewLocationPopUp extends Component {
                                             <Text style={{ fontFamily: Fonts.SUB_FONT, color: this.state.areaList.length > 0 ? '#ffffff' : '#f0f0f0' }}>{this.state.selectedArea ? this.state.selectedArea.value : this.state.areaList.length > 0 ? Locals.CREATE_ORDER_CHOOSE_AREA : 'Please Wait...'}</Text>
                                         </TouchableOpacity>
                                     </View>
-
-                                    {/* <AutoComplete
-                                        onSelect={(selectedItem) => {
-                                            console.log(selectedItem)
-                                        }}
-                                        onChangeText={(text) => {
-                                            this.setState({ suggestedAreaValue: text })
-                                        }}
-                                        suggestions={this.state.areaList ? this.state.areaList : []}
-                                        suggestionObjectTextProperty='text'
-                                        value={this.state.suggestedAreaValue ? this.state.suggestedAreaValue : ''}
-                                        // suggestionStyle={{}}
-                                        // suggestionTextStyle={{}}
-                                        // style={[styles.inputFields, this.state.buildingError ? styles.inputFieldsError : null]}
-                                        inputStyle={[styles.inputFields, this.state.buildingError ? styles.inputFieldsError : null]}
-                                        placeholder={Locals.CREATE_ORDER_CHOOSE_AREA}
-                                    /> */}
 
                                     <TextInput
                                         selectionColor='#919191'
