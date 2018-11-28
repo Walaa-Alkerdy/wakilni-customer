@@ -166,15 +166,28 @@ export default class SinglePicker extends Component {
                                                 this.setState(
                                                     Object.assign({}, this.state, { selectedOption: curOption }));
                                             }}>
-                                            {this.state.options.filter((option) => { return option.value.toLowerCase().includes(this.state.areaText.toLowerCase()) }).map((option, i) => {
-                                                return (
-                                                    <_PickerItem
-                                                        key={i}
-                                                        value={option.key}
-                                                        label={option.value}
-                                                    />
-                                                )
-                                            })}
+                                            {
+                                                this.state.options.filter((option) => { return option.value.toLowerCase().includes(this.state.areaText.toLowerCase()) }).length > 0 ?
+                                                    this.state.options.filter((option) => { return option.value.toLowerCase().includes(this.state.areaText.toLowerCase()) }).map((option, i) => {
+                                                        return (
+                                                            <_PickerItem
+                                                                key={i}
+                                                                value={option.key}
+                                                                label={option.value}
+                                                            />
+                                                        )
+                                                    })
+                                                    :
+                                                    this.state.options.filter((option) => { return option.value.toLowerCase().includes('other') }).map((option, i) => {
+                                                        return (
+                                                            <_PickerItem
+                                                                key={i}
+                                                                value={option.key}
+                                                                label={option.value}
+                                                            />
+                                                        )
+                                                    })
+                                            }
                                         </_Picker>
                                         :
                                         null
