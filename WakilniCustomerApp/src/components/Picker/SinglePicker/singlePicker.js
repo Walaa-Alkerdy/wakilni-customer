@@ -117,7 +117,7 @@ export default class SinglePicker extends Component {
                                 this.props.canFilter ?
                                     <TextInput
                                         selectionColor='#919191'
-                                        style={[styles.inputFields, Platform.OS == 'ios' ? {} : { paddingBottom: 5 }]}
+                                        style={[styles.inputFields, Platform.OS == 'ios' ? {} : { paddingBottom: 2 }]}
                                         underlineColorAndroid={'transparent'}
                                         placeholder={'enter area'}
                                         // placeholder={Locals.EMAIL_PLACEHOLDER}
