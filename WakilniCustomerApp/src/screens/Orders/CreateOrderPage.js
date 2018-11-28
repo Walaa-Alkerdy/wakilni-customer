@@ -244,17 +244,17 @@ export default class CreateOrderPage extends Component {
         switch (this.state.mainTabSelectedIndex) {
             case 0://Step 1
                 if (receivedData) {
-                    this.setState({ step1Data: receivedData, step2Data: this.state.step1Data ? this.state.step1Data.selectedPaymentType.id != receivedData.selectedPaymentType.id ? null : this.state.step2Data : null, mainTabSelectedIndex: this.state.mainTabSelectedIndex + 1, selectedReceiverIndex: 0 })
+                    this.setState({ step1Data: receivedData, step2Data: this.state.step1Data ? this.state.step1Data.selectedPaymentType.id != receivedData.selectedPaymentType.id ? null : this.state.step2Data : null, mainTabSelectedIndex: this.state.mainTabSelectedIndex + 1, selectedReceiverIndex: 0, oldPageData: null })
                 }
                 break;
             case 1://Step 2
                 if (receivedData) {
-                    this.setState({ step2Data: receivedData, mainTabSelectedIndex: this.state.mainTabSelectedIndex + 1, selectedReceiverIndex: 0 })
+                    this.setState({ step2Data: receivedData, mainTabSelectedIndex: this.state.mainTabSelectedIndex + 1, selectedReceiverIndex: 0, oldPageData: null })
                 }
                 break;
             case 2://Step 3
                 if (receivedData) {
-                    this.setState({ step3Data: receivedData, mainTabSelectedIndex: this.state.mainTabSelectedIndex + 1, selectedReceiverIndex: 0 })
+                    this.setState({ step3Data: receivedData, mainTabSelectedIndex: this.state.mainTabSelectedIndex + 1, selectedReceiverIndex: 0, oldPageData: null })
                 }
                 break;
             case 3://Step 4
