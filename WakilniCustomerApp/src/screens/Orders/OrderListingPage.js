@@ -151,7 +151,7 @@ export default class OrderListingPage extends Component {
             return (
                 <Loaders.Loader />
             )
-        } else if (this.state.isInitalLoading == false && this.state.ordersList.length == 0) {
+        } else if (this.state.isInitalLoading == false && this.props.appState.state == STATE.FAILED) {
             return (
                 <NoResultsPage messageToShow={this.props.appState.errorMessage} />
             )
@@ -160,44 +160,35 @@ export default class OrderListingPage extends Component {
                 <View style={[styles.mainContainer, { overflow: 'hidden', justifyContent: this.props.appState.state == STATE.LOADING ? 'flex-start' : 'center' }]}>
                     <Image style={styles.motoIconStyle} source={require('../../images/common/motoIconHelp.png')} />
 
-                    {
-                        this.state.isInitalLoading ? <Loaders.Loader />
-                            :
-                            this.state.ordersList.length == 0 ?
-                                <View style={{ flex: 1, width: '100%', marginTop: 10, marginBottom: 50 }}>
-                                    <NoResultsPage messageToShow={this.props.appState.errorMessage != '' ? this.props.appState.errorMessage : Locals.NO_RESULTS} />
-                                </View>
-                                :
-                                <FlatList
-                                    style={{ marginTop: 20, marginBottom: 20 }}
-                                    refreshControl={
-                                        <RefreshControl
-                                            tintColor={Colors.SUB_COLOR}
-                                            onRefresh={() => {
-                                                this.setState({}, () => {
-                                                    this.refreshList(true, false, this.state.selectedStartDate, this.state.selectedEndDate)
-                                                })
-                                            }}
-                                            refreshing={this.state.listRefreshing && this.props.appState.state == STATE.LOADING}
-                                        />
-                                    }
-                                    bounces={true}
-                                    data={this.state.ordersList.length != 0 ? this.state.ordersList : []}
-                                    keyExtractor={item => JSON.stringify(item.id)}//key for each cell most probably will use the id
-                                    renderItem={({ item, index }) =>
-                                        <OrdersPageSections
-                                            key={item.id}
-                                            lang={this.props.appState.lang}
-                                            order={item}
-                                            currentIndex={index}
-                                            isFirst={index == 0}
-                                        />
-                                    }
-                                    ListFooterComponent={this.renderFooterComponent}
-                                    onEndReached={() => { this.refreshList(false, true, this.state.selectedStartDate, this.state.selectedEndDate) }}
-                                    onEndReachedThreshold={0.5}
-                                />
-                    }
+                    <FlatList
+                        style={{ marginTop: 20, marginBottom: 20 }}
+                        refreshControl={
+                            <RefreshControl
+                                tintColor={Colors.SUB_COLOR}
+                                onRefresh={() => {
+                                    this.setState({}, () => {
+                                        this.refreshList(true, false, this.state.selectedStartDate, this.state.selectedEndDate)
+                                    })
+                                }}
+                                refreshing={this.state.listRefreshing && this.props.appState.state == STATE.LOADING}
+                            />
+                        }
+                        bounces={true}
+                        data={this.state.ordersList.length != 0 ? this.state.ordersList : []}
+                        keyExtractor={item => JSON.stringify(item.id)}//key for each cell most probably will use the id
+                        renderItem={({ item, index }) =>
+                            <OrdersPageSections
+                                key={item.id}
+                                lang={this.props.appState.lang}
+                                order={item}
+                                currentIndex={index}
+                                isFirst={index == 0}
+                            />
+                        }
+                        ListFooterComponent={this.renderFooterComponent}
+                        onEndReached={() => { this.refreshList(false, true, this.state.selectedStartDate, this.state.selectedEndDate) }}
+                        onEndReachedThreshold={0.5}
+                    />
                 </View>
             );
         }
