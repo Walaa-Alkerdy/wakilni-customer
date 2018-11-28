@@ -89,6 +89,13 @@ export default class CreateOrderStep2 extends Component {
         if (data.step2Data) {
             this.setState({ accordionData: data.step2Data })
         } else {
+            if (data.oldPageData) {
+                let temp = data.oldPageData
+                if (data.selectedReceiverLocation) {
+                    temp[this.props.selectedReceiverIndex].selectedReceiverLocation = { key: data.selectedReceiverLocation.id, value: data.selectedReceiverLocation.location }
+                }
+                this.setState({ accordionData: temp })
+            }
             // let temp = this.state.accordionData
             // if (data.selectedReceiverLocation) {
             //     temp[this.props.selectedReceiverIndex].selectedReceiverLocation = { key: data.selectedReceiverLocation.id, value: data.selectedReceiverLocation.location }
@@ -231,7 +238,7 @@ export default class CreateOrderStep2 extends Component {
                     typesList={this.props.constantsList ? this.props.constantsList.locationTypes : []}
                     areasList={this.props.areaList}
                     onCreatePress={(receivedData, index) => {
-                        this.props.createReceiverPressed(receivedData, index)
+                        this.props.createReceiverPressed(receivedData, index, this.state.accordionData)
                         // this.props.createCustomerLocationPressed(receivedData)
                     }}
                 />

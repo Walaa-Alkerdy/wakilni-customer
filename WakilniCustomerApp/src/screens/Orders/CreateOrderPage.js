@@ -192,7 +192,7 @@ export default class CreateOrderPage extends Component {
     }
 
     //step 2 actions
-    createReceiverPressed(receivedData, receiverIndex) {
+    createReceiverPressed(receivedData, receiverIndex, oldPageData) {
 
         let values = {
             accessToken: this.props.appState.user.tokenData.accessToken,
@@ -216,7 +216,7 @@ export default class CreateOrderPage extends Component {
             }
         }
 
-        this.setState({ selectedReceiverIndex: receiverIndex })
+        this.setState({ selectedReceiverIndex: receiverIndex, oldPageData: oldPageData })
         this.props.createNewReceiver(values)
     }
 
@@ -377,9 +377,10 @@ export default class CreateOrderPage extends Component {
                         selectedReceiverLocation={this.state.selectedReceiverLocation}
                         orderTypeId={this.state.step1Data.selectedPaymentType.id}
                         step2Data={this.state.step2Data ? this.state.step2Data.selectedData : null}
+                        oldPageData={this.state.oldPageData ? this.state.oldPageData : null}
                         backPressed={() => { this.backPressed() }}
                         selectedReceiverIndex={this.state.selectedReceiverIndex}
-                        createReceiverPressed={(receivedData, receiverIndex) => { this.createReceiverPressed(receivedData, receiverIndex) }}
+                        createReceiverPressed={(receivedData, receiverIndex, oldPageData) => { this.createReceiverPressed(receivedData, receiverIndex, oldPageData) }}
                         showNotification={() => { this.notification.showNotification('Not all required fields are filled', true) }}
                         nextPressed={(receivedData) => { this.nextPressed(receivedData) }}
                     />
