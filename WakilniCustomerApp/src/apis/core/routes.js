@@ -138,5 +138,5 @@ export const Constants = {
  */
 export const Orders = {
     createOrder: 'orders',
-    getOrders: 'orders?search=orderDetails.customer_id:{0}', // {0} user id
+    getOrders: 'orders?search=orderDetails.customer_id:{0}&with_pagination=true', // {0} user id
 }

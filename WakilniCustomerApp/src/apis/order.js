@@ -10,8 +10,16 @@ import * as generalHelpers from '../utils/helpers/generalHelpers';
  */
 export function getOrders(values, onSuccess, onFailure) {
 
-    network.fetchJSONDataWithAuthentication(String.format(routes.Orders.getOrders, values.id), values.accessToken, (result) => {
+    let url = String.format(routes.Orders.getOrders, values.id)
+    if (values.pageNumber != null) {
+        url = url + '&page=' + values.pageNumber
+    } else {
+        url = url + '&page=0'
+    }
 
+    network.fetchJSONDataWithAuthentication(url, values.accessToken, (result) => {
+
+        console.log(result, 'here')
         var orders = result.data.map((item) => {
             return OrderUtils.OrderForCustomer(item);
         })

@@ -57,6 +57,9 @@ export default class OrderListingPage extends Component {
             selectedStartDate: moment(new Date()).format("DD/MM/YYYY"),
             selectedEndDate: moment(new Date()).format("DD/MM/YYYY"),
 
+            ordersPageNumber: 0,
+            isLoadingMore: false,
+
             listRefreshing: false,
             isInitalLoading: true
         }
@@ -74,18 +77,43 @@ export default class OrderListingPage extends Component {
         Orientation.lockToPortrait();
         this.props.navigation.setParams({ handleNotificationPress: this.goToNotifications, badgeCount: this.props.appState.badgeCount, language: this.props.appState.lang })
 
-        this.refreshList(false, this.state.selectedStartDate, this.state.selectedEndDate);
+        this.refreshList(false, true, this.state.selectedStartDate, this.state.selectedEndDate);
     }
 
-    refreshList(isRefreshing, fromDate, toDate) {
+    renderFooterComponent = () => {
 
-        this.setState({ listRefreshing: isRefreshing }, () => {
-            let values = {
-                accessToken: this.props.appState.user.tokenData.accessToken,
-                id: this.props.appState.user.userInfo.customerId,
+        if (!this.state.isLoadingMore)
+            return null
+
+        return (
+            <Loaders.Loader isLoadMoreView={true} />
+        )
+    }
+
+    refreshList(isRefreshing, isLoadingMore, fromDate, toDate) {
+
+        if (isLoadingMore) {
+
+            if (this.props.appState.canLoadMoreOrders || this.state.ordersPageNumber == 0) {//is initial load or i can load more
+                this.setState({ listRefreshing: isRefreshing, ordersPageNumber: this.state.ordersPageNumber + 1, isLoadingMore: this.props.appState.canLoadMoreOrders ? isLoadingMore : false }, () => {
+                    let values = {
+                        accessToken: this.props.appState.user.tokenData.accessToken,
+                        id: this.props.appState.user.userInfo.customerId,
+                        pageNumber: this.state.ordersPageNumber
+                    }
+                    this.props.getOrders(values)
+                })
             }
-            this.props.getOrders(values)
-        })
+
+        } else {
+            this.setState({ listRefreshing: isRefreshing, ordersPageNumber: 0, isLoadingMore: false }, () => {
+                let values = {
+                    accessToken: this.props.appState.user.tokenData.accessToken,
+                    id: this.props.appState.user.userInfo.customerId,
+                }
+                this.props.getOrders(values)
+            })
+        }
     }
 
     componentWillReceiveProps(newProps) {
@@ -97,12 +125,18 @@ export default class OrderListingPage extends Component {
 
         if (newProps.appState.state === STATE.SUCCESS && newProps.appState.action === ACTION_ORDER.GET_ORDERS) {
 
-            this.setState({ listRefreshing: false, isInitalLoading: false, ordersList: newProps.appState.customerOrders.sort((a, b) => { return b.id - a.id }) })
+            this.setState({
+                listRefreshing: false,
+                isInitalLoading: false,
+                isLoadingMore: false,
+                // ordersList: newProps.appState.customerOrders.sort((a, b) => { return b.id - a.id })
+                ordersList: newProps.appState.customerOrders
+            })
             this.props.resetState();
 
         } else if (newProps.appState.state === STATE.FAILED && newProps.appState.action === ACTION_ORDER.GET_ORDERS) {
 
-            this.setState({ listRefreshing: false, isInitalLoading: false })
+            this.setState({ listRefreshing: false, isInitalLoading: false, isLoadingMore: false })
             this.props.resetState();
         }
 
@@ -117,7 +151,7 @@ export default class OrderListingPage extends Component {
             return (
                 <Loaders.Loader />
             )
-        } else if (this.props.appState.state != STATE.LOADING && this.state.ordersList.length == 0 && this.props.appState.errorMessage != '') {
+        } else if (this.state.isInitalLoading == false && this.state.ordersList.length == 0) {
             return (
                 <NoResultsPage messageToShow={this.props.appState.errorMessage} />
             )
@@ -141,7 +175,7 @@ export default class OrderListingPage extends Component {
                                             tintColor={Colors.SUB_COLOR}
                                             onRefresh={() => {
                                                 this.setState({}, () => {
-                                                    this.refreshList(true, this.state.selectedStartDate, this.state.selectedEndDate)
+                                                    this.refreshList(true, false, this.state.selectedStartDate, this.state.selectedEndDate)
                                                 })
                                             }}
                                             refreshing={this.state.listRefreshing && this.props.appState.state == STATE.LOADING}
@@ -159,6 +193,9 @@ export default class OrderListingPage extends Component {
                                             isFirst={index == 0}
                                         />
                                     }
+                                    ListFooterComponent={this.renderFooterComponent}
+                                    onEndReached={() => { this.refreshList(false, true, this.state.selectedStartDate, this.state.selectedEndDate) }}
+                                    onEndReachedThreshold={0.5}
                                 />
                     }
                 </View>

@@ -12,7 +12,9 @@ export const getOrders = (values) => (dispatch) => {
         dispatch({
             type: ACTION_ORDER.GET_ORDERS,
             state: STATE.SUCCESS,
-            data: result
+            data: result,
+            isPaging: values.pageNumber != null ? true : false,
+            pageNumber: values.pageNumber
         })
     }, (error) => {
 

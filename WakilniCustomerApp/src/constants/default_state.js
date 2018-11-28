@@ -31,4 +31,5 @@ export const defaultState = {
     pickUpLocations: [],
     receiverLocations: [],
     customerOrders: [],
+    canLoadMoreOrders: true, //paging helper
 }
