@@ -21,6 +21,8 @@ target 'WakilniCustomerApp' do
 
   pod 'react-native-fcm', :path => '../node_modules/react-native-fcm'
 
+  # pod 'SentryReactNative', :path => '../node_modules/react-native-sentry'
+
   target 'WakilniCustomerAppTests' do
     inherit! :search_paths
     # Pods for testing

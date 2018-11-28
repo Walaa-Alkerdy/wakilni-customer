@@ -20,4 +20,8 @@ String.format = function () {
     return theString;
 }
 
+// crash tracking
+import { Sentry } from 'react-native-sentry';
+Sentry.config('https://cfdc6b8c8b99459992f26f589b207ab3@sentry.io/1286802').install();
+
 AppRegistry.registerComponent(appName, () => App);
