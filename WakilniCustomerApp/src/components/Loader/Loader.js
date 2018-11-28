@@ -23,6 +23,8 @@ export default class Loader extends Component {
             return styles.refreshControlStyle
         } else if (props.isImageLoader) {
             return styles.imageLoaderStyle
+        } else if (props.isLoadMoreView) {
+            return styles.loadMoreStyle
         } else {
             return styles.pageLoaderStyle
         }
@@ -34,7 +36,12 @@ export default class Loader extends Component {
 
         return (
             <View style={style}>
-                <SkypeIndicator color={Colors.SUB_COLOR} />
+                {
+                    this.props.isLoadMoreView ?
+                        <SkypeIndicator color={Colors.SUB_COLOR} size={30} />
+                        :
+                        <SkypeIndicator color={Colors.SUB_COLOR} />
+                }
                 {/* <ActivityIndicator animating={true} style={{ position: 'absolute' }} color={Colors.SUB_COLOR} size='small'></ActivityIndicator> */}
             </View>
         )
@@ -76,5 +83,12 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         zIndex: 1000,
         elevation: 1
+    },
+    loadMoreStyle: {
+        height: 50,
+        width: 50,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })

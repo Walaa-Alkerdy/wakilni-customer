@@ -38,15 +38,28 @@ export default (state, action) => {
         case ACTION_MESSAGES.SHOW_ALERTS:
             switch (action.state) {
                 case STATE.SUCCESS:
-                    let badgeCount = action.data.data.filter((item) => { return item.readAt == null }).length + state.notificationsList.filter((item) => { return item.type.id != 26 && item.status == ServerStatus.NotificationRequests.NOTIFICATION_REQUESTS_PENDING.key && item.sender.id != state.user.userInfo.contactId }).length
+                    let temp = action.data.data ? action.data.data : []
 
-                    return { ...state, badgeCount: badgeCount, alertsList: action.data.data, successMessage: action.data.meta.message ? action.data.meta.message : locals.message_sent_successfully, state: action.state, action: action.type }
+                    if (action.pageNumber) {
+                        if (action.pageNumber != 1) {//not the first page
+                            if (action.isPaging) {
+                                temp = state.alertsList
+                                action.data.data.forEach((alert) => {
+                                    temp.push(alert)
+                                })
+                            }
+                        }
+                    }
+
+                    let badgeCount = temp.filter((item) => { return item.readAt == null }).length + state.notificationsList.filter((item) => { return item.type.id != 26 && item.status == ServerStatus.NotificationRequests.NOTIFICATION_REQUESTS_PENDING.key && item.sender.id != state.user.userInfo.contactId }).length
+
+                    return { ...state, badgeCount: badgeCount, alertsList: temp, canLoadMoreAlerts: action.isPaging ? action.data.meta.pagination.total == temp.length ? false : true : true, successMessage: action.data.meta.message ? action.data.meta.message : locals.message_sent_successfully, state: action.state, action: action.type }
                 case STATE.FAILED:
-                    return { ...state, alertsList: [], errorMessage: action.data, state: action.state, action: action.type }
+                    return { ...state, action: action.type }
                 case STATE.LOADING:
-                    return { ...state, alertsList: [], errorMessage: '', state: action.state, action: action.type };
+                    return { ...state, action: action.type };
                 case STATE.INTITAL:
-                    return { ...state, state: action.state, action: action.type };
+                    return { ...state, action: action.type };
             }
             break;
         case ACTION_MESSAGES.SHOW_ALERTS_MAIN_PAGE:

@@ -17,6 +17,7 @@ export const defaultState = {
     imageId: null,
     notificationsList: [],
     alertsList: [],
+    canLoadMoreAlerts: true, //paging helper
     submittedTasksList: [],
     notSubmittedTasksList: [],
     contactRecipientsList: [],

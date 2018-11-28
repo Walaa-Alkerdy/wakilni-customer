@@ -70,9 +70,15 @@ export function getMessages(values, onSuccess, onFailure) {
  * @param {function} onSuccess Success callback
  * @param {function} onFailure Failure callback
  */
-export function getAlerts(accessToken, onSuccess, onFailure) {
+export function getAlerts(accessToken, pageNumber, onSuccess, onFailure) {
 
-    network.fetchJSONDataWithAuthentication(routes.Messages.getAlerts, accessToken, (result) => {
+    let url = routes.Messages.getAlerts
+
+    if (pageNumber != null) {
+        url = routes.Messages.getAlerts + '?page=' + pageNumber
+    }
+
+    network.fetchJSONDataWithAuthentication(url, accessToken, (result) => {
         var messageAlerts = result.data.map((item) => {
             return MessageUtils.MessageAlert(item);
         })

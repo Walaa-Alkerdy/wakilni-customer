@@ -12,8 +12,8 @@ const mapDispatchToProps = dispatch => ({
     replyToDriverRequest: (accessToken, messageId, contentTypeId, message, action, values, requestFlag) => {
         dispatch(replyToDriverRequest(accessToken, messageId, contentTypeId, message, action, values, requestFlag))
     },
-    getAlerts: (accessToken, showLoader) => {
-        dispatch(getAlertsAPIAction(accessToken, showLoader))
+    getAlerts: (accessToken, showLoader, pageNumber) => {
+        dispatch(getAlertsAPIAction(accessToken, showLoader, pageNumber))
     },
     updateAlertsToRead: (accessToken) => {
         dispatch(updateAlertsToReadAPIAction(accessToken))

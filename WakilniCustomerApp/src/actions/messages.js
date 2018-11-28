@@ -49,7 +49,7 @@ export const requestALeaveAction = (values, contentTypeId, accessToken) => (disp
     })
 }
 
-export const getAlertsAPIAction = (accessToken, showLoader) => (dispatch) => {
+export const getAlertsAPIAction = (accessToken, showLoader, pageNumber) => (dispatch) => {
 
     //if show loader == false ==> is in main page
     if (showLoader == true) {
@@ -64,11 +64,13 @@ export const getAlertsAPIAction = (accessToken, showLoader) => (dispatch) => {
         })
     }
 
-    messages.getAlerts(accessToken, (result) => {
+    messages.getAlerts(accessToken, pageNumber, (result) => {
         dispatch({
             type: showLoader ? ACTION_MESSAGES.SHOW_ALERTS : ACTION_MESSAGES.SHOW_ALERTS_MAIN_PAGE,
             state: STATE.SUCCESS,
-            data: result
+            data: result,
+            isPaging: pageNumber != null ? true : false,
+            pageNumber: pageNumber
         })
     }, (error) => {
 

@@ -90,7 +90,8 @@ export const Messages = {
     getAlerts: 'notifications',
     getMessageDetails: 'messages/{0}', // {0} = Message Id
     getContactRecipients: 'messages?search=type_id:62',
-    getMyRequests: 'messages?search=type_id:26'
+    getMyRequests: 'messages?search=type_id:26',
+    getMyMessages: 'messages?search=type_id:45,53'
 }
 
 /**

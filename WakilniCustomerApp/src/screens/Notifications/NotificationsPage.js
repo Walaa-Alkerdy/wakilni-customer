@@ -166,6 +166,8 @@ export default class NotificationsPage extends Component {
             mainWidthTab2: 0,
 
             alertsList: [],
+            alertsPageNumber: 0,
+            isLoadingMore: false,
             notificationRequestsList: [],
             listRefreshing: false,
             isLoadingMessages: true,
@@ -194,7 +196,7 @@ export default class NotificationsPage extends Component {
     componentDidMount() {
         Orientation.lockToPortrait();
         this.props.navigation.setParams({ language: this.props.appState.lang })
-        this.refreshAlertsList(false);
+        this.refreshAlertsList(false, true);
     }
 
     componentWillReceiveProps(newProps) {
@@ -213,6 +215,7 @@ export default class NotificationsPage extends Component {
         if (newProps.appState.state === STATE.SUCCESS && newProps.appState.action === ACTION_MESSAGES.SHOW_ALERTS) {
 
             this.setState({
+                isLoadingMore: false,
                 alertsList: newProps.appState.alertsList.sort((a, b) => {
                     if (a.createdAt && b.createdAt) {
                         return moment(b.createdAt.date) - moment(a.createdAt.date)
@@ -221,24 +224,24 @@ export default class NotificationsPage extends Component {
             })
             if (newProps.appState.alertsList.filter((item) => item.readAt == null).length != 0 && ACTION_MESSAGES.SHOW_ALERTS) {//i have unread alerts
 
-                this.props.updateAlertsToRead(this.props.appState.user.tokenData.accessToken)
+                this.props.updateAlertsToRead(this.props.appState.user ? this.props.appState.user.tokenData.accessToken : '')
                 this.setState({ listRefreshing: false })
             } else {
                 console.log('nothing to update all are read')
-                this.setState({ listRefreshing: false, isLoadingAlerts: false })
+                this.setState({ listRefreshing: false, isLoadingAlerts: false, isLoadingMore: false })
             }
-            this.props.resetState();
+            // this.props.resetState();
 
         } else if (newProps.appState.state === STATE.FAILED && newProps.appState.action === ACTION_MESSAGES.SHOW_ALERTS) {
 
             this.setState({ listRefreshing: false, isLoadingAlerts: false })
-            this.props.resetState();
+            // this.props.resetState();
         }
 
         if (newProps.appState.state === STATE.SUCCESS && newProps.appState.action === ACTION_MESSAGES.UPDATE_ALERTS) {
 
             this.setState({ listRefreshing: false })
-            this.props.getAlerts(this.props.appState.user.tokenData.accessToken, true)
+            this.props.getAlerts(this.props.appState.user ? this.props.appState.user.tokenData.accessToken : '', true)
 
         } else if (newProps.appState.state === STATE.FAILED && newProps.appState.action === ACTION_MESSAGES.UPDATE_ALERTS) {
 
@@ -335,13 +338,26 @@ export default class NotificationsPage extends Component {
                         renderItem={({ item }) =>
                             <NotificationsPageSections.AlertsSection lang={this.props.appState.lang} alertData={item} cellPressed={() => this.alertCellPressed(item)} />
                         }
+                        ListFooterComponent={this.renderFooterComponent}
+                        onEndReached={() => { this.refreshAlertsList(false, true) }}
+                        onEndReachedThreshold={0.5}
                     />
-                    {/* {
+                    {
                         this.state.listRefreshing == true ? <Loaders.Loader /> : null
-                    } */}
+                    }
                 </View>
             )
         }
+    }
+
+    renderFooterComponent = () => {
+
+        if (!this.state.isLoadingMore)
+            return null
+
+        return (
+            <Loaders.Loader isLoadMoreView={true} />
+        )
     }
 
     alertCellPressed(alertData) {
@@ -365,11 +381,24 @@ export default class NotificationsPage extends Component {
         // }
     }
 
-    refreshAlertsList(isRefreshing) {
-        this.setState({ listRefreshing: isRefreshing }, () => {
+    refreshAlertsList(isRefreshing, isLoadingMore) {
 
-            this.props.getAlerts(this.props.appState.user.tokenData.accessToken, true)
-        })
+        console.log(isLoadingMore)
+        console.log(this.props.appState.canLoadMoreAlerts)
+        if (isLoadingMore) {
+
+            if (this.props.appState.canLoadMoreAlerts || this.state.alertsPageNumber == 0) {//is initial load or i can load more
+                this.setState({ listRefreshing: isRefreshing, alertsPageNumber: this.state.alertsPageNumber + 1, isLoadingMore: this.props.appState.canLoadMoreAlerts ? isLoadingMore : false }, () => {
+                    this.props.getAlerts(this.props.appState.user ? this.props.appState.user.tokenData.accessToken : '', true, this.state.alertsPageNumber)
+                })
+            }
+
+        } else {
+            this.setState({ listRefreshing: isRefreshing, alertsPageNumber: 0, isLoadingMore: false }, () => {
+
+                this.props.getAlerts(this.props.appState.user ? this.props.appState.user.tokenData.accessToken : '', true)
+            })
+        }
     }
 
     subTabPressed(id) {
