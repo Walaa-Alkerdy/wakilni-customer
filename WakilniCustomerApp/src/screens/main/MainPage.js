@@ -102,11 +102,11 @@ export default class MainPage extends Component {
             // this.props.navigation.navigate(result.moveTo, { didComeFromPushNotification: result.didComeFromPushNotification, notifId: result.notifId })
         })
 
-        if (Platform.OS === 'android') {
-            PermissionsAndroid.request("android.permission.ACCESS_FINE_LOCATION").catch((error) => console.log(error))
-        } else {
-            navigator.geolocation.requestAuthorization()
-        }
+        // if (Platform.OS === 'android') {
+        //     PermissionsAndroid.request("android.permission.ACCESS_FINE_LOCATION").catch((error) => console.log(error))
+        // } else {
+        //     navigator.geolocation.requestAuthorization()
+        // }
 
         Orientation.lockToPortrait();
         this.props.navigation.setParams({ handleNotificationPress: this.goToNotifications, badgeCount: this.props.appState.badgeCount, language: this.props.appState.lang })

@@ -118,11 +118,7 @@ export function isStringToBig(receivedString) {
  */
 export function clearCache() {
     AsyncStorage.removeItem('CachedUser')
-    AsyncStorage.removeItem('CheckInOutStatus')
     AsyncStorage.removeItem('SavedLanguage')
-    AsyncStorage.removeItem('CashAccountStatus')
     AsyncStorage.removeItem('UnAuthenticated')
-    AsyncStorage.removeItem('TrackingInfo')
-    AsyncStorage.removeItem('NowDrivingId')
     AsyncStorage.removeItem('NavHelperStatus')
 }

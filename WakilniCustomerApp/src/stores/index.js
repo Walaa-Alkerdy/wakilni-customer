@@ -28,15 +28,9 @@ async function loadPersistedState() {
 
         const user = await AsyncStorage.getItem('CachedUser');
         let lang = await AsyncStorage.getItem('SavedLanguage');
-        let checkInStatus = await AsyncStorage.getItem('CheckInOutStatus');
 
         if (!lang) {
             lang = defaultState.lang;
-        }
-        if (checkInStatus == null) {
-            checkInStatus = defaultState.isUserCheckIn;
-        } else {
-            checkInStatus = checkInStatus == "true" ? true : false;
         }
 
         if (user) {
@@ -44,7 +38,7 @@ async function loadPersistedState() {
                 ...appState,
                 user: JSON.parse(user),
                 lang: lang,
-                isUserCheckIn: checkInStatus,
+                isUserCheckIn: true,
                 state: STATE.SUCCESS
             }
             // appState.state = ACTION_DATABASE.FAILED;

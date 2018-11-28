@@ -116,17 +116,17 @@ function handleReceiveNotification(originalNotif, pushNotif, onSuccess, onFailur
                         case object_types.PUSH_NOTIFICATIONS.NOTIFICATION_TYPES.NOTIFICATION_RESPONSE:
                             switch (pushNotif.objectType) {
                                 case object_types.PUSH_NOTIFICATIONS.SERVER_NOTIFICATION_TYPES.FOR_TASKS:
-                                    setTimeout(() => {
-                                        onSuccess({ notifId: pushNotif.objectId, moveTo: 'TasksPage2Container', didComeFromPushNotification: true })
-                                    }, 100);
+                                    // setTimeout(() => {
+                                    //     onSuccess({ notifId: pushNotif.objectId, moveTo: 'TasksPage2Container', didComeFromPushNotification: true })
+                                    // }, 100);
                                     break;
                                 case object_types.PUSH_NOTIFICATIONS.SERVER_NOTIFICATION_TYPES.FOR_NOTIFICATION_MESSAGE:
 
-                                    if (pushNotif.codeNavigation != 'MainPageContainer') {
-                                        setTimeout(() => {
-                                            onSuccess({ notifId: pushNotif.objectId, moveTo: pushNotif.codeNavigation, didComeFromPushNotification: true })
-                                        }, 100);
-                                    }
+                                    // if (pushNotif.codeNavigation != 'MainPageContainer') {
+                                    //     setTimeout(() => {
+                                    //         onSuccess({ notifId: pushNotif.objectId, moveTo: pushNotif.codeNavigation, didComeFromPushNotification: true })
+                                    //     }, 100);
+                                    // }
                                     break;
                                 default:
                                     break;
@@ -183,16 +183,16 @@ function handleReceiveNotification(originalNotif, pushNotif, onSuccess, onFailur
                         case object_types.PUSH_NOTIFICATIONS.NOTIFICATION_TYPES.NOTIFICATION_RESPONSE:
                             switch (pushNotif.objectType) {
                                 case object_types.PUSH_NOTIFICATIONS.SERVER_NOTIFICATION_TYPES.FOR_TASKS:
-                                    setTimeout(() => {
-                                        onSuccess({ notifId: pushNotif.objectId, moveTo: 'TasksPage2Container', didComeFromPushNotification: true })
-                                    }, 100);
+                                    // setTimeout(() => {
+                                    //     onSuccess({ notifId: pushNotif.objectId, moveTo: 'TasksPage2Container', didComeFromPushNotification: true })
+                                    // }, 100);
                                     break;
                                 case object_types.PUSH_NOTIFICATIONS.SERVER_NOTIFICATION_TYPES.FOR_NOTIFICATION_MESSAGE:
-                                    if (pushNotif.codeNavigation != 'MainPageContainer') {
-                                        setTimeout(() => {
-                                            onSuccess({ notifId: pushNotif.objectId, moveTo: pushNotif.codeNavigation, didComeFromPushNotification: true })
-                                        }, 100);
-                                    }
+                                    // if (pushNotif.codeNavigation != 'MainPageContainer') {
+                                    //     setTimeout(() => {
+                                    //         onSuccess({ notifId: pushNotif.objectId, moveTo: pushNotif.codeNavigation, didComeFromPushNotification: true })
+                                    //     }, 100);
+                                    // }
                                     break;
                                 default:
                                     break;
