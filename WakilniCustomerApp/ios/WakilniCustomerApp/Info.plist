@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>4</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -42,6 +42,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app requires access to your location to track your current location and save it to be able to submit the user's latitude and logitude while creating an order</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app requires access to your location to track your current location and save it to be able to submit the user's latitude and logitude while creating an order</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>openSansBold.ttf</string>
