@@ -141,7 +141,7 @@ export default class MainPage extends Component {
 
         } else if (newProps.appState.state === STATE.FAILED && newProps.appState.action === ACTION_AUTH.IS_TOKEN_VALID) {
 
-            if (newProps.appState.errorMessage.toString() == "401") {
+            // if (newProps.appState.errorMessage.toString() == "401") {
                 this.setState({ isInitialLoad: false }, () => {
                     // this.stopTimers()
                     generalHelpers.clearCache()
@@ -154,11 +154,11 @@ export default class MainPage extends Component {
                     newProps.navigation.dispatch(resetNavigation);
                     this.props.resetState();
                 })
-            } else {
-                this.setState({ isInitialLoad: false }, () => {
-                    this.preparePage()
-                })
-            }
+            // } else {
+            //     this.setState({ isInitialLoad: false }, () => {
+            //         this.preparePage()
+            //     })
+            // }
         }
 
         if (newProps.appState.action === ACTION_MESSAGES.SHOW_MESSAGES_MAIN_PAGE) {
