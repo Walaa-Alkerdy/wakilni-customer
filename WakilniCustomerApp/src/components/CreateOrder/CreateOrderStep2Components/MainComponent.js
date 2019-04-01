@@ -557,7 +557,7 @@ export default class MainComponent extends Component {
                             <RadioButton
                                 textStyle={{ color: '#919191' }}
                                 outerViewStyle={{ borderColor: '#919191' }}
-                                containerStyle={{ justifyContent: 'flex-start', width: '95%', paddingHorizontal: 5, marginLeft: 1 }}
+                                containerStyle={{ justifyContent: 'flex-start', width: '95%', paddingHorizontal: 5, marginLeft: Platform.OS == 'ios' ? 0 : 1 }}
                                 // animation={'bounceIn'}
                                 label={'The returned package is different than the one delivered ?'}
                                 language={'en'}
