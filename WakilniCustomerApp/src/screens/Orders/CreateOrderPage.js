@@ -339,25 +339,31 @@ export default class CreateOrderPage extends Component {
 
     onMainTabPress(tabId) {
 
-        // if (tabId != this.state.mainTabSelectedIndex) {
-        //     this.setState({ mainTabSelectedIndex: tabId })
-        switch (tabId) {
-            case 0://Step 1
-                // this.step1View.nextPressed()
-                break;
-            case 1://Step 2
-                // this.step2View.nextPressed()
-                break;
-            case 2://Step 3
-                // this.step3View.nextPressed()
-                break;
-            case 3://Step 4
-                // this.step4View.nextPressed()
-                break;
-            default:
-                break;
+        if (this.state.mainTabSelectedIndex > tabId) {
+            // let mustDoAction = this.state.mainTabSelectedIndex > tabId
+
+            switch (tabId) {
+                case 0://Step 1
+                    // if (mustDoAction)
+                    //     this.step1View.nextPressed()
+                    break;
+                case 1://Step 2
+                    // if (mustDoAction)
+                    //     this.step2View.nextPressed()
+                    break;
+                case 2://Step 3
+                    // if (mustDoAction)
+                    //     this.step3View.nextPressed()
+                    break;
+                case 3://Step 4
+                    // if (mustDoAction)
+                    //     this.step4View.nextPressed()
+                    break;
+                default:
+                    break;
+            }
+            this.setState({ mainTabSelectedIndex: tabId })
         }
-        // }
     }
 
     tabToRender(tabId) {
@@ -429,19 +435,19 @@ export default class CreateOrderPage extends Component {
                 return (
                     <View style={styles.mainContainer}>
                         <View style={styles.tabContainerStyle}>
-                            <TouchableOpacity activeOpacity={1} style={styles.tabStyle} onPress={() => this.onMainTabPress(0)}>
+                            <TouchableOpacity activeOpacity={this.state.mainTabSelectedIndex > 0 ? 0.5 : 1} style={styles.tabStyle} onPress={() => this.onMainTabPress(0)}>
                                 <Text style={this.state.mainTabSelectedIndex == 0 ? styles.tabLabelStyle : [styles.tabLabelStyle, { color: Colors.TEXT_COLOR }]}>{Locals.CREATE_ORDER_STEP1}</Text>
                                 <View style={this.state.mainTabSelectedIndex == 0 ? [styles.indicatorStyle, { width: '100%' }] : [styles.indicatorStyle, { backgroundColor: 'transparent', width: 0 }]}></View>
                             </TouchableOpacity>
-                            <TouchableOpacity activeOpacity={1} style={styles.tabStyle} onPress={() => this.onMainTabPress(1)}>
+                            <TouchableOpacity activeOpacity={this.state.mainTabSelectedIndex > 1 ? 0.5 : 1} style={styles.tabStyle} onPress={() => this.onMainTabPress(1)}>
                                 <Text style={this.state.mainTabSelectedIndex == 1 ? styles.tabLabelStyle : [styles.tabLabelStyle, { color: Colors.TEXT_COLOR }]}>{Locals.CREATE_ORDER_STEP2}</Text>
                                 <View style={this.state.mainTabSelectedIndex == 1 ? [styles.indicatorStyle, { width: '100%' }] : [styles.indicatorStyle, { backgroundColor: 'transparent', width: 0 }]}></View>
                             </TouchableOpacity>
-                            <TouchableOpacity activeOpacity={1} style={styles.tabStyle} onPress={() => this.onMainTabPress(2)}>
+                            <TouchableOpacity activeOpacity={this.state.mainTabSelectedIndex > 2 ? 0.5 : 1} style={styles.tabStyle} onPress={() => this.onMainTabPress(2)}>
                                 <Text style={this.state.mainTabSelectedIndex == 2 ? styles.tabLabelStyle : [styles.tabLabelStyle, { color: Colors.TEXT_COLOR }]}>{Locals.CREATE_ORDER_STEP3}</Text>
                                 <View style={this.state.mainTabSelectedIndex == 2 ? [styles.indicatorStyle, { width: '100%' }] : [styles.indicatorStyle, { backgroundColor: 'transparent', width: 0 }]}></View>
                             </TouchableOpacity>
-                            <TouchableOpacity activeOpacity={1} style={styles.tabStyle} onPress={() => this.onMainTabPress(3)}>
+                            <TouchableOpacity activeOpacity={this.state.mainTabSelectedIndex > 3 ? 0.5 : 1} style={styles.tabStyle} onPress={() => this.onMainTabPress(3)}>
                                 <Text style={this.state.mainTabSelectedIndex == 3 ? styles.tabLabelStyle : [styles.tabLabelStyle, { color: Colors.TEXT_COLOR }]}>{Locals.CREATE_ORDER_STEP4}</Text>
                                 <View style={this.state.mainTabSelectedIndex == 3 ? [styles.indicatorStyle, { width: '100%' }] : [styles.indicatorStyle, { backgroundColor: 'transparent', width: 0 }]}></View>
                             </TouchableOpacity>
