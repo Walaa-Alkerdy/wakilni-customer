@@ -1,5 +1,5 @@
 import * as order from '../apis/order';
-import {  STATE, ACTION_ORDER } from '../constants/states';
+import { STATE, ACTION_ORDER } from '../constants/states';
 
 export const getOrders = (values) => (dispatch) => {
 

@@ -26,9 +26,9 @@ export default (state, action) => {
                 case STATE.FAILED:
                     return { ...state, errorMessage: action.data, state: action.state, action: action.type }
                 case STATE.LOADING:
-                    return { ...state, action: action.type };
+                    return { ...state, state: action.state, action: action.type };
                 case STATE.INTITAL:
-                    return { ...state, action: action.type };
+                    return { ...state, state: action.state, action: action.type };
             }
             break;
         case ACTION_ORDER.CREATE_ORDERS:

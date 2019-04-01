@@ -19,7 +19,6 @@ export function getOrders(values, onSuccess, onFailure) {
 
     network.fetchJSONDataWithAuthentication(url, values.accessToken, (result) => {
 
-        console.log(result, 'here')
         var orders = result.data.map((item) => {
             return OrderUtils.OrderForCustomer(item);
         })

@@ -1,4 +1,5 @@
 import * as TaskUtils from './task';
+import * as PackageUtils from './Packages';
 
 export function OrderForTask(data) {
     return {
@@ -50,128 +51,135 @@ export function OrderForTask(data) {
 export function OrderForCustomer(data) {
 
     let tasks = []
+    let packages = []
 
-    data.tasks.forEach((task) => {
+    data.t.forEach((task) => { // Tasks
         tasks.push(TaskUtils.Task(task))
     })
 
+    if (data.oD.p) {
+        data.oD.p.forEach((packageItem) => { // packages
+            packages.push(PackageUtils.Packages(packageItem))
+        })
+    }
+
     return {
-        additionalCharges: data.additionalCharges,
-        childrenCount: data.children_count,
-        commentId: data.comment_id,
-        comments: data.comments,
-        completedOn: data.completed_on,
-        createdDate: data.created_date ? {
-            date: data.created_date.date,
-            timeZoneType: data.created_date.timeZoneType,
-            timeZone: data.created_date.timezone
+        additionalCharges: data.aC, //additional Charges
+        childrenCount: data.c_c, // children count
+        commentId: data.c_i,// comment id
+        comments: data.c, // comments
+        completedOn: data.c_o, //completed on
+        createdDate: data.c_d ? { //created date
+            date: data.c_d.date,
+            timeZoneType: data.c_d.timeZoneType,
+            timeZone: data.c_d.timezone
         } : null,
-        id: data.id,
-        lastWorker: data.last_worker ? {
-            id: data.last_worker.id,
-            nationality: data.last_worker.lebanese,
-            color: data.last_worker.color,
-            hasGPS: data.last_worker.has_gps,
-            hasInternet: data.last_worker.has_internet,
-            name: data.last_worker.name,
-            phoneNumber: data.last_worker.phone_number,
-            email: data.last_worker.user ? data.last_worker.user.email : null
+        id: data.id, // id
+        lastWorker: data.l_w ? { //last worker
+            id: data.l_w.id,
+            nationality: data.l_w.nationality,
+            color: data.l_w.color,
+            hasGPS: data.l_w.has_gps,
+            hasInternet: data.l_w.has_internet,
+            name: data.l_w.name,
+            phoneNumber: data.l_w.phone_number,
+            email: data.l_w.user ? data.l_w.user.email : null
         } : null,
-        nextTaskStatus: data.next_task_status,
-        nextTaskStatusCode: data.next_task_status_code,
-        orderDetails: data.orderDetails ? {
-            appRefId: data.orderDetails.app_ref_id,
-            appTokenId: data.orderDetails.app_token_id,
-            cashCollectionType: data.orderDetails.cash_collection_type ? {
-                id: data.orderDetails.cash_collection_type.id,
-                type: data.orderDetails.cash_collection_type.type,
-                label: data.orderDetails.cash_collection_type.label
+        nextTaskStatus: data.n_t_s, // next task status
+        nextTaskStatusCode: data.n_t_s_c, // next tast code
+        orderDetails: data.oD ? { // order details
+            // appRefId: data.orderDetails.app_ref_id,
+            // appTokenId: data.orderDetails.app_token_id,
+            cashCollectionType: data.oD.c_c_t ? { // cash collection type
+                id: data.oD.c_c_t.id,
+                type: data.oD.c_c_t.type,
+                label: data.oD.c_c_t.label
             } : null,
-            collectionAmount: data.orderDetails.collection_amount,
-            collectionCurrency: data.orderDetails.collection_currency ? {
-                id: data.orderDetails.collection_currency.id
+            collectionAmount: data.oD.c_a, // collection amount
+            collectionCurrency: data.oD.c_c ? { // collection currency
+                id: data.oD.c_c.id
             } : null,
-            description: data.orderDetails.description,
-            id: data.orderDetails.id,
-            note: data.orderDetails.note,
-            packages: data.orderDetails.packages,
-            paymentType: data.orderDetails.payment_type ? {
-                id: data.orderDetails.payment_type.id,
-                type: data.orderDetails.payment_type.type,
-                label: data.orderDetails.payment_type.label,
-                createdAt: data.orderDetails.payment_type.created_at,
+            description: data.oD.d, //d escription
+            id: data.oD.id,// id
+            note: data.oD.n, // note
+            packages: data.packages, // packages
+            paymentType: data.oD.p_t ? { // payment type
+                id: data.oD.p_t.id,
+                type: data.oD.p_t.type,
+                label: data.oD.p_t.label,
+                createdAt: data.oD.p_t.created_at,
             } : null,
-            piggyBankId: data.orderDetails.piggy_bank_id,
-            preferredReceiverDate: data.orderDetails.preferred_receiver_date,
-            preferredReceiverFromTime: data.orderDetails.preferred_receiver_from_time,
-            preferredReceiverToTime: data.orderDetails.preferred_receiver_to_time,
-            preferredSenderDate: data.orderDetails.preferred_sender_date,
-            preferredSenderFromTime: data.orderDetails.preferred_sender_from_time,
-            preferredSenderToTime: data.orderDetails.preferred_sender_to_time,
-            receiverLocation: data.orderDetails.receiver_location ? {
-                id: data.orderDetails.receiver_location.id,
-                location: data.orderDetails.receiver_location.location,
-                fullLocation: data.orderDetails.receiver_location.full_location,
-                area: data.orderDetails.receiver_location.area ? {
-                    id: data.orderDetails.receiver_location.area.id,
-                    name: data.orderDetails.receiver_location.area.name,
-                    zone: data.orderDetails.receiver_location.area.zone ? {
-                        id: data.orderDetails.receiver_location.area.zone.id,
-                        label: data.orderDetails.receiver_location.area.zone.label,
+            piggyBankId: data.oD.p_b_i, // piggy bank id
+            preferredReceiverDate: data.oD.p_r_d, // preferred receiver date
+            preferredReceiverFromTime: data.oD.p_r_f_t, // preferred receiver from date
+            preferredReceiverToTime: data.oD.p_r_t_t,// preferred receiver to date
+            preferredSenderDate: data.oD.p_s_d,// preferred sender date
+            preferredSenderFromTime: data.oD.p_s_f_t,// preferred sender from time
+            preferredSenderToTime: data.oD.p_s_t_t,// preferred sender to time
+            receiverLocation: data.oD.r_l ? { // receiver location
+                id: data.oD.r_l.id,
+                location: data.oD.r_l.location,
+                fullLocation: data.oD.r_l.full_location,
+                area: data.oD.r_l.area ? {
+                    id: data.oD.r_l.area.id,
+                    name: data.oD.r_l.area.name,
+                    zone: data.oD.r_l.area.zone ? {
+                        id: data.oD.r_l.area.zone.id,
+                        label: data.oD.r_l.area.zone.label,
                     } : null,
                 } : null,
             } : null,
-            receiverable: data.orderDetails.receiverable ? {
-                id: data.orderDetails.receiverable.id,
-                isRecipient: data.orderDetails.receiverable.is_recipient,
-                name: data.orderDetails.receiverable.name,
-                phoneNumber: data.orderDetails.receiverable.phone_number
+            receiverable: data.oD.r ? { // receiverable
+                id: data.oD.r.id,
+                isRecipient: data.oD.r.is_recipient,
+                name: data.oD.r.name,
+                phoneNumber: data.oD.r.phone_number
             } : null,
-            requirePicture: data.orderDetails.require_picture,
-            requireSignature: data.orderDetails.require_signature,
-            samePackage: data.orderDetails.same_package,
-            senderLocation: data.orderDetails.sender_location ? {
-                id: data.orderDetails.sender_location.id,
-                location: data.orderDetails.sender_location.location,
-                fullLocation: data.orderDetails.sender_location.full_location,
-                area: data.orderDetails.sender_location.area ? {
-                    id: data.orderDetails.sender_location.area.id,
-                    name: data.orderDetails.sender_location.area.name,
-                    zone: data.orderDetails.sender_location.area.zone ? {
-                        id: data.orderDetails.sender_location.area.zone.id,
-                        label: data.orderDetails.sender_location.area.zone.label,
+            requirePicture: data.oD.r_p, // require picture
+            requireSignature: data.oD.r_s, // require signature
+            samePackage: data.oD.s_p, // same package
+            senderLocation: data.oD.s_l ? { // sender location
+                id: data.oD.s_l.id,
+                location: data.oD.s_l.location,
+                fullLocation: data.oD.s_l.full_location,
+                area: data.oD.s_l.area ? {
+                    id: data.oD.s_l.area.id,
+                    name: data.oD.s_l.area.name,
+                    zone: data.oD.s_l.area.zone ? {
+                        id: data.oD.s_l.area.zone.id,
+                        label: data.oD.s_l.area.zone.label,
                     } : null,
                 } : null,
             } : null,
-            senderable: data.orderDetails.senderable ? {
-                id: data.orderDetails.senderable.id,
-                isRecipient: data.orderDetails.senderable.is_recipient,
-                name: data.orderDetails.senderable.name,
-                phoneNumber: data.orderDetails.senderable.phone_number
+            senderable: data.oD.s ? { // senderable
+                id: data.oD.s.id,
+                isRecipient: data.oD.s.is_recipient,
+                name: data.oD.s.name,
+                phoneNumber: data.oD.s.phone_number
             } : null,
-            type: data.orderDetails.type ? {
-                id: data.orderDetails.type.id,
-                label: data.orderDetails.type.label,
-                type: data.orderDetails.type.type,
-                createdAt: data.orderDetails.type.created_at
+            type: data.oD.t ? { // type
+                id: data.oD.t.id,
+                label: data.oD.t.label,
+                type: data.oD.t.type,
+                createdAt: data.oD.t.created_at
             } : null,
         } : null,
-        orderNumber: data.order_number,
-        packageStatus: data.package_status,
-        packageStatusCode: data.package_status_code,
-        parentId: data.parent_id,
-        paymentStatus: data.payment_status,
-        paymentStatusCode: data.paymentStatusCode,
-        price: data.price,
-        rate: data.rate,
-        remainingBalance: data.remaining_balance,
-        scheduleData: data.schedule_date,
-        scheduleFromTime: data.schedule_from_time,
-        scheduleToTime: data.schedule_to_time,
-        status: data.status,
-        statusCode: data.status_code,
+        orderNumber: data.o_n,// order number
+        packageStatus: data.pk_s, // package status
+        packageStatusCode: data.pk_s_c, // package status code
+        parentId: data.p_i, // parent id
+        paymentStatus: data.p_s, // payment status
+        paymentStatusCode: data.p_s_c, // payment status code
+        price: data.p, // price
+        rate: data.r, // rate
+        remainingBalance: data.r_b, // remaining balance
+        scheduleData: data.s_d, // schedule date
+        scheduleFromTime: data.s_f_t, // schedule from time
+        scheduleToTime: data.s_t_t, // schedule to time
+        status: data.s, // status
+        statusCode: data.s_c, // status code
         tasks: tasks,
-        wayBill: data.waybill,
-        worker: data.worker
+        wayBill: data.w, // waybill
+        worker: data.wk // worker
     }
 }
