@@ -339,19 +339,25 @@ export default class CreateOrderPage extends Component {
 
     onMainTabPress(tabId) {
 
-        // this.setState({ mainTabSelectedIndex: tabId })
+        // if (tabId != this.state.mainTabSelectedIndex) {
+        //     this.setState({ mainTabSelectedIndex: tabId })
         switch (tabId) {
             case 0://Step 1
+                // this.step1View.nextPressed()
                 break;
             case 1://Step 2
+                // this.step2View.nextPressed()
                 break;
             case 2://Step 3
+                // this.step3View.nextPressed()
                 break;
             case 3://Step 4
+                // this.step4View.nextPressed()
                 break;
             default:
                 break;
         }
+        // }
     }
 
     tabToRender(tabId) {
@@ -359,6 +365,7 @@ export default class CreateOrderPage extends Component {
             case 0://Step 1
                 return (
                     <CreateOrder.CreateOrderStep1
+                        ref={step1View => this.step1View = step1View}
                         areaList={this.props.appState.areas}
                         constantsList={this.props.appState.constantsList}
                         pickUpLocations={this.props.appState.pickUpLocations}
@@ -371,6 +378,7 @@ export default class CreateOrderPage extends Component {
             case 1://Step 2
                 return (
                     <CreateOrder.CreateOrderStep2
+                        ref={step2View => this.step2View = step2View}
                         areaList={this.props.appState.areas}
                         constantsList={this.props.appState.constantsList}
                         receiverLocations={this.props.appState.receiverLocations}
@@ -388,6 +396,7 @@ export default class CreateOrderPage extends Component {
             case 2://Step 3
                 return (
                     <CreateOrder.CreateOrderStep3
+                        ref={step3View => this.step3View = step3View}
                         step3Data={this.state.step3Data}
                         backPressed={() => { this.backPressed() }}
                         nextPressed={(receivedData) => { this.nextPressed(receivedData) }}
@@ -396,6 +405,7 @@ export default class CreateOrderPage extends Component {
             case 3://Step 4
                 return (
                     <CreateOrder.CreateOrderStep4
+                        ref={step4View => this.step4View = step4View}
                         step1Data={this.state.step1Data}
                         step2Data={this.state.step2Data ? this.state.step2Data.selectedData : null}
                         step3Data={this.state.step3Data}

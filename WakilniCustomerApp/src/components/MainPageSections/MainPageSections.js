@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'transparent',
-        width: '50%',
+        width: '100%', // make 50% if we want them to be place like wakilni ops app
         height: (Platform.OS === "ios" ? (Dimensions.get('screen').height / 4 - 45) : (Dimensions.get('screen').height / 4 - 55)),
         // aspectRation: 1.5,
         borderTopWidth: 0.25,

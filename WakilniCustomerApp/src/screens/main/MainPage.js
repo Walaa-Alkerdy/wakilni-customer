@@ -405,7 +405,7 @@ const styles = StyleSheet.create({
     },
     subSection: {//four subSections 
         width: '100%',
-        flexDirection: 'row',
+        flexDirection: 'column', // place as row if we want them next to each other like wakilni OPS app
         justifyContent: 'space-between',
         alignItems: 'center',
     },
