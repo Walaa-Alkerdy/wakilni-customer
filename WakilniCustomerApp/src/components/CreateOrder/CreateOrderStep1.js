@@ -221,7 +221,7 @@ export default class CreateOrderStep1 extends Component {
                     showsVerticalScrollIndicator={false}
                     keyboardShouldPersistTaps='always'>
 
-                    <View style={[styles.mainContainer, { flex: 1, height: '100%', justifyContent: 'space-between', alignContent: 'center', overflow: 'hidden' }]}>
+                    <View style={[styles.mainContainer, { flex: 1, height: '100%', justifyContent: 'space-between', alignContent: 'center', overflow: 'hidden' }, Platform.OS == 'ios' ? {} : { marginBottom: 30 }]}>
 
                         <View style={[styles.mainContainer, { justifyContent: 'flex-start', backgroundColor: 'transparent', marginBottom: 20 }]}>
                             <Text style={styles.headerStyle}>{Locals.CREATE_ORDER_STEP1_SUBTITLE}</Text>

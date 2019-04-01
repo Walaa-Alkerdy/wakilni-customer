@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, Dimensions, StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { Platform, Dimensions, StyleSheet, View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { Fonts, Colors } from '../../constants/general';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import DateTimePicker from 'react-native-modal-datetime-picker';
@@ -111,14 +111,14 @@ export default class CreateOrderStep2 extends Component {
                 <KeyboardAwareScrollView
                     // resetScrollToCoords={{ x: 0, y: 0 }}
                     style={{ backgroundColor: '#f0f0f0', width: '100%', padding: 20 }}
-                    contentContainerStyle={{ flexGrow: 1 }}
+                    contentContainerStyle={{ flexGrow: 1, }}
                     bounces={false}
                     showsVerticalScrollIndicator={false}
                     keyboardShouldPersistTaps='always'>
 
-                    <View style={[styles.mainContainer, { justifyContent: 'space-between', alignContent: 'center', overflow: 'hidden' }]}>
+                    <View style={[{ justifyContent: 'space-between', backgroundColor: '#f0f0f0', alignContent: 'center', height: '100%', overflow: 'hidden' }]}>
 
-                        <View style={[styles.mainContainer, { justifyContent: 'flex-start', marginBottom: 20 }]}>
+                        <View style={[{ justifyContent: 'flex-start', backgroundColor: '#f0f0f0', marginBottom: 20 }]}>
                             <Text style={styles.headerStyle}>{Locals.CREATE_ORDER_STEP2_SUBTITLE}</Text>
 
                             {
@@ -178,56 +178,58 @@ export default class CreateOrderStep2 extends Component {
 
                         </View>
 
-                        {
-                            this.props.orderTypeId == objectTypes.ORDER.BULK_TRIP.id ?
+                        <View>
+                            {
+                                this.props.orderTypeId == objectTypes.ORDER.BULK_TRIP.id ?
+                                    <Buttons.RoundCornerButton
+                                        buttonStyle={[styles.button, { width: '100%', height: 40, borderWidth: 0, backgroundColor: '#00e1c8', shadowColor: '#00e1c8' }]}
+                                        textStyle={{ color: '#ffffff', fontFamily: Fonts.MAIN_FONT, fontSize: 15 }}
+                                        label={Locals.CREATE_ORDER_ADD_NEW_RECEIVER}
+                                        sectionPressed={() => {
+                                            let temp = JSON.parse(JSON.stringify(this.state.accordionData))
+
+                                            let key = this.state.accordionData.length > 0 ? this.state.accordionData[this.state.accordionData.length - 1].key + 1 : 1
+                                            temp.push({
+                                                key: key,
+                                                headerLabel: `Receiver ${this.state.accordionData.length + 1}`,
+                                                selectedReceiverLocation: null,
+                                                receiverLocations: [],
+                                                descriptionData: [],
+                                                collectionTypes: [],
+                                                packageTypes: [],
+                                                packagesToDeliverList: [],
+                                                packagesToReturnList: [],
+                                                orderTypeId: this.props.orderTypeId,
+                                            })
+
+                                            this.setState({ accordionData: temp })
+                                        }}
+                                    />
+                                    :
+                                    null
+                            }
+
+                            {/* buttons here */}
+                            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'center', marginBottom: this.props.orderTypeId != objectTypes.ORDER.BULK_TRIP.id ? 40 : this.state.activeAccordionSection != null ? 40 : 0 }}>
+
                                 <Buttons.RoundCornerButton
-                                    buttonStyle={[styles.button, { width: '100%', height: 40, borderWidth: 0, backgroundColor: '#00e1c8', shadowColor: '#00e1c8' }]}
+                                    buttonStyle={[styles.button, { width: null, flex: 1, shadowColor: '#919191', backgroundColor: '#919191', borderWidth: 0 }]}
                                     textStyle={{ color: '#ffffff', fontFamily: Fonts.MAIN_FONT, fontSize: 15 }}
-                                    label={Locals.CREATE_ORDER_ADD_NEW_RECEIVER}
+                                    label={Locals.CREATE_ORDER_BACK_BUTTON}
                                     sectionPressed={() => {
-                                        let temp = JSON.parse(JSON.stringify(this.state.accordionData))
-
-                                        let key = this.state.accordionData.length > 0 ? this.state.accordionData[this.state.accordionData.length - 1].key + 1 : 1
-                                        temp.push({
-                                            key: key,
-                                            headerLabel: `Receiver ${this.state.accordionData.length + 1}`,
-                                            selectedReceiverLocation: null,
-                                            receiverLocations: [],
-                                            descriptionData: [],
-                                            collectionTypes: [],
-                                            packageTypes: [],
-                                            packagesToDeliverList: [],
-                                            packagesToReturnList: [],
-                                            orderTypeId: this.props.orderTypeId,
-                                        })
-
-                                        this.setState({ accordionData: temp })
+                                        this.props.backPressed()
                                     }}
                                 />
-                                :
-                                null
-                        }
 
-                        {/* buttons here */}
-                        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'center', marginBottom: this.props.orderTypeId != objectTypes.ORDER.BULK_TRIP.id ? 40 : this.state.activeAccordionSection != null ? 40 : 0 }}>
-
-                            <Buttons.RoundCornerButton
-                                buttonStyle={[styles.button, { width: null, flex: 1, shadowColor: '#919191', backgroundColor: '#919191', borderWidth: 0 }]}
-                                textStyle={{ color: '#ffffff', fontFamily: Fonts.MAIN_FONT, fontSize: 15 }}
-                                label={Locals.CREATE_ORDER_BACK_BUTTON}
-                                sectionPressed={() => {
-                                    this.props.backPressed()
-                                }}
-                            />
-
-                            <Buttons.RoundCornerButton
-                                buttonStyle={[styles.button, { width: null, flex: 1, borderWidth: 0, backgroundColor: '#f3be0c', marginLeft: 8 }]}
-                                textStyle={{ color: '#ffffff', fontFamily: Fonts.MAIN_FONT, fontSize: 15 }}
-                                label={Locals.CREATE_ORDER_NEXT_BUTTON}
-                                sectionPressed={() => {
-                                    this.nextPressed()
-                                }}
-                            />
+                                <Buttons.RoundCornerButton
+                                    buttonStyle={[styles.button, { width: null, flex: 1, borderWidth: 0, backgroundColor: '#f3be0c', marginLeft: 8 }]}
+                                    textStyle={{ color: '#ffffff', fontFamily: Fonts.MAIN_FONT, fontSize: 15 }}
+                                    label={Locals.CREATE_ORDER_NEXT_BUTTON}
+                                    sectionPressed={() => {
+                                        this.nextPressed()
+                                    }}
+                                />
+                            </View>
                         </View>
                     </View>
 
