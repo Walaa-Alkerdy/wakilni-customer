@@ -97,9 +97,13 @@ export function fetchCustomerRecipients(values, onSuccess, onFailure) {
 
     network.fetchJSONDataWithAuthentication(url, values.accessToken, (result) => {
 
+        console.log(result)
         var recipients = result.data.map((item) => {
             return RecipientUtils.Recipient(item);
         })
+
+        console.log(recipients)
+
         onSuccess({ data: recipients, meta: result.meta })
 
     }, (error) => {

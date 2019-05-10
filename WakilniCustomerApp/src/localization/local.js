@@ -361,6 +361,13 @@ let locals = new LocalizedStrings({
         CREATE_RECEIVER_ALLOW_DRIVER_CONTACT2: 'Allow driver to contact receiver',
         CREATE_RECEIVER_ALLOW_SENDING_DIRECT_MESSAGE: 'Send direct message to receiver',
 
+        // recipients page
+        RECIPIENT_NAME: 'Name',
+        RECIPIENT_PHONENUMBER: 'PhoneNumber',
+        RECIPIENT_ADDRESS: 'Address',
+        RECIPIENT_ALLOW_DRIVER_CONTACT: 'Allow Driver Contact',
+        RECIPIENT_NOTE: 'Note',
+
         message_sent_successfully: 'Message sent successfully',
         message_signature_captured_successfully: 'Your signature has been captured',
 

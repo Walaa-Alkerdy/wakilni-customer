@@ -8,22 +8,26 @@ export function Recipient(data) {
         phoneNumber: data.phone_number,
         name: data.name,
         dateOfBirth: data.date_of_birth,
-        allowDriverContact: true,
-        address: data.type != null && data.locations != null ? prepareAddress(data.type, data.locations) : ''
+        allowDriverContact: data.allow_driver_contact ? data.allow_driver_contact : false,
+        secondaryNumber: data.secondary_number,
+        address: data.locations != null ? prepareAddress(data.locations) : '',
+        note: data.note
     }
 }
 
-function prepareAddress(type, locations) {
+function prepareAddress(locations) {
 
-    let final = type.label
+    let final = ''
 
     if (locations.length > 0) {
 
-        if (locations.area) {
+        final = `${locations[0].type.label}`
 
-            if (locations.area.zone) {
+        if (locations[0].area) {
 
-                final = `${final}: ${locations[0].area.zone.label} ${locations[0].area.name}`
+            if (locations[0].area.zone) {
+
+                final = `${final}: ${locations[0].area.zone.label}. ${locations[0].area.name}`
             } else {
 
                 final = `${final}: ${locations[0].area.name}`
