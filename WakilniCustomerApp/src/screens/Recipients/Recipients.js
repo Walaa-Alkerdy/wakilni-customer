@@ -13,7 +13,7 @@ export default class RecipientsPage extends Component {
     static navigationOptions = ({ navigation, screenProps }) => ({
         title: Locals.RECIPIENTS,
         headerTitle: (
-            <Text style={{ fontFamily: Fonts.MAIN_FONT, fontSize: 20, color: '#ffffff', width: '100%', textAlign: 'center' }}>{Locals.ORDERS_PAGE}</Text>
+            <Text style={{ fontFamily: Fonts.MAIN_FONT, fontSize: 20, color: '#ffffff', width: '100%', textAlign: 'center' }}>{Locals.RECIPIENTS}</Text>
         ),
         headerLeft: (
 
