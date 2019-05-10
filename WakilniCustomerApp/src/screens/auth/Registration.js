@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Platform, StatusBar, Image, StyleSheet, Text, View, Dimensions, TouchableOpacity, TextInput, Animated, Keyboard, ScrollView, Alert, PermissionsAndroid } from 'react-native';
 // import FCM, { FCMEvent } from 'react-native-fcm';
-import { STATE, ACTION_AUTH, ACTION_DATABASE } from '../../constants/states';
+import { STATE, ACTION_AUTH, ACTION_DATABASE, ACTION_CONSTANTS } from '../../constants/states';
 import Locals from '../../localization/local';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Loaders, Alerts, Buttons, Pickers } from '../../components';
@@ -118,24 +118,22 @@ export default class Registration extends Component {
 
         console.log(newProps)
 
-        // if (newProps.appState.user && newProps.appState.state === STATE.SUCCESS && newProps.appState.action === ACTION_AUTH.LOGIN) {
+        // if (newProps.appState.user && newProps.appState.state === STATE.SUCCESS && newProps.appState.action === ACTION_CONSTANTS.GET_AREAS) {
 
-        //   this.props.resetState();
+        //     this.props.resetState();
 
-        //   if (newProps.appState.user.userInfo.isLastLogin) {
-        //     this.props.navigation.navigate("MainPageContainer");
-        //   } else {
-        //     this.props.navigation.navigate("ChangePasswordPageContainer", { currentPassword: this.state.password })
-        //   }
+        // } else if (newProps.appState.state === STATE.FAILED && newProps.appState.action === ACTION_CONSTANTS.GET_AREAS) {
 
-        // } else if (newProps.appState.user && newProps.appState.state === STATE.SUCCESS && newProps.appState.action === ACTION_DATABASE.SUCCESS) {
+        //     this.SBAlert.showAlert(newProps.appState.errorMessage, true)
+        // }
 
-        //   this.props.resetState();
-        //   this.props.navigation.navigate("MainPageContainer");
+        // if (newProps.appState.user && newProps.appState.state === STATE.SUCCESS && newProps.appState.action === ACTION_CONSTANTS.GET_CONSTANTS) {
 
-        // } else if (newProps.appState.state === STATE.FAILED && newProps.appState.action === ACTION_AUTH.LOGIN) {
+        //     this.props.resetState();
 
-        //   this.SBAlert.showAlert(newProps.appState.errorMessage, true)
+        // } else if (newProps.appState.state === STATE.FAILED && newProps.appState.action === ACTION_CONSTANTS.GET_CONSTANTS) {
+
+        //     this.SBAlert.showAlert(newProps.appState.errorMessage, true)
         // }
     }
 

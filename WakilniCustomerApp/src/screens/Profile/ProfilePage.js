@@ -893,144 +893,144 @@ export default class ProfilePage extends Component {
                     <Image style={[styles.motoIconStyle, { bottom: -15 }]} source={require('../../images/common/motoIconHelp.png')} />
 
                     {
-                        this.props.appState.lang == 'en' ?
-                            <View style={[styles.radioButtonMainView, { alignSelf: 'center', marginTop: 30 }]}>
-                                <View style={styles.radioButtonView}>
-                                    <RadioButton
-                                        // innerColor={Colors.SUB_COLOR}
-                                        // outerColor={Colors.TEXT_COLOR}
-                                        // animation={'bounceIn'}
-                                        containerStyle={{ width: '90%', flexDirection: 'row', justifyContent: 'flex-start' }}
-                                        outerViewStyle={{ borderColor: '#919191' }}
-                                        textStyle={{ color: '#919191' }}
-                                        label={Locals.PROFILE_PAGE_PASSWORD_TITLE}
-                                        language={this.props.appState.lang}
-                                        isSelected={this.state.selectedRadioButton == 0}
-                                        onPress={() => this.setState({
-                                            selectedRadioButton: 0,
+                        // this.props.appState.lang == 'en' ?
+                        //     <View style={[styles.radioButtonMainView, { alignSelf: 'center', marginTop: 30 }]}>
+                        //         <View style={styles.radioButtonView}>
+                        //             <RadioButton
+                        //                 // innerColor={Colors.SUB_COLOR}
+                        //                 // outerColor={Colors.TEXT_COLOR}
+                        //                 // animation={'bounceIn'}
+                        //                 containerStyle={{ width: '90%', flexDirection: 'row', justifyContent: 'flex-start' }}
+                        //                 outerViewStyle={{ borderColor: '#919191' }}
+                        //                 textStyle={{ color: '#919191' }}
+                        //                 label={Locals.PROFILE_PAGE_PASSWORD_TITLE}
+                        //                 language={this.props.appState.lang}
+                        //                 isSelected={this.state.selectedRadioButton == 0}
+                        //                 onPress={() => this.setState({
+                        //                     selectedRadioButton: 0,
 
-                                            oldPassword: '',
-                                            oldPasswordError: false,
-                                            oldPasswordErrorMessage: '',
+                        //                     oldPassword: '',
+                        //                     oldPasswordError: false,
+                        //                     oldPasswordErrorMessage: '',
 
-                                            newPassword: '',
-                                            newPasswordError: false,
-                                            newPasswordErrorMessage: '',
+                        //                     newPassword: '',
+                        //                     newPasswordError: false,
+                        //                     newPasswordErrorMessage: '',
 
-                                            passwordConfirmation: '',
-                                            passwordConfirmationError: false,
-                                            passwordConfirmationErrorMessage: '',
+                        //                     passwordConfirmation: '',
+                        //                     passwordConfirmationError: false,
+                        //                     passwordConfirmationErrorMessage: '',
 
-                                            //for pattern
-                                            patternText: '',
-                                            showPatternText: false,
-                                            isConfirmPattern: false,
-                                        })}
-                                    />
-                                </View>
-                                <View style={[styles.radioButtonView, { justifyContent: 'flex-end' }]}>
-                                    <RadioButton
-                                        // innerColor={Colors.SUB_COLOR}
-                                        // outerColor={Colors.TEXT_COLOR}
-                                        // animation={'bounceIn'}
-                                        outerViewStyle={{ borderColor: '#919191' }}
-                                        textStyle={{ width: '65%', color: '#919191' }}
-                                        containerStyle={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}
-                                        label={Locals.PROFILE_PAGE_ALTERNATIVE_PASSWORD}
-                                        language={this.props.appState.lang}
-                                        isSelected={this.state.selectedRadioButton == 1}
-                                        onPress={() => this.setState({
-                                            selectedRadioButton: 1,
+                        //                     //for pattern
+                        //                     patternText: '',
+                        //                     showPatternText: false,
+                        //                     isConfirmPattern: false,
+                        //                 })}
+                        //             />
+                        //         </View>
+                        //         <View style={[styles.radioButtonView, { justifyContent: 'flex-end' }]}>
+                        //             <RadioButton
+                        //                 // innerColor={Colors.SUB_COLOR}
+                        //                 // outerColor={Colors.TEXT_COLOR}
+                        //                 // animation={'bounceIn'}
+                        //                 outerViewStyle={{ borderColor: '#919191' }}
+                        //                 textStyle={{ width: '65%', color: '#919191' }}
+                        //                 containerStyle={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}
+                        //                 label={Locals.PROFILE_PAGE_ALTERNATIVE_PASSWORD}
+                        //                 language={this.props.appState.lang}
+                        //                 isSelected={this.state.selectedRadioButton == 1}
+                        //                 onPress={() => this.setState({
+                        //                     selectedRadioButton: 1,
 
-                                            oldPassword: '',
-                                            oldPasswordError: false,
-                                            oldPasswordErrorMessage: '',
+                        //                     oldPassword: '',
+                        //                     oldPasswordError: false,
+                        //                     oldPasswordErrorMessage: '',
 
-                                            newPassword: '',
-                                            newPasswordError: false,
-                                            newPasswordErrorMessage: '',
+                        //                     newPassword: '',
+                        //                     newPasswordError: false,
+                        //                     newPasswordErrorMessage: '',
 
-                                            passwordConfirmation: '',
-                                            passwordConfirmationError: false,
-                                            passwordConfirmationErrorMessage: '',
+                        //                     passwordConfirmation: '',
+                        //                     passwordConfirmationError: false,
+                        //                     passwordConfirmationErrorMessage: '',
 
-                                            //for pattern
-                                            patternText: '',
-                                            showPatternText: false,
-                                            isConfirmPattern: false,
-                                        })}
-                                    />
-                                </View>
-                            </View>
-                            :
-                            <View style={[styles.radioButtonMainView, { alignSelf: 'center', marginTop: 30 }]}>
-                                <View style={[styles.radioButtonView, { justifyContent: 'flex-end' }]}>
-                                    <RadioButton
-                                        // innerColor={Colors.SUB_COLOR}
-                                        // outerColor={Colors.TEXT_COLOR}
-                                        // animation={'bounceIn'}
-                                        outerViewStyle={{ borderColor: '#919191' }}
-                                        textStyle={{ color: '#919191', textAlign: 'right' }}
-                                        containerStyle={{ width: '90%', flexDirection: 'row', justifyContent: 'flex-end' }}
-                                        label={Locals.PROFILE_PAGE_ALTERNATIVE_PASSWORD}
-                                        language={this.props.appState.lang}
-                                        isSelected={this.state.selectedRadioButton == 1}
-                                        onPress={() => this.setState({
-                                            selectedRadioButton: 1,
+                        //                     //for pattern
+                        //                     patternText: '',
+                        //                     showPatternText: false,
+                        //                     isConfirmPattern: false,
+                        //                 })}
+                        //             />
+                        //         </View>
+                        //     </View>
+                        //     :
+                        //     <View style={[styles.radioButtonMainView, { alignSelf: 'center', marginTop: 30 }]}>
+                        //         <View style={[styles.radioButtonView, { justifyContent: 'flex-end' }]}>
+                        //             <RadioButton
+                        //                 // innerColor={Colors.SUB_COLOR}
+                        //                 // outerColor={Colors.TEXT_COLOR}
+                        //                 // animation={'bounceIn'}
+                        //                 outerViewStyle={{ borderColor: '#919191' }}
+                        //                 textStyle={{ color: '#919191', textAlign: 'right' }}
+                        //                 containerStyle={{ width: '90%', flexDirection: 'row', justifyContent: 'flex-end' }}
+                        //                 label={Locals.PROFILE_PAGE_ALTERNATIVE_PASSWORD}
+                        //                 language={this.props.appState.lang}
+                        //                 isSelected={this.state.selectedRadioButton == 1}
+                        //                 onPress={() => this.setState({
+                        //                     selectedRadioButton: 1,
 
-                                            oldPassword: '',
-                                            oldPasswordError: false,
-                                            oldPasswordErrorMessage: '',
+                        //                     oldPassword: '',
+                        //                     oldPasswordError: false,
+                        //                     oldPasswordErrorMessage: '',
 
-                                            newPassword: '',
-                                            newPasswordError: false,
-                                            newPasswordErrorMessage: '',
+                        //                     newPassword: '',
+                        //                     newPasswordError: false,
+                        //                     newPasswordErrorMessage: '',
 
-                                            passwordConfirmation: '',
-                                            passwordConfirmationError: false,
-                                            passwordConfirmationErrorMessage: '',
+                        //                     passwordConfirmation: '',
+                        //                     passwordConfirmationError: false,
+                        //                     passwordConfirmationErrorMessage: '',
 
-                                            //for pattern
-                                            patternText: '',
-                                            showPatternText: false,
-                                            isConfirmPattern: false,
-                                        })}
-                                    />
-                                </View>
-                                <View style={[styles.radioButtonView, { justifyContent: 'flex-end' }]}>
-                                    <RadioButton
-                                        // innerColor={Colors.SUB_COLOR}
-                                        // outerColor={Colors.TEXT_COLOR}
-                                        // animation={'bounceIn'}
-                                        containerStyle={{ width: '90%', flexDirection: 'row', justifyContent: 'flex-end' }}
-                                        outerViewStyle={{ borderColor: '#919191' }}
-                                        textStyle={{ color: '#919191', textAlign: 'right' }}
-                                        label={Locals.PROFILE_PAGE_PASSWORD_TITLE}
-                                        language={this.props.appState.lang}
-                                        isSelected={this.state.selectedRadioButton == 0}
-                                        onPress={() => this.setState({
-                                            selectedRadioButton: 0,
+                        //                     //for pattern
+                        //                     patternText: '',
+                        //                     showPatternText: false,
+                        //                     isConfirmPattern: false,
+                        //                 })}
+                        //             />
+                        //         </View>
+                        //         <View style={[styles.radioButtonView, { justifyContent: 'flex-end' }]}>
+                        //             <RadioButton
+                        //                 // innerColor={Colors.SUB_COLOR}
+                        //                 // outerColor={Colors.TEXT_COLOR}
+                        //                 // animation={'bounceIn'}
+                        //                 containerStyle={{ width: '90%', flexDirection: 'row', justifyContent: 'flex-end' }}
+                        //                 outerViewStyle={{ borderColor: '#919191' }}
+                        //                 textStyle={{ color: '#919191', textAlign: 'right' }}
+                        //                 label={Locals.PROFILE_PAGE_PASSWORD_TITLE}
+                        //                 language={this.props.appState.lang}
+                        //                 isSelected={this.state.selectedRadioButton == 0}
+                        //                 onPress={() => this.setState({
+                        //                     selectedRadioButton: 0,
 
-                                            oldPassword: '',
-                                            oldPasswordError: false,
-                                            oldPasswordErrorMessage: '',
+                        //                     oldPassword: '',
+                        //                     oldPasswordError: false,
+                        //                     oldPasswordErrorMessage: '',
 
-                                            newPassword: '',
-                                            newPasswordError: false,
-                                            newPasswordErrorMessage: '',
+                        //                     newPassword: '',
+                        //                     newPasswordError: false,
+                        //                     newPasswordErrorMessage: '',
 
-                                            passwordConfirmation: '',
-                                            passwordConfirmationError: false,
-                                            passwordConfirmationErrorMessage: '',
+                        //                     passwordConfirmation: '',
+                        //                     passwordConfirmationError: false,
+                        //                     passwordConfirmationErrorMessage: '',
 
-                                            //for pattern
-                                            patternText: '',
-                                            showPatternText: false,
-                                            isConfirmPattern: false,
-                                        })}
-                                    />
-                                </View>
-                            </View>
+                        //                     //for pattern
+                        //                     patternText: '',
+                        //                     showPatternText: false,
+                        //                     isConfirmPattern: false,
+                        //                 })}
+                        //             />
+                        //         </View>
+                        //     </View>
                     }
 
                     {

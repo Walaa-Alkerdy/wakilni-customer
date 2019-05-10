@@ -42,15 +42,10 @@ export default class Login extends Component {
 
     this.state = {
 
-      subTabSelectedIndex: 1,
-
       email: '',
       emailError: false,
       emailErrorMessage: '',
 
-      phone: '',
-      phoneError: false,
-      phoneErrorMessage: '',
 
       password: '',
       passwordError: false,
@@ -58,9 +53,6 @@ export default class Login extends Component {
 
       radioSelected: 'en',
       isEnglish: true,
-
-      mainWidthTab1: 0,
-      mainWidthTab2: 0,
 
       buttonDisabled: false,
 
@@ -72,9 +64,7 @@ export default class Login extends Component {
 
     this.registerPressed = this.registerPressed.bind(this);
     this.loginPressed = this.loginPressed.bind(this);
-    this.handleRadioButtonChange = this.handleRadioButtonChange.bind(this);
-    this._onFinish = this._onFinish.bind(this);
-    this._onReset = this._onReset.bind(this);
+    this.handleRadioButtonChange = this.handleRadioButtonChange.bind(this);;
   }
 
   componentDidMount() {
@@ -126,70 +116,7 @@ export default class Login extends Component {
 
       <View style={{ flex: 1, justifyContent: 'flex-start' }}>
 
-        {
-          this.props.appState.lang == 'en' ?
-            <View style={styles.tabContainerStyle}>
-              <TouchableOpacity style={styles.tabStyle} onPress={() => this.setState({
-                subTabSelectedIndex: 1,
-                // phone: '',
-                // phoneError: false,
-                // phoneErrorMessage: '',
-
-                password: '',
-                passwordError: false,
-                passwordErrorMessage: '',
-              })}>
-                <Text onLayout={this.onLayoutTab2} style={this.state.subTabSelectedIndex == 1 ? styles.tabLabelStyle : [styles.tabLabelStyle, { color: Colors.TEXT_COLOR }]}>{Locals.ALTERNATIVE_LOGIN}</Text>
-                <View style={this.state.subTabSelectedIndex == 1 ? [styles.indicatorStyle, { width: this.state.mainWidthTab2 }] : [styles.indicatorStyle, { backgroundColor: 'transparent', width: this.state.mainWidthTab2 }]}></View>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.tabStyle} onPress={() => this.setState({
-                subTabSelectedIndex: 0,
-                // phone: '',
-                // phoneError: false,
-                // phoneErrorMessage: '',
-
-                password: '',
-                passwordError: false,
-                passwordErrorMessage: '',
-              })}>
-                <Text onLayout={this.onLayoutTab1} style={this.state.subTabSelectedIndex == 0 ? styles.tabLabelStyle : [styles.tabLabelStyle, { color: Colors.TEXT_COLOR }]}>{Locals.PASSWORD_LOGIN}</Text>
-                <View style={this.state.subTabSelectedIndex == 0 ? [styles.indicatorStyle, { width: this.state.mainWidthTab1 }] : [styles.indicatorStyle, { backgroundColor: 'transparent', width: this.state.mainWidthTab1 }]}></View>
-              </TouchableOpacity>
-            </View>
-            :
-            <View style={styles.tabContainerStyle}>
-              <TouchableOpacity style={styles.tabStyle} onPress={() => this.setState({
-                subTabSelectedIndex: 0,
-                // phone: '',
-                // phoneError: false,
-                // phoneErrorMessage: '',
-
-                password: '',
-                passwordError: false,
-                passwordErrorMessage: '',
-              })}>
-                <Text onLayout={this.onLayoutTab1} style={this.state.subTabSelectedIndex == 0 ? styles.tabLabelStyle : [styles.tabLabelStyle, { color: Colors.TEXT_COLOR }]}>{Locals.PASSWORD_LOGIN}</Text>
-                <View style={this.state.subTabSelectedIndex == 0 ? [styles.indicatorStyle, { width: this.state.mainWidthTab1 }] : [styles.indicatorStyle, { backgroundColor: 'transparent', width: this.state.mainWidthTab1 }]}></View>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.tabStyle} onPress={() => this.setState({
-                subTabSelectedIndex: 1,
-                // phone: '',
-                // phoneError: false,
-                // phoneErrorMessage: '',
-
-                password: '',
-                passwordError: false,
-                passwordErrorMessage: '',
-              })}>
-                <Text onLayout={this.onLayoutTab2} style={this.state.subTabSelectedIndex == 1 ? styles.tabLabelStyle : [styles.tabLabelStyle, { color: Colors.TEXT_COLOR }]}>{Locals.ALTERNATIVE_LOGIN}</Text>
-                <View style={this.state.subTabSelectedIndex == 1 ? [styles.indicatorStyle, { width: this.state.mainWidthTab2 }] : [styles.indicatorStyle, { backgroundColor: 'transparent', width: this.state.mainWidthTab2 }]}></View>
-              </TouchableOpacity>
-            </View>
-        }
-
-        {
-          this.state.subTabSelectedIndex == 0 ? this.LoginNoPattern() : this.LoginWithPattern()
-        }
+        {this.LoginNoPattern()}
 
         {
           this.props.appState.state == STATE.LOADING ? <Loaders.Loader /> : null
@@ -206,18 +133,6 @@ export default class Login extends Component {
     );
   }
 
-  onLayoutTab1 = (e) => {
-    this.setState({
-      mainWidthTab1: e.nativeEvent.layout.width + 20,
-    })
-  }
-
-  onLayoutTab2 = (e) => {
-    this.setState({
-      mainWidthTab2: e.nativeEvent.layout.width + 20,
-    })
-  }
-
   componentWillReceiveProps(newProps) {
 
     if (newProps.appState.user && newProps.appState.state === STATE.SUCCESS && newProps.appState.action === ACTION_AUTH.LOGIN) {
@@ -225,7 +140,7 @@ export default class Login extends Component {
       this.props.resetState();
 
       // if (newProps.appState.user.userInfo.isLastLogin) {
-        this.props.navigation.navigate("MainPageContainer");
+      this.props.navigation.navigate("MainPageContainer");
       // } else {
       //   this.props.navigation.navigate("ChangePasswordPageContainer", { currentPassword: this.state.password })
       // }
@@ -247,7 +162,7 @@ export default class Login extends Component {
 
   registerPressed() {
 
-    // this.props.navigation.navigate('RegistrationContainer')
+    this.props.navigation.navigate('RegistrationContainer')
   }
 
   loginPressed() {
@@ -260,16 +175,9 @@ export default class Login extends Component {
         language_type: this.state.isEnglish ? ServerStatus.LanguageType.ENGLISH : ServerStatus.LanguageType.ARABIC
       }
 
-      if (this.state.subTabSelectedIndex == 1) {//is in pattern
-        values = {
-          ...values,
-          pattern: this.state.password,
-        }
-      } else {
-        values = {
-          ...values,
-          password: this.state.password,
-        }
+      values = {
+        ...values,
+        password: this.state.password,
       }
 
       Keyboard.dismiss();
@@ -317,25 +225,6 @@ export default class Login extends Component {
       this.animate()
     });
     return (emailValid && passwordValid);
-  }
-
-  signUpPressed(navData) {
-
-    // Alert.alert("Sign Up Pressed");
-    // var newUser = Users("Ahmad","ahmad@pixel38.com");
-    // navData("SignUpPage");
-  }
-
-  fbAuth() {
-    // LoginManager.logInWithReadPermissions(['public_profile']).then(function(result) {
-    //   if (result.isCancelled) {
-    //     Alert.alert('Login Cancelled')
-    //   } else {
-    //     Alert.alert('Login Success permission granted:' + result.grantedPermissions);
-    //   }
-    // }, function(error) {
-    //     Alert.alert('some error occured!!');
-    // })
   }
 
   LoginNoPattern = () => {
@@ -425,34 +314,10 @@ export default class Login extends Component {
               onChangeText={password => {
                 this.setState({ password: password });
               }} />
-            {/* <View style={styles.radioButtonMainView}>
-              <View style={styles.radioButtonView}>
-                <RadioButton
-                  // innerColor={Colors.SUB_COLOR}
-                  // outerColor={Colors.TEXT_COLOR}
-                  // animation={'bounceIn'}
-                  label={Locals.ENGLISH}
-                  language={this.props.appState.lang}
-                  isSelected={this.state.isEnglish == true}
-                  onPress={() => this.handleRadioButtonChange('en')}
-                />
-              </View>
-              <View style={styles.radioButtonView}>
-                <RadioButton
-                  // innerColor={Colors.SUB_COLOR}
-                  // outerColor={Colors.TEXT_COLOR}
-                  // animation={'bounceIn'}
-                  label={Locals.ARABIC}
-                  language={this.props.appState.lang}
-                  isSelected={this.state.isEnglish == false}
-                  onPress={() => this.handleRadioButtonChange('ar')}
-                />
-              </View>
-            </View> */}
           </View>
 
           <View style={{ flexDirection: 'row', marginBottom: 30, marginHorizontal: 20 }}>
-            <TouchableOpacity style={[styles.button, {}]} disabled={this.state.buttonDisabled} onPress={() => {
+            <TouchableOpacity style={[styles.button, { marginRight: 10 }]} disabled={this.state.buttonDisabled} onPress={() => {
               this.setState({ buttonDisabled: false }, () => {
                 this.loginPressed()
               })
@@ -465,7 +330,7 @@ export default class Login extends Component {
                 {Locals.LOGIN}
               </Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity style={[styles.button, {}]} disabled={this.state.buttonDisabled} onPress={() => {
+            <TouchableOpacity style={[styles.button, {}]} disabled={this.state.buttonDisabled} onPress={() => {
               this.setState({ buttonDisabled: false }, () => {
                 this.registerPressed()
               })
@@ -477,116 +342,12 @@ export default class Login extends Component {
               <Text style={styles.buttonText}>
                 {Locals.REGISTER}
               </Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           </View>
-        </View>
-      </KeyboardAwareScrollView>
-
-      // </View>
-    )
-  }
-
-  LoginWithPattern = () => {
-
-    return (
-
-      <KeyboardAwareScrollView
-        // resetScrollToCoords={{ x: 0, y: 0 }}
-        style={{ backgroundColor: Colors.MAIN_COLOR }}
-        contentContainerStyle={{ flexGrow: 1 }}
-        bounces={false}
-        showsVerticalScrollIndicator={false}
-        scrollEnabled={false}
-        keyboardShouldPersistTaps='always'>
-        <View style={[styles.mainContainer, { justifyContent: 'space-between', alignContent: 'center', overflow: 'hidden' }]}>
-
-          <Image style={styles.motoIconStyle} source={require('../../images/common/motoIconMain.png')} />
-          <View style={styles.titleContainer}>
-            {
-              this.props.appState.lang == 'en' ?
-                <View style={styles.titleContainer}>
-                  <Text style={[styles.textFieldLabel, { marginTop: 30 }]}>{Locals.PROFILE_PAGE_EMAIL}</Text>
-                  {
-                    this.state.emailError ? <Text style={[styles.errorMessage, { marginTop: 30 }]}>{Locals.formatString(Locals.braces, this.state.emailErrorMessage)}</Text> : null
-                  }
-                </View>
-                :
-                <View style={styles.titleContainer}>
-                  {
-                    this.state.emailError ? <Text style={[styles.errorMessage, { marginTop: 30 }]}>{Locals.formatString(Locals.braces, this.state.emailErrorMessage)}</Text> : null
-                  }
-                  <Text style={[styles.textFieldLabel, { marginTop: 30 }]}>{Locals.PROFILE_PAGE_EMAIL}</Text>
-                </View>
-            }
-          </View>
-          <TextInput
-            selectionColor={Colors.SUB_COLOR}
-            style={[styles.inputFields, this.state.emailError ? styles.inputFieldsError : null]}
-            underlineColorAndroid={'transparent'}
-            returnKeyType={'done'}
-            // placeholder={Locals.EMAIL_PLACEHOLDER}
-            // placeholderTextColor={Colors.TEXT_COLOR}
-            // placeholderStyle={styles.inputFieldsPlaceholder}
-            autoCapitalize='none'
-            autoCorrect={false}
-            value={this.state.email}
-            onChangeText={email => {
-              this.setState({ email: email });
-            }} />
-
-          {/* <View style={styles.radioButtonMainView}>
-            <View style={styles.radioButtonView}>
-              <RadioButton
-                // innerColor={Colors.SUB_COLOR}
-                // outerColor={Colors.TEXT_COLOR}
-                // animation={'bounceIn'}
-                label={Locals.ENGLISH}
-                language={this.props.appState.lang}
-                isSelected={this.state.isEnglish == true}
-                onPress={() => this.handleRadioButtonChange('en')}
-              />
-            </View>
-            <View style={styles.radioButtonView}>
-              <RadioButton
-                // innerColor={Colors.SUB_COLOR}
-                // outerColor={Colors.TEXT_COLOR}
-                // animation={'bounceIn'}
-                label={Locals.ARABIC}
-                language={this.props.appState.lang}
-                isSelected={this.state.isEnglish == false}
-                onPress={() => this.handleRadioButtonChange('ar')}
-              />
-            </View>
-          </View> */}
-          <GesturePassword
-            style={{ backgroundColor: 'transparent' }}
-            pointBackgroundColor={'#383838'}
-            lineColor={Colors.SUB_COLOR}
-            gestureAreaLength={Dimensions.get('screen').height / 2.5}
-            color={Colors.SUB_COLOR}
-            activeColor={Colors.SUB_COLOR}
-            warningColor={'red'}
-            warningDuration={1500}
-            allowCross={true}
-            // topComponent={this._renderHeaderSection()}
-            onFinish={this._onFinish}
-            onReset={this._onReset}
-          />
         </View>
       </KeyboardAwareScrollView>
     )
   }
-
-  _onReset = () => { }
-
-  _onStart() {
-    this.lock.setStatus(RNPatternLock.NORMAL);
-  }
-
-  _onFinish(password) {
-    this.setState({ password: password }, () => { this.loginPressed() })
-  }
-
 }
 
 const styles = StyleSheet.create({
@@ -672,8 +433,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 2,
     borderColor: Colors.SUB_COLOR,
-    // flex: 2,
-    width: Dimensions.get('screen').width - 120,
+    flex: 1,
     height: 45,
     marginVertical: 5,
     borderRadius: 11,
