@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     imageStyle: {
-        width: '30%',
-        height: '30%',
+        width: '25%',
+        height: '25%',
         resizeMode: 'contain'
     },
     textStyle: {

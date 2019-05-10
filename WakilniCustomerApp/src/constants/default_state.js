@@ -32,4 +32,6 @@ export const defaultState = {
     receiverLocations: [],
     customerOrders: [],
     canLoadMoreOrders: true, //paging helper
+    customerRecipients: [],
+    canLoadMoreCustomerRecipients: true,
 }

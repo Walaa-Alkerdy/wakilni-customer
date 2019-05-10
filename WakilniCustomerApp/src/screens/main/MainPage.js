@@ -142,18 +142,18 @@ export default class MainPage extends Component {
         } else if (newProps.appState.state === STATE.FAILED && newProps.appState.action === ACTION_AUTH.IS_TOKEN_VALID) {
 
             // if (newProps.appState.errorMessage.toString() == "401") {
-                this.setState({ isInitialLoad: false }, () => {
-                    // this.stopTimers()
-                    generalHelpers.clearCache()
-                    let resetNavigation = NavigationActions.reset({
-                        index: 0,
-                        actions: [
-                            NavigationActions.navigate({ routeName: 'LoginContainer' }),
-                        ],
-                    });
-                    newProps.navigation.dispatch(resetNavigation);
-                    this.props.resetState();
-                })
+            this.setState({ isInitialLoad: false }, () => {
+                // this.stopTimers()
+                generalHelpers.clearCache()
+                let resetNavigation = NavigationActions.reset({
+                    index: 0,
+                    actions: [
+                        NavigationActions.navigate({ routeName: 'LoginContainer' }),
+                    ],
+                });
+                newProps.navigation.dispatch(resetNavigation);
+                this.props.resetState();
+            })
             // } else {
             //     this.setState({ isInitialLoad: false }, () => {
             //         this.preparePage()
@@ -259,6 +259,9 @@ export default class MainPage extends Component {
             case 11://Create Order
                 this.props.navigation.navigate("CreateOrderContainer");
                 break;
+            case 12://Customer Recipients
+                this.props.navigation.navigate("RecipientsContainer");
+                break;
         }
     }
 
@@ -271,22 +274,24 @@ export default class MainPage extends Component {
                     this.props.appState.lang == 'ar' ?
                         <View style={styles.subSection}>
                             <MainPageSections language={this.props.appState.lang} isFirst={true} label={Locals.ORDERS} url={require('../../images/mainpage/ordersMain.png')} sectionPressed={() => this.sectionPressed(2)} />
-                            <MainPageSections language={this.props.appState.lang} label={Locals.CREATE_ORDER} url={require('../../images/mainpage/ordersMain.png')} sectionPressed={() => this.sectionPressed(11)} />
+                            <MainPageSections language={this.props.appState.lang} label={Locals.CREATE_ORDER} url={require('../../images/mainpage/createOrderMain.png')} sectionPressed={() => this.sectionPressed(11)} />
                         </View>
                         :
                         <View style={styles.subSection}>
                             <MainPageSections language={this.props.appState.lang} isFirst={true} label={Locals.ORDERS} url={require('../../images/mainpage/ordersMain.png')} sectionPressed={() => this.sectionPressed(2)} />
-                            <MainPageSections language={this.props.appState.lang} label={Locals.CREATE_ORDER} url={require('../../images/mainpage/ordersMain.png')} sectionPressed={() => this.sectionPressed(11)} />
+                            <MainPageSections language={this.props.appState.lang} label={Locals.CREATE_ORDER} url={require('../../images/mainpage/createOrderMain.png')} sectionPressed={() => this.sectionPressed(11)} />
                         </View>
                 }
                 {
                     this.props.appState.lang == 'ar' ?
                         <View style={styles.subSection}>
                             <MainPageSections language={this.props.appState.lang} isLast={true} label={Locals.PROFILE} url={require('../../images/mainpage/profileMain.png')} sectionPressed={() => this.sectionPressed(9)} />
+                            <MainPageSections language={this.props.appState.lang} label={Locals.RECIPIENTS} url={require('../../images/mainpage/recipientsMain.png')} sectionPressed={() => this.sectionPressed(12)} />
                         </View>
                         :
                         <View style={styles.subSection}>
                             <MainPageSections language={this.props.appState.lang} isLast={true} label={Locals.PROFILE} url={require('../../images/mainpage/profileMain.png')} sectionPressed={() => this.sectionPressed(9)} />
+                            <MainPageSections language={this.props.appState.lang} label={Locals.RECIPIENTS} url={require('../../images/mainpage/recipientsMain.png')} sectionPressed={() => this.sectionPressed(12)} />
                         </View>
                 }
 

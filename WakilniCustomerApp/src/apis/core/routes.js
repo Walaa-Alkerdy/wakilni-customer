@@ -65,6 +65,7 @@ export const Location = {
 export const Customers = {
     create: 'customers',
     createNewReceiver: 'customers/{0}/recipients', // {0} = Customer Id
+    getCustomerRecipients: 'customers/{0}/recipients', // {0} = Customer Id
     update: 'customers/{0}', // {0} = Customer Id
     flag: 'customers/{0}', // {0} = Customer Id
     listAll: 'customers',

@@ -1,6 +1,7 @@
 import * as routes from './core/routes';
 import * as network from './core/network';
 import * as ServerStatus from '../constants/server_states';
+import * as RecipientUtils from '../models/Recipients';
 
 /**
  * Create new customer
@@ -74,6 +75,33 @@ export function createNewReceiver(values, onSuccess, onFailure) {
 
     network.postJSONDataWithAuthentication(String.format(routes.Customers.createNewReceiver, values.customerId), values.accessToken, body, (result) => {
         onSuccess(result);
+    }, (error) => {
+        onFailure(error);
+    });
+}
+
+/**
+ * fetch customer recipients
+ */
+export function fetchCustomerRecipients(values, onSuccess, onFailure) {
+
+    let url = String.format(routes.Customers.getCustomerRecipients, values.customerId)
+
+    if (values.pageNumber != null) {
+        url = url + '?with_pagination=true&page=' + values.pageNumber
+    } else {
+        url = url + '?with_pagination=true&page=1'
+    }
+
+    console.log(url)
+
+    network.fetchJSONDataWithAuthentication(url, values.accessToken, (result) => {
+
+        var recipients = result.data.map((item) => {
+            return RecipientUtils.Recipient(item);
+        })
+        onSuccess({ data: recipients, meta: result.meta })
+
     }, (error) => {
         onFailure(error);
     });

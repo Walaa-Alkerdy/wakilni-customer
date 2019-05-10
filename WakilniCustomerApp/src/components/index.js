@@ -20,6 +20,7 @@ import ProgressBar from './ProgressBar';
 import PackagesSections from './PackagesPageSections';
 import CreateOrder from './CreateOrder'
 import Pickers from './Picker'
+import RecipientsCell from './RecipientsCell';
 
 export {
     Alerts,
@@ -43,5 +44,6 @@ export {
     ProgressBar,
     PackagesSections,
     CreateOrder,
-    Pickers
+    Pickers,
+    RecipientsCell
 }

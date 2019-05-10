@@ -19,6 +19,7 @@ import ChangePasswordPageContainer from './src/containers/Profile/ChangePassword
 import NotificationsPageContainer from './src/containers/Notifications/NotificationsPageContainer';
 import CreateOrderContainer from './src/containers/Orders/CreateOrderContainer';
 import OrderListingPageContainer from './src/containers/Orders/OrderListingPageContainer';
+import RecipientsContainer from './src/containers/Recipients/RecipientsContainer';
 
 
 const getInitialState = () => {
@@ -94,6 +95,7 @@ const MainScreenNavigatorNotLoggedIn = StackNavigator({
   ChangePasswordPageContainer: { screen: ChangePasswordPageContainer, navigationOptions: commonNavOptions },
   CreateOrderContainer: { screen: CreateOrderContainer, navigationOptions: commonNavOptions },
   OrderListingPageContainer: { screen: OrderListingPageContainer, navigationOptions: commonNavOptions },
+  RecipientsContainer: { screen: RecipientsContainer, navigationOptions: commonNavOptions },
 
 }, {
     initialRouteName: 'LoginContainer',
@@ -112,7 +114,8 @@ const MainScreenNavigatorLoggedIn = StackNavigator({
   ChangePasswordPageContainer: { screen: ChangePasswordPageContainer, navigationOptions: commonNavOptions },
   CreateOrderContainer: { screen: CreateOrderContainer, navigationOptions: commonNavOptions },
   OrderListingPageContainer: { screen: OrderListingPageContainer, navigationOptions: commonNavOptions },
-  
+  RecipientsContainer: { screen: RecipientsContainer, navigationOptions: commonNavOptions },
+
 }, {
     initialRouteName: 'MainPageContainer',
     headerMode: 'screen',

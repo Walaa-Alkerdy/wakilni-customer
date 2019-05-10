@@ -42,3 +42,26 @@ export const createNewReceiver = (values) => (dispatch) => {
         })
     })
 }
+
+export const getCustomerRecipients = (values) => (dispatch) => {
+
+    dispatch({
+        type: ACTION_CUSTOMER.GET_CUSTOMER_RECIPIENTS,
+        state: STATE.LOADING
+    })
+    APICustomer.fetchCustomerRecipients(values, (result) => {
+        dispatch({
+            type: ACTION_CUSTOMER.GET_CUSTOMER_RECIPIENTS,
+            state: STATE.SUCCESS,
+            data: result,
+            isPaging: values.pageNumber != null ? true : false,
+            pageNumber: values.pageNumber
+        })
+    }, (error) => {
+        dispatch({
+            type: ACTION_CUSTOMER.GET_CUSTOMER_RECIPIENTS,
+            state: STATE.FAILED,
+            data: error
+        })
+    })
+}
