@@ -11,7 +11,6 @@ import staffReducer from './staff/staffReducer';
 import TasksPage1Reducer from './tasks/TasksPage1Reducer';
 import TasksPage2Reducer from './tasks/TasksPage2Reducer';
 import LocationReducer from './location/location';
-import HistoryPageReducer from './history/HistoryPageReducer';
 import SubmissionPageReducer from './submissions/submissions';
 import customerReducer from './customer/customerReducer';
 
@@ -34,7 +33,6 @@ var appReducer = flatCombineReducers(dbReducer,
     TasksPage2Reducer,
     messagesReducer,
     LocationReducer,
-    HistoryPageReducer,
     SubmissionPageReducer
 );
 

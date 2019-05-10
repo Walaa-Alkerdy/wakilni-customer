@@ -289,7 +289,7 @@ let locals = new LocalizedStrings({
         CREATE_ORDER_STEP3: 'STEP III',
         CREATE_ORDER_STEP4: 'STEP IV',
         CREATE_ORDER_STEP1_SUBTITLE: 'ORDER INFO',
-        CREATE_ORDER_PAYMENT_TYPE: 'Payment Type',
+        CREATE_ORDER_PAYMENT_TYPE: 'Order Type',
         CREATE_ORDER_PAYMENT_TYPE_1: 'One Way',
         CREATE_ORDER_PAYMENT_TYPE_2: 'Bulk',
         CREATE_ORDER_PAYMENT_TYPE_3: 'Return',
