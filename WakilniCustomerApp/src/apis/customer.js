@@ -93,16 +93,11 @@ export function fetchCustomerRecipients(values, onSuccess, onFailure) {
         url = url + '?with_pagination=true&page=1'
     }
 
-    console.log(url)
-
     network.fetchJSONDataWithAuthentication(url, values.accessToken, (result) => {
 
-        console.log(result)
         var recipients = result.data.map((item) => {
             return RecipientUtils.Recipient(item);
         })
-
-        console.log(recipients)
 
         onSuccess({ data: recipients, meta: result.meta })
 

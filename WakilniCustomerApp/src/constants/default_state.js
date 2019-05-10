@@ -34,4 +34,6 @@ export const defaultState = {
     canLoadMoreOrders: true, //paging helper
     customerRecipients: [],
     canLoadMoreCustomerRecipients: true,
+    currentCustomerRecipientPages: 0,
+    totalCustomerRecipientPages: 100,
 }

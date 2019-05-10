@@ -79,7 +79,7 @@ export default class RecipientsPage extends Component {
 
     renderFooterComponent = () => {
 
-        if (!this.state.isLoadingMore || this.state.isInitalLoading)
+        if (this.props.appState.currentCustomerRecipientPages >= this.props.appState.totalCustomerRecipientPages)
             return null
 
         return (
@@ -87,7 +87,7 @@ export default class RecipientsPage extends Component {
         )
     }
 
-    refreshList(isRefreshing, isLoadingMore, fromDate, toDate) {
+    refreshList(isRefreshing, isLoadingMore) {
 
         if (isLoadingMore) {
 
@@ -148,7 +148,7 @@ export default class RecipientsPage extends Component {
                 <Image style={styles.motoIconStyle} source={require('../../images/common/motoIconHelp.png')} />
 
                 <FlatList
-                    style={{ width: '100%', padding: 20 }}
+                    style={{ width: '100%', padding: 20, marginBottom: 40, }}
                     refreshControl={
                         <RefreshControl
                             tintColor={Colors.SUB_COLOR}
