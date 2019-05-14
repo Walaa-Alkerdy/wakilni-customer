@@ -12,6 +12,8 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "flat-combine-reducers": "^0.1.2",
+    "metro": "^0.54.0",
+    "metro-react-native-babel-preset": "^0.53.1",
     "mkp-react-native-picker": "git+https://github.com/MonkeyKingPlus/react-native-picker.git",
     "moment": "^2.21.0",
     "prop-types": "^15.6.2",
@@ -38,7 +40,6 @@
   "devDependencies": {
     "babel-jest": "23.6.0",
     "jest": "23.6.0",
-    "metro-react-native-babel-preset": "0.51.0",
     "react-test-renderer": "16.5.0"
   },
   "jest": {
