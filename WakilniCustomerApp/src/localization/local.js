@@ -396,7 +396,7 @@ let locals = new LocalizedStrings({
         error_phone_empty: 'is required',
         error_phone_not_valid: 'is not valid',
         error_dob_empty: 'is required',
-        error_password_not_valid: 'Password must be at least 6 characters',
+        error_password_not_valid: 'at least 6 characters',
         error_role_can_not_login: 'sorry this account type cannot access the app at the moment',
         error_whatsapp_not_found: 'WhatsApp is not found on the current device',
 
