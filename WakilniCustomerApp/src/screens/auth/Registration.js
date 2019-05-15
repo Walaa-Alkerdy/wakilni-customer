@@ -332,7 +332,7 @@ export default class Registration extends Component {
                     style={{ backgroundColor: 'white' }}
                     lang="en-US"
                     ref={ref => this.singlePicker = ref}
-                    canFilter={this.state.pickerTypeSelectedIndex == RegistrationPickerTypes.AREAS ? true : false}
+                    canFilter={this.state.pickerTypeSelectedIndex == RegistrationPickerTypes.AREAS && Platform.OS != 'ios' ? true : false}
                     // defaultSelectedValue={}
                     onConfirm={this.handlePicker}
                     onSelect={(value) => { }}
@@ -407,244 +407,269 @@ export default class Registration extends Component {
                     showsVerticalScrollIndicator={false}
                 >
 
-                    {/* email section */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel, { marginTop: 30 }]}>{Locals.REGISTRATION_PAGE_EMAIL}</Text>
-                        {
-                            this.state.emailError ? <Text style={[styles.errorMessage, { marginTop: 30 }]}>{Locals.formatString(Locals.braces, this.state.emailErrorMessage)}</Text> : null
-                        }
-                    </View>
-                    <TextInput
-                        selectionColor={Colors.SUB_COLOR}
-                        style={[styles.inputFields, this.state.emailError ? styles.inputFieldsError : null]}
-                        underlineColorAndroid={'transparent'}
-                        returnKeyType={'done'}
-                        // placeholder={Locals.EMAIL_PLACEHOLDER}
-                        // placeholderTextColor={Colors.TEXT_COLOR}
-                        // placeholderStyle={styles.inputFieldsPlaceholder}
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        value={this.state.email}
-                        onChangeText={email => {
-                            this.setState({ email: email });
-                        }} />
-
-                    {/* password section */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel]}>{Locals.REGISTRATION_PAGE_PASSWORD}</Text>
-                        {
-                            this.state.passwordError ? <Text style={styles.errorMessage}>{Locals.formatString(Locals.braces, this.state.passwordErrorMessage)}</Text> : null
-                        }
-                    </View>
-                    <TextInput
-                        selectionColor={Colors.SUB_COLOR}
-                        style={[styles.inputFields, this.state.passwordError ? styles.inputFieldsError : null]}
-                        underlineColorAndroid={'transparent'}
-                        returnKeyType={'done'}
-                        // placeholder={Locals.PASSWORD_PLACEHOLDER}
-                        // placeholderTextColor={Colors.TEXT_COLOR}
-                        // placeholderStyle={{fontFamily: Fonts.MAIN_FONT}}
-                        secureTextEntry={true}
-                        autoCorrect={false}
-                        value={this.state.password}
-                        onChangeText={password => {
-                            this.setState({ password: password });
-                        }} />
-
-                    {/* confirm password section */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel]}>{Locals.REGISTRATION_PAGE_CONFIRM_PASSWORD}</Text>
-                        {
-                            this.state.confirmPasswordError ? <Text style={styles.errorMessage}>{Locals.formatString(Locals.braces, this.state.confirmPasswordErrorMessage)}</Text> : null
-                        }
-                    </View>
-                    <TextInput
-                        selectionColor={Colors.SUB_COLOR}
-                        style={[styles.inputFields, this.state.confirmPasswordError ? styles.inputFieldsError : null]}
-                        underlineColorAndroid={'transparent'}
-                        returnKeyType={'done'}
-                        // placeholder={Locals.PASSWORD_PLACEHOLDER}
-                        // placeholderTextColor={Colors.TEXT_COLOR}
-                        // placeholderStyle={{fontFamily: Fonts.MAIN_FONT}}
-                        secureTextEntry={true}
-                        autoCorrect={false}
-                        value={this.state.confirmPassword}
-                        onChangeText={confirmPassword => {
-                            this.setState({ confirmPassword: confirmPassword });
-                        }} />
-
                     {/* first name */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel]}>{Locals.REGISTRATION_PAGE_FIRST_NAME}</Text>
-                        {
-                            this.state.firstNameError ? <Text style={styles.errorMessage}>{Locals.formatString(Locals.braces, this.state.firstNameErrorMessage)}</Text> : null
-                        }
+                    <View style={[styles.elementContainer, { marginTop: 30 }]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, {}]}>{Locals.REGISTRATION_PAGE_FIRST_NAME}</Text>
+                            {/* {
+                                this.state.firstNameError ? <Text style={[styles.errorMessage, { marginTop: 30 }]}>{Locals.formatString(Locals.braces, this.state.firstNameErrorMessage)}</Text> : null
+                            } */}
+                        </View>
+                        <TextInput
+                            selectionColor={Colors.SUB_COLOR}
+                            style={[styles.inputFields, this.state.firstNameError ? styles.inputFieldsError : null]}
+                            underlineColorAndroid={'transparent'}
+                            returnKeyType={'done'}
+                            // placeholder={Locals.PASSWORD_PLACEHOLDER}
+                            // placeholderTextColor={Colors.TEXT_COLOR}
+                            // placeholderStyle={{fontFamily: Fonts.MAIN_FONT}}
+                            // secureTextEntry={true}
+                            autoCorrect={false}
+                            value={this.state.firstName}
+                            onChangeText={text => {
+                                this.setState({ firstName: text });
+                            }} />
                     </View>
-                    <TextInput
-                        selectionColor={Colors.SUB_COLOR}
-                        style={[styles.inputFields, this.state.firstNameError ? styles.inputFieldsError : null]}
-                        underlineColorAndroid={'transparent'}
-                        returnKeyType={'done'}
-                        // placeholder={Locals.PASSWORD_PLACEHOLDER}
-                        // placeholderTextColor={Colors.TEXT_COLOR}
-                        // placeholderStyle={{fontFamily: Fonts.MAIN_FONT}}
-                        // secureTextEntry={true}
-                        autoCorrect={false}
-                        value={this.state.firstName}
-                        onChangeText={text => {
-                            this.setState({ firstName: text });
-                        }} />
 
                     {/* last name */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel]}>{Locals.REGISTRATION_PAGE_LAST_NAME}</Text>
-                        {
-                            this.state.lastNameError ? <Text style={styles.errorMessage}>{Locals.formatString(Locals.braces, this.state.lastNameErrorMessage)}</Text> : null
-                        }
+                    <View style={[styles.elementContainer, {}]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_LAST_NAME}</Text>
+                            {/* {
+                                this.state.lastNameError ? <Text style={styles.errorMessage}>{Locals.formatString(Locals.braces, this.state.lastNameErrorMessage)}</Text> : null
+                            } */}
+                        </View>
+                        <TextInput
+                            selectionColor={Colors.SUB_COLOR}
+                            style={[styles.inputFields, this.state.lastNameError ? styles.inputFieldsError : null]}
+                            underlineColorAndroid={'transparent'}
+                            returnKeyType={'done'}
+                            // placeholder={Locals.PASSWORD_PLACEHOLDER}
+                            // placeholderTextColor={Colors.TEXT_COLOR}
+                            // placeholderStyle={{fontFamily: Fonts.MAIN_FONT}}
+                            // secureTextEntry={true}
+                            autoCorrect={false}
+                            value={this.state.lastName}
+                            onChangeText={text => {
+                                this.setState({ lastName: text });
+                            }} />
                     </View>
-                    <TextInput
-                        selectionColor={Colors.SUB_COLOR}
-                        style={[styles.inputFields, this.state.lastNameError ? styles.inputFieldsError : null]}
-                        underlineColorAndroid={'transparent'}
-                        returnKeyType={'done'}
-                        // placeholder={Locals.PASSWORD_PLACEHOLDER}
-                        // placeholderTextColor={Colors.TEXT_COLOR}
-                        // placeholderStyle={{fontFamily: Fonts.MAIN_FONT}}
-                        // secureTextEntry={true}
-                        autoCorrect={false}
-                        value={this.state.lastName}
-                        onChangeText={text => {
-                            this.setState({ lastName: text });
-                        }} />
+
+                    {/* email section */}
+                    <View style={[styles.elementContainer, {}]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_EMAIL}</Text>
+                            {/* {
+                            this.state.emailError ? <Text style={[styles.errorMessage, {}]}>{Locals.formatString(Locals.braces, this.state.emailErrorMessage)}</Text> : null
+                        } */}
+                        </View>
+                        <TextInput
+                            selectionColor={Colors.SUB_COLOR}
+                            style={[styles.inputFields, this.state.emailError ? styles.inputFieldsError : null]}
+                            underlineColorAndroid={'transparent'}
+                            returnKeyType={'done'}
+                            // placeholder={Locals.EMAIL_PLACEHOLDER}
+                            // placeholderTextColor={Colors.TEXT_COLOR}
+                            // placeholderStyle={styles.inputFieldsPlaceholder}
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            value={this.state.email}
+                            onChangeText={email => {
+                                this.setState({ email: email });
+                            }} />
+                    </View>
+
+                    {/* password section */}
+                    <View style={[styles.elementContainer, {}]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_PASSWORD}</Text>
+                            {/* {
+                                this.state.passwordError ? <Text style={styles.errorMessage}>{Locals.formatString(Locals.braces, this.state.passwordErrorMessage)}</Text> : null
+                            } */}
+                        </View>
+                        <TextInput
+                            selectionColor={Colors.SUB_COLOR}
+                            style={[styles.inputFields, this.state.passwordError ? styles.inputFieldsError : null]}
+                            underlineColorAndroid={'transparent'}
+                            returnKeyType={'done'}
+                            // placeholder={Locals.PASSWORD_PLACEHOLDER}
+                            // placeholderTextColor={Colors.TEXT_COLOR}
+                            // placeholderStyle={{fontFamily: Fonts.MAIN_FONT}}
+                            secureTextEntry={true}
+                            autoCorrect={false}
+                            value={this.state.password}
+                            onChangeText={password => {
+                                this.setState({ password: password });
+                            }} />
+                    </View>
+
+                    {/* confirm password section */}
+                    <View style={[styles.elementContainer, {}]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_CONFIRM_PASSWORD}</Text>
+                            {/* {
+                            this.state.confirmPasswordError ? <Text style={styles.errorMessage}>{Locals.formatString(Locals.braces, this.state.confirmPasswordErrorMessage)}</Text> : null
+                        } */}
+                        </View>
+                        <TextInput
+                            selectionColor={Colors.SUB_COLOR}
+                            style={[styles.inputFields, this.state.confirmPasswordError ? styles.inputFieldsError : null]}
+                            underlineColorAndroid={'transparent'}
+                            returnKeyType={'done'}
+                            // placeholder={Locals.PASSWORD_PLACEHOLDER}
+                            // placeholderTextColor={Colors.TEXT_COLOR}
+                            // placeholderStyle={{fontFamily: Fonts.MAIN_FONT}}
+                            secureTextEntry={true}
+                            autoCorrect={false}
+                            value={this.state.confirmPassword}
+                            onChangeText={confirmPassword => {
+                                this.setState({ confirmPassword: confirmPassword });
+                            }} />
+                    </View>
 
                     {/* phone */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel]}>{Locals.REGISTRATION_PAGE_PHONE_NUMBER}</Text>
-                        {
+                    <View style={[styles.elementContainer, {}]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_PHONE_NUMBER}</Text>
+                            {/* {
                             this.state.phoneError ? <Text style={styles.errorMessage}>{Locals.formatString(Locals.braces, this.state.phoneErrorMessage)}</Text> : null
-                        }
-                    </View>
-                    <TextInput
-                        selectionColor={Colors.SUB_COLOR}
-                        style={[styles.inputFields, this.state.phoneError ? styles.inputFieldsError : null]}
-                        underlineColorAndroid={'transparent'}
-                        keyboardType='numeric'
-                        returnKeyType={'done'}
-                        placeholder=''
-                        // placeholder={Locals.PASSWORD_PLACEHOLDER}
-                        // placeholderTextColor={Colors.TEXT_COLOR}
-                        // placeholderStyle={{fontFamily: Fonts.MAIN_FONT}}
-                        autoCorrect={false}
-                        value={this.state.phone}
-                        onChangeText={phone => {
-                            if (phone.trim().length == 0) {
-                                this.setState({ phone: '+' });
-                            } else {
-                                if (phone.includes('+')) {
-                                    this.setState({ phone: `${phone}` })
+                        } */}
+                        </View>
+                        <TextInput
+                            selectionColor={Colors.SUB_COLOR}
+                            style={[styles.inputFields, this.state.phoneError ? styles.inputFieldsError : null]}
+                            underlineColorAndroid={'transparent'}
+                            keyboardType='numeric'
+                            returnKeyType={'done'}
+                            placeholder=''
+                            // placeholder={Locals.PASSWORD_PLACEHOLDER}
+                            // placeholderTextColor={Colors.TEXT_COLOR}
+                            // placeholderStyle={{fontFamily: Fonts.MAIN_FONT}}
+                            autoCorrect={false}
+                            value={this.state.phone}
+                            onChangeText={phone => {
+                                if (phone.trim().length == 0) {
+                                    this.setState({ phone: '+' });
                                 } else {
-                                    this.setState({ phone: `+${phone}` })
+                                    if (phone.includes('+')) {
+                                        this.setState({ phone: `${phone}` })
+                                    } else {
+                                        this.setState({ phone: `+${phone}` })
+                                    }
                                 }
-                            }
-                        }} />
+                            }} />
+                    </View>
 
                     {/* customer type */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel, {}]}>{Locals.REGISTRATION_PAGE_TYPE}</Text>
+                    <View style={[styles.elementContainer, {}]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_TYPE}</Text>
+                        </View>
+                        <TouchableOpacity activeOpacity={this.state.customerTypes.length > 0 ? 0.5 : 1} style={[{ marginBottom: 30, height: 40, backgroundColor: this.state.customerTypes.length > 0 ? '#f0f0f0' : '#919191', borderRadius: 10, justifyContent: 'space-between', flexDirection: 'row', paddingRight: 15, alignItems: 'center', flex: 1 }, this.state.customerTypesError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]} onPress={() => {
+                            // must open picker
+                            this.setState({ pickerTypeSelectedIndex: RegistrationPickerTypes.CUSTOMER_TYPE, pickerData: this.state.customerTypes }, () => {
+                                if (this.state.customerTypes.length > 0) {
+                                    this.singlePicker.show()
+                                }
+                            })
+                        }}>
+                            <Text style={{ fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', paddingLeft: 10 }}>{this.state.selectedCustomerType ? this.state.selectedCustomerType.value : ''}</Text>
+                            <Image source={require('../../images/common/dropDownArrowOpenedGray.png')} style={{ height: 10, width: 15, resizeMode: 'contain' }} />
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity activeOpacity={this.state.customerTypes.length > 0 ? 0.5 : 1} style={[{ marginBottom: 30, height: 40, backgroundColor: this.state.customerTypes.length > 0 ? '#f0f0f0' : '#919191', borderRadius: 10, justifyContent: 'center', width: Dimensions.get('screen').width - 120 }, this.state.customerTypesError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]} onPress={() => {
-                        // must open picker
-                        this.setState({ pickerTypeSelectedIndex: RegistrationPickerTypes.CUSTOMER_TYPE, pickerData: this.state.customerTypes }, () => {
-                            if (this.state.customerTypes.length > 0) {
-                                this.singlePicker.show()
-                            }
-                        })
-                    }}>
-                        <Text style={{ fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', paddingLeft: 10 }}>{this.state.selectedCustomerType ? this.state.selectedCustomerType.value : ''}</Text>
-                    </TouchableOpacity>
 
                     {
                         this.state.selectedCustomerType != null && this.state.selectedCustomerType.key != 19 ? // not individual Client then show shop name and shop phone number
                             <View>
                                 {/* shop name */}
-                                <View style={styles.titleContainer}>
-                                    <Text style={[styles.textFieldLabel]}>{Locals.REGISTRATION_PAGE_SHOP_NAME}</Text>
-                                    {
+                                <View style={[styles.elementContainer, {}]}>
+                                    <View style={[styles.labelContainer]}>
+                                        <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_SHOP_NAME}</Text>
+                                        {/* {
                                         this.state.shopNameError ? <Text style={styles.errorMessage}>{Locals.formatString(Locals.braces, this.state.shopNameErrorMessage)}</Text> : null
-                                    }
+                                    } */}
+                                    </View>
+                                    <TextInput
+                                        selectionColor={Colors.SUB_COLOR}
+                                        style={[styles.inputFields, this.state.shopNameError ? styles.inputFieldsError : null]}
+                                        underlineColorAndroid={'transparent'}
+                                        returnKeyType={'done'}
+                                        // placeholder={Locals.PASSWORD_PLACEHOLDER}
+                                        // placeholderTextColor={Colors.TEXT_COLOR}
+                                        // placeholderStyle={{fontFamily: Fonts.MAIN_FONT}}
+                                        // secureTextEntry={true}
+                                        autoCorrect={false}
+                                        value={this.state.shopName}
+                                        onChangeText={text => {
+                                            this.setState({ shopName: text });
+                                        }} />
                                 </View>
-                                <TextInput
-                                    selectionColor={Colors.SUB_COLOR}
-                                    style={[styles.inputFields, this.state.shopNameError ? styles.inputFieldsError : null]}
-                                    underlineColorAndroid={'transparent'}
-                                    returnKeyType={'done'}
-                                    // placeholder={Locals.PASSWORD_PLACEHOLDER}
-                                    // placeholderTextColor={Colors.TEXT_COLOR}
-                                    // placeholderStyle={{fontFamily: Fonts.MAIN_FONT}}
-                                    // secureTextEntry={true}
-                                    autoCorrect={false}
-                                    value={this.state.shopName}
-                                    onChangeText={text => {
-                                        this.setState({ shopName: text });
-                                    }} />
 
                                 {/* shop phone */}
-                                <View style={styles.titleContainer}>
-                                    <Text style={[styles.textFieldLabel]}>{Locals.REGISTRATION_PAGE_SHOP_PHONE_NUMBER}</Text>
-                                    {
+                                <View style={[styles.elementContainer, {}]}>
+                                    <View style={[styles.labelContainer]}>
+                                        <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_SHOP_PHONE_NUMBER}</Text>
+                                        {/* {
                                         this.state.shopPhoneError ? <Text style={styles.errorMessage}>{Locals.formatString(Locals.braces, this.state.shopPhoneErrorMessage)}</Text> : null
-                                    }
-                                </View>
-                                <TextInput
-                                    selectionColor={Colors.SUB_COLOR}
-                                    style={[styles.inputFields, this.state.shopPhoneError ? styles.inputFieldsError : null]}
-                                    underlineColorAndroid={'transparent'}
-                                    keyboardType='numeric'
-                                    returnKeyType={'done'}
-                                    placeholder=''
-                                    // placeholder={Locals.PASSWORD_PLACEHOLDER}
-                                    // placeholderTextColor={Colors.TEXT_COLOR}
-                                    // placeholderStyle={{fontFamily: Fonts.MAIN_FONT}}
-                                    autoCorrect={false}
-                                    value={this.state.shopPhone}
-                                    onChangeText={shopPhone => {
-                                        if (shopPhone.trim().length == 0) {
-                                            this.setState({ shopPhone: '+' });
-                                        } else {
-                                            if (shopPhone.includes('+')) {
-                                                this.setState({ shopPhone: `${shopPhone}` })
+                                    } */}
+                                    </View>
+                                    <TextInput
+                                        selectionColor={Colors.SUB_COLOR}
+                                        style={[styles.inputFields, this.state.shopPhoneError ? styles.inputFieldsError : null]}
+                                        underlineColorAndroid={'transparent'}
+                                        keyboardType='numeric'
+                                        returnKeyType={'done'}
+                                        placeholder=''
+                                        // placeholder={Locals.PASSWORD_PLACEHOLDER}
+                                        // placeholderTextColor={Colors.TEXT_COLOR}
+                                        // placeholderStyle={{fontFamily: Fonts.MAIN_FONT}}
+                                        autoCorrect={false}
+                                        value={this.state.shopPhone}
+                                        onChangeText={shopPhone => {
+                                            if (shopPhone.trim().length == 0) {
+                                                this.setState({ shopPhone: '+' });
                                             } else {
-                                                this.setState({ shopPhone: `+${shopPhone}` })
+                                                if (shopPhone.includes('+')) {
+                                                    this.setState({ shopPhone: `${shopPhone}` })
+                                                } else {
+                                                    this.setState({ shopPhone: `+${shopPhone}` })
+                                                }
                                             }
-                                        }
-                                    }} />
+                                        }} />
+                                </View>
                             </View>
                             :
                             null
                     }
 
                     {/* gender */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel, {}]}>{Locals.REGISTRATION_PAGE_GENDER}</Text>
+                    <View style={[styles.elementContainer, {}]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_GENDER}</Text>
+                        </View>
+                        <TouchableOpacity activeOpacity={this.state.genderTypes.length > 0 ? 0.5 : 1} style={[{ height: 40, backgroundColor: this.state.genderTypes.length > 0 ? '#f0f0f0' : '#919191', borderRadius: 10, justifyContent: 'space-between', flexDirection: 'row', paddingRight: 15, alignItems: 'center', flex: 1 }, { borderColor: 'transparent', borderWidth: 1 }]} onPress={() => {
+                            // must open picker
+                            this.setState({ pickerTypeSelectedIndex: RegistrationPickerTypes.GENDER, pickerData: this.state.genderTypes }, () => {
+                                if (this.state.genderTypes.length > 0) {
+                                    this.singlePicker.show()
+                                }
+                            })
+                        }}>
+                            <Text style={{ fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', paddingLeft: 10 }}>{this.state.selectedGender ? this.state.selectedGender.value : ''}</Text>
+                            <Image source={require('../../images/common/dropDownArrowOpenedGray.png')} style={{ height: 10, width: 15, resizeMode: 'contain' }} />
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity activeOpacity={this.state.genderTypes.length > 0 ? 0.5 : 1} style={[{ height: 40, backgroundColor: this.state.genderTypes.length > 0 ? '#f0f0f0' : '#919191', borderRadius: 10, justifyContent: 'center', width: Dimensions.get('screen').width - 120 }, { borderColor: 'transparent', borderWidth: 1 }]} onPress={() => {
-                        // must open picker
-                        this.setState({ pickerTypeSelectedIndex: RegistrationPickerTypes.GENDER, pickerData: this.state.genderTypes }, () => {
-                            if (this.state.genderTypes.length > 0) {
-                                this.singlePicker.show()
-                            }
-                        })
-                    }}>
-                        <Text style={{ fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', paddingLeft: 10 }}>{this.state.selectedGender ? this.state.selectedGender.value : ''}</Text>
-                    </TouchableOpacity>
 
                     {/* dob */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel, { marginTop: 30 }]}>{Locals.REGISTRATION_PAGE_DATE_OF_BIRTH}</Text>
+                    <View style={[styles.elementContainer, { marginTop: 30, marginBottom: 40 }]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_DATE_OF_BIRTH}</Text>
+                        </View>
+                        <TouchableOpacity style={[{ height: 40, backgroundColor: '#f0f0f0', borderRadius: 10, justifyContent: 'space-between', flexDirection: 'row', paddingRight: 15, alignItems: 'center', flex: 1 }, { borderColor: 'transparent', borderWidth: 1 }]} onPress={this.showDatePicker}>
+                            <Text style={{ fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', paddingLeft: 10 }}>{this.state.selectedDOB ? moment(this.state.selectedDOB).format('DD-MM-YYYY') : ''}</Text>
+                            <Image source={require('../../images/common/dropDownArrowOpenedGray.png')} style={{ height: 10, width: 15, resizeMode: 'contain' }} />
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity style={[{ marginBottom: 50, height: 40, backgroundColor: '#f0f0f0', borderRadius: 10, justifyContent: 'center', width: Dimensions.get('screen').width - 120 }, { borderColor: 'transparent', borderWidth: 1 }]} onPress={this.showDatePicker}>
-                        <Text style={{ fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', paddingLeft: 10 }}>{this.state.selectedDOB ? moment(this.state.selectedDOB).format('DD-MM-YYYY') : ''}</Text>
-                    </TouchableOpacity>
                     {/* </KeyboardAwareScrollView> */}
                 </ScrollView>
             </KeyboardAvoidingView>
@@ -668,182 +693,205 @@ export default class Registration extends Component {
                 >
 
                     {/* golden rule section */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel, { marginTop: 30 }]}>{Locals.REGISTRATION_PAGE_GOLDEN_RULE}</Text>
+                    <View style={[styles.elementContainer, { marginTop: 30 }]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_GOLDEN_RULE}</Text>
+                        </View>
+                        <TextInput
+                            selectionColor={Colors.SUB_COLOR}
+                            style={[styles.inputFields]}
+                            underlineColorAndroid={'transparent'}
+                            returnKeyType={'done'}
+                            // placeholder={Locals.EMAIL_PLACEHOLDER}
+                            // placeholderTextColor={Colors.TEXT_COLOR}
+                            // placeholderStyle={styles.inputFieldsPlaceholder}
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            value={this.state.goldenRule}
+                            onChangeText={text => {
+                                this.setState({ goldenRule: text });
+                            }} />
                     </View>
-                    <TextInput
-                        selectionColor={Colors.SUB_COLOR}
-                        style={[styles.inputFields]}
-                        underlineColorAndroid={'transparent'}
-                        returnKeyType={'done'}
-                        // placeholder={Locals.EMAIL_PLACEHOLDER}
-                        // placeholderTextColor={Colors.TEXT_COLOR}
-                        // placeholderStyle={styles.inputFieldsPlaceholder}
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        value={this.state.goldenRule}
-                        onChangeText={text => {
-                            this.setState({ goldenRule: text });
-                        }} />
 
                     {/* delivery payment method */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel, {}]}>{Locals.REGISTRATION_PAGE_PAYMENT_METHOD}</Text>
+                    <View style={[styles.elementContainer, {}]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_PAYMENT_METHOD}</Text>
+                        </View>
+                        <TouchableOpacity activeOpacity={this.state.deliveryPaymentMethods.length > 0 ? 0.5 : 1} style={[{ marginBottom: 30, height: 40, backgroundColor: this.state.deliveryPaymentMethods.length > 0 ? '#f0f0f0' : '#919191', borderRadius: 10, justifyContent: 'space-between', flexDirection: 'row', paddingRight: 15, alignItems: 'center', flex: 1 }, this.state.deliveryPaymentMethodsError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]} onPress={() => {
+                            // must open picker
+                            this.setState({ pickerTypeSelectedIndex: RegistrationPickerTypes.DELIVERY_PAYMENT_METHODS, pickerData: this.state.deliveryPaymentMethods }, () => {
+                                if (this.state.deliveryPaymentMethods.length > 0) {
+                                    this.singlePicker.show()
+                                }
+                            })
+                        }}>
+                            <Text style={{ fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', paddingLeft: 10 }}>{this.state.selectedDeliveryPaymentMethod ? this.state.selectedDeliveryPaymentMethod.value : ''}</Text>
+                            <Image source={require('../../images/common/dropDownArrowOpenedGray.png')} style={{ height: 10, width: 15, resizeMode: 'contain' }} />
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity activeOpacity={this.state.deliveryPaymentMethods.length > 0 ? 0.5 : 1} style={[{ marginBottom: 30, height: 40, backgroundColor: this.state.deliveryPaymentMethods.length > 0 ? '#f0f0f0' : '#919191', borderRadius: 10, justifyContent: 'center', width: Dimensions.get('screen').width - 120 }, this.state.deliveryPaymentMethodsError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]} onPress={() => {
-                        // must open picker
-                        this.setState({ pickerTypeSelectedIndex: RegistrationPickerTypes.DELIVERY_PAYMENT_METHODS, pickerData: this.state.deliveryPaymentMethods }, () => {
-                            if (this.state.deliveryPaymentMethods.length > 0) {
-                                this.singlePicker.show()
-                            }
-                        })
-                    }}>
-                        <Text style={{ fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', paddingLeft: 10 }}>{this.state.selectedDeliveryPaymentMethod ? this.state.selectedDeliveryPaymentMethod.value : ''}</Text>
-                    </TouchableOpacity>
 
                     {/* MOF section */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel, {}]}>{Locals.REGISTRATION_PAGE_MOF}</Text>
+                    <View style={[styles.elementContainer, {}]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_MOF}</Text>
+                        </View>
+                        <TextInput
+                            selectionColor={Colors.SUB_COLOR}
+                            style={[styles.inputFields]}
+                            underlineColorAndroid={'transparent'}
+                            returnKeyType={'done'}
+                            // placeholder={Locals.EMAIL_PLACEHOLDER}
+                            // placeholderTextColor={Colors.TEXT_COLOR}
+                            // placeholderStyle={styles.inputFieldsPlaceholder}
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            value={this.state.mof}
+                            onChangeText={text => {
+                                this.setState({ mof: text });
+                            }} />
                     </View>
-                    <TextInput
-                        selectionColor={Colors.SUB_COLOR}
-                        style={[styles.inputFields]}
-                        underlineColorAndroid={'transparent'}
-                        returnKeyType={'done'}
-                        // placeholder={Locals.EMAIL_PLACEHOLDER}
-                        // placeholderTextColor={Colors.TEXT_COLOR}
-                        // placeholderStyle={styles.inputFieldsPlaceholder}
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        value={this.state.mof}
-                        onChangeText={text => {
-                            this.setState({ mof: text });
-                        }} />
 
                     {/* VAT section */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel, {}]}>{Locals.REGISTRATION_PAGE_VAT}</Text>
+                    <View style={[styles.elementContainer, {}]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_VAT}</Text>
+                        </View>
+                        <TextInput
+                            selectionColor={Colors.SUB_COLOR}
+                            style={[styles.inputFields]}
+                            underlineColorAndroid={'transparent'}
+                            returnKeyType={'done'}
+                            // placeholder={Locals.EMAIL_PLACEHOLDER}
+                            // placeholderTextColor={Colors.TEXT_COLOR}
+                            // placeholderStyle={styles.inputFieldsPlaceholder}
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            value={this.state.vat}
+                            onChangeText={text => {
+                                this.setState({ vat: text });
+                            }} />
                     </View>
-                    <TextInput
-                        selectionColor={Colors.SUB_COLOR}
-                        style={[styles.inputFields]}
-                        underlineColorAndroid={'transparent'}
-                        returnKeyType={'done'}
-                        // placeholder={Locals.EMAIL_PLACEHOLDER}
-                        // placeholderTextColor={Colors.TEXT_COLOR}
-                        // placeholderStyle={styles.inputFieldsPlaceholder}
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        value={this.state.vat}
-                        onChangeText={text => {
-                            this.setState({ vat: text });
-                        }} />
 
                     {/* accounting reference number section */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel, {}]}>{Locals.REGISTRATION_PAGE_ACCOUNTING_REFERENCE_NUMBER}</Text>
+                    <View style={[styles.elementContainer, {}]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_ACCOUNTING_REFERENCE_NUMBER}</Text>
+                        </View>
+                        <TextInput
+                            selectionColor={Colors.SUB_COLOR}
+                            style={[styles.inputFields]}
+                            underlineColorAndroid={'transparent'}
+                            returnKeyType={'done'}
+                            // placeholder={Locals.EMAIL_PLACEHOLDER}
+                            // placeholderTextColor={Colors.TEXT_COLOR}
+                            // placeholderStyle={styles.inputFieldsPlaceholder}
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            value={this.state.accountingReferenceNumber}
+                            onChangeText={text => {
+                                this.setState({ accountingReferenceNumber: text });
+                            }} />
                     </View>
-                    <TextInput
-                        selectionColor={Colors.SUB_COLOR}
-                        style={[styles.inputFields]}
-                        underlineColorAndroid={'transparent'}
-                        returnKeyType={'done'}
-                        // placeholder={Locals.EMAIL_PLACEHOLDER}
-                        // placeholderTextColor={Colors.TEXT_COLOR}
-                        // placeholderStyle={styles.inputFieldsPlaceholder}
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        value={this.state.accountingReferenceNumber}
-                        onChangeText={text => {
-                            this.setState({ accountingReferenceNumber: text });
-                        }} />
 
                     {/* location types */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel, {}]}>{Locals.REGISTRATION_PAGE_LOCATION_TYPE}</Text>
+                    <View style={[styles.elementContainer, {}]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_LOCATION_TYPE}</Text>
+                        </View>
+                        <TouchableOpacity activeOpacity={this.state.locationTypes.length > 0 ? 0.5 : 1} style={[{ marginBottom: 30, height: 40, backgroundColor: this.state.locationTypes.length > 0 ? '#f0f0f0' : '#919191', borderRadius: 10, justifyContent: 'space-between', flexDirection: 'row', paddingRight: 15, alignItems: 'center', flex: 1 }, this.state.locationTypesError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]} onPress={() => {
+                            // must open picker
+                            this.setState({ pickerTypeSelectedIndex: RegistrationPickerTypes.LOCATION_TYPES, pickerData: this.state.locationTypes }, () => {
+                                if (this.state.locationTypes.length > 0) {
+                                    this.singlePicker.show()
+                                }
+                            })
+                        }}>
+                            <Text style={{ fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', paddingLeft: 10 }}>{this.state.selectedLocationType ? this.state.selectedLocationType.value : ''}</Text>
+                            <Image source={require('../../images/common/dropDownArrowOpenedGray.png')} style={{ height: 10, width: 15, resizeMode: 'contain' }} />
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity activeOpacity={this.state.locationTypes.length > 0 ? 0.5 : 1} style={[{ marginBottom: 30, height: 40, backgroundColor: this.state.locationTypes.length > 0 ? '#f0f0f0' : '#919191', borderRadius: 10, justifyContent: 'center', width: Dimensions.get('screen').width - 120 }, this.state.locationTypesError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]} onPress={() => {
-                        // must open picker
-                        this.setState({ pickerTypeSelectedIndex: RegistrationPickerTypes.LOCATION_TYPES, pickerData: this.state.locationTypes }, () => {
-                            if (this.state.locationTypes.length > 0) {
-                                this.singlePicker.show()
-                            }
-                        })
-                    }}>
-                        <Text style={{ fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', paddingLeft: 10 }}>{this.state.selectedLocationType ? this.state.selectedLocationType.value : ''}</Text>
-                    </TouchableOpacity>
 
                     {/* areas */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel, {}]}>{Locals.REGISTRATION_PAGE_AREA}</Text>
+                    <View style={[styles.elementContainer, {}]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_AREA}</Text>
+                        </View>
+                        <TouchableOpacity activeOpacity={this.state.areas.length > 0 ? 0.5 : 1} style={[{ marginBottom: 30, height: 40, backgroundColor: this.state.areas.length > 0 ? '#f0f0f0' : '#919191', borderRadius: 10, justifyContent: 'space-between', flexDirection: 'row', paddingRight: 15, alignItems: 'center', flex: 1 }, this.state.areaError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]} onPress={() => {
+                            // must open picker
+                            this.setState({ pickerTypeSelectedIndex: RegistrationPickerTypes.AREAS, pickerData: this.state.areas }, () => {
+                                if (this.state.areas.length > 0) {
+                                    this.singlePicker.show()
+                                }
+                            })
+                        }}>
+                            <Text style={{ fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', paddingLeft: 10 }}>{this.state.selectedArea ? this.state.selectedArea.value : ''}</Text>
+                            <Image source={require('../../images/common/dropDownArrowOpenedGray.png')} style={{ height: 10, width: 15, resizeMode: 'contain' }} />
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity activeOpacity={this.state.areas.length > 0 ? 0.5 : 1} style={[{ marginBottom: 30, height: 40, backgroundColor: this.state.areas.length > 0 ? '#f0f0f0' : '#919191', borderRadius: 10, justifyContent: 'center', width: Dimensions.get('screen').width - 120 }, this.state.areaError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]} onPress={() => {
-                        // must open picker
-                        this.setState({ pickerTypeSelectedIndex: RegistrationPickerTypes.AREAS, pickerData: this.state.areas }, () => {
-                            if (this.state.areas.length > 0) {
-                                this.singlePicker.show()
-                            }
-                        })
-                    }}>
-                        <Text style={{ fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', paddingLeft: 10 }}>{this.state.selectedArea ? this.state.selectedArea.value : ''}</Text>
-                    </TouchableOpacity>
 
                     {/* building section */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel, {}]}>{Locals.REGISTRATION_PAGE_BUILDING}</Text>
+                    <View style={[styles.elementContainer, {}]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_BUILDING}</Text>
+                        </View>
+                        <TextInput
+                            selectionColor={Colors.SUB_COLOR}
+                            style={[styles.inputFields]}
+                            underlineColorAndroid={'transparent'}
+                            returnKeyType={'done'}
+                            // placeholder={Locals.EMAIL_PLACEHOLDER}
+                            // placeholderTextColor={Colors.TEXT_COLOR}
+                            // placeholderStyle={styles.inputFieldsPlaceholder}
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            value={this.state.building}
+                            onChangeText={text => {
+                                this.setState({ building: text });
+                            }} />
                     </View>
-                    <TextInput
-                        selectionColor={Colors.SUB_COLOR}
-                        style={[styles.inputFields]}
-                        underlineColorAndroid={'transparent'}
-                        returnKeyType={'done'}
-                        // placeholder={Locals.EMAIL_PLACEHOLDER}
-                        // placeholderTextColor={Colors.TEXT_COLOR}
-                        // placeholderStyle={styles.inputFieldsPlaceholder}
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        value={this.state.building}
-                        onChangeText={text => {
-                            this.setState({ building: text });
-                        }} />
 
                     {/* floor section */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel, {}]}>{Locals.REGISTRATION_PAGE_FLOOR}</Text>
+                    <View style={[styles.elementContainer, {}]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_FLOOR}</Text>
+                        </View>
+                        <TextInput
+                            selectionColor={Colors.SUB_COLOR}
+                            style={[styles.inputFields]}
+                            underlineColorAndroid={'transparent'}
+                            returnKeyType={'done'}
+                            // placeholder={Locals.EMAIL_PLACEHOLDER}
+                            // placeholderTextColor={Colors.TEXT_COLOR}
+                            // placeholderStyle={styles.inputFieldsPlaceholder}
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            value={this.state.floor}
+                            onChangeText={text => {
+                                this.setState({ floor: text });
+                            }} />
                     </View>
-                    <TextInput
-                        selectionColor={Colors.SUB_COLOR}
-                        style={[styles.inputFields]}
-                        underlineColorAndroid={'transparent'}
-                        returnKeyType={'done'}
-                        // placeholder={Locals.EMAIL_PLACEHOLDER}
-                        // placeholderTextColor={Colors.TEXT_COLOR}
-                        // placeholderStyle={styles.inputFieldsPlaceholder}
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        value={this.state.floor}
-                        onChangeText={text => {
-                            this.setState({ floor: text });
-                        }} />
 
                     {/* directions section */}
-                    <View style={styles.titleContainer}>
-                        <Text style={[styles.textFieldLabel, {}]}>{Locals.REGISTRATION_PAGE_DIRECTIONS}</Text>
+                    <View style={[styles.elementContainer, {}]}>
+                        <View style={[styles.labelContainer]}>
+                            <Text style={[styles.textFieldLabel, { marginRight: 10 }]}>{Locals.REGISTRATION_PAGE_DIRECTIONS}</Text>
+                        </View>
+                        <TextInput
+                            selectionColor={Colors.SUB_COLOR}
+                            style={[styles.inputFields]}
+                            underlineColorAndroid={'transparent'}
+                            returnKeyType={'done'}
+                            // placeholder={Locals.EMAIL_PLACEHOLDER}
+                            // placeholderTextColor={Colors.TEXT_COLOR}
+                            // placeholderStyle={styles.inputFieldsPlaceholder}
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            value={this.state.directions}
+                            onChangeText={text => {
+                                this.setState({ directions: text });
+                            }} />
                     </View>
-                    <TextInput
-                        selectionColor={Colors.SUB_COLOR}
-                        style={[styles.inputFields]}
-                        underlineColorAndroid={'transparent'}
-                        returnKeyType={'done'}
-                        // placeholder={Locals.EMAIL_PLACEHOLDER}
-                        // placeholderTextColor={Colors.TEXT_COLOR}
-                        // placeholderStyle={styles.inputFieldsPlaceholder}
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        value={this.state.directions}
-                        onChangeText={text => {
-                            this.setState({ directions: text });
-                        }} />
 
                 </ScrollView>
             </KeyboardAvoidingView>
@@ -852,7 +900,7 @@ export default class Registration extends Component {
 
     renderStep3 = () => {
         return (
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ justifyContent: 'flex-start', alignItems: 'center', flex: 1 }}>
                 <View style={[styles.radioButtonMainView, { marginBottom: 20, marginTop: 20 }]}>
                     <View style={styles.radioButtonView}>
                         <RadioButton
@@ -882,7 +930,7 @@ export default class Registration extends Component {
                     this.state.isPinningLocation ?
                         <View
                             onLayout={this.handleMapContainerLayoutChange}
-                            style={{ width: Dimensions.get('screen').width - 40, height: Dimensions.get('screen').height - 300, paddingVertical: 20, borderColor: 5, justifyContent: 'center', alignItems: 'center' }}
+                            style={{ width: Dimensions.get('screen').width - 40, flex: 1, paddingVertical: 20, borderColor: 5, justifyContent: 'center', alignItems: 'center' }}
                         >
                             <MapView
                                 style={{ flex: 1, width: '100%' }}
@@ -1215,7 +1263,10 @@ const styles = StyleSheet.create({
     textFieldLabel: {
         color: Colors.TEXT_COLOR,
         fontFamily: Fonts.MAIN_FONT,
-        marginBottom: 5
+        marginRight: 10,
+        // paddingTop: 10,
+        width: 130
+        // marginBottom: 5
     },
     inputFields: {
         color: Colors.TEXT_COLOR,
@@ -1223,7 +1274,8 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.MAIN_FONT,
         fontSize: 11,
         backgroundColor: '#4c4c4c',
-        width: Dimensions.get('screen').width - 120,
+        flex: 1,
+        // width: Dimensions.get('screen').width - 120,
         borderRadius: 10,
         paddingHorizontal: 15,
         paddingVertical: 0,
@@ -1281,5 +1333,16 @@ const styles = StyleSheet.create({
         right: -67,
         bottom: 0,
         overflow: 'hidden'
+    },
+    elementContainer: {
+        width: '100%',
+        paddingHorizontal: 10,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+    },
+    labelContainer: {
+        height: 40,
+        justifyContent: 'center'
     }
 });

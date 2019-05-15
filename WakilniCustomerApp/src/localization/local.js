@@ -501,7 +501,7 @@ let locals = new LocalizedStrings({
         REGISTRATION_PAGE_PASSWORD: 'Password',
         REGISTRATION_PAGE_CONFIRM_PASSWORD: 'Confirm Password',
         REGISTRATION_PAGE_GOLDEN_RULE: 'Golden Rule',
-        REGISTRATION_PAGE_PAYMENT_METHOD: 'DeliveryPayment Method',
+        REGISTRATION_PAGE_PAYMENT_METHOD: 'Delivery Payment Method',
         REGISTRATION_PAGE_MOF: 'MOF',
         REGISTRATION_PAGE_VAT: 'VAT',
         REGISTRATION_PAGE_LOCATION_TYPE: 'Locatyion Type',

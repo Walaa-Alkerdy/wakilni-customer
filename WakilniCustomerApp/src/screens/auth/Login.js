@@ -244,76 +244,53 @@ export default class Login extends Component {
 
           <Image style={styles.motoIconStyle} source={require('../../images/common/motoIconMain.png')} />
 
-          <View style={[styles.mainContainer, { justifyContent: 'flex-start', backgroundColor: 'transparent' }]}>
-            <View style={styles.titleContainer}>
+          <View style={[styles.mainContainer, { justifyContent: 'flex-start', alignItems: 'flex-start', backgroundColor: 'transparent' }]}>
 
-              {
-                this.props.appState.lang == 'en' ?
-                  <View style={styles.titleContainer}>
-                    <Text style={[styles.textFieldLabel, { marginTop: 30 }]}>{Locals.PROFILE_PAGE_EMAIL}</Text>
-                    {
-                      this.state.emailError ? <Text style={[styles.errorMessage, { marginTop: 30 }]}>{Locals.formatString(Locals.braces, this.state.emailErrorMessage)}</Text> : null
-                    }
-                  </View>
-                  :
-                  <View style={styles.titleContainer}>
-                    {
-                      this.state.emailError ? <Text style={[styles.errorMessage, { marginTop: 30 }]}>{Locals.formatString(Locals.braces, this.state.emailErrorMessage)}</Text> : null
-                    }
-                    <Text style={[styles.textFieldLabel, { marginTop: 30 }]}>{Locals.PROFILE_PAGE_EMAIL}</Text>
-                  </View>
-              }
-
-            </View>
-            <TextInput
-              selectionColor={Colors.SUB_COLOR}
-              style={[styles.inputFields, this.state.emailError ? styles.inputFieldsError : null]}
-              underlineColorAndroid={'transparent'}
-              returnKeyType={'done'}
-              // placeholder={Locals.EMAIL_PLACEHOLDER}
-              // placeholderTextColor={Colors.TEXT_COLOR}
-              // placeholderStyle={styles.inputFieldsPlaceholder}
-              autoCapitalize='none'
-              autoCorrect={false}
-              value={this.state.email}
-              onChangeText={email => {
-                this.setState({ email: email });
-              }} />
-            <View style={styles.titleContainer}>
-
-              {
-                this.props.appState.lang == 'en' ?
-                  <View style={styles.titleContainer}>
-                    <Text style={[styles.textFieldLabel]}>{Locals.PASSWORD_PLACEHOLDER}</Text>
-                    {
-                      this.state.passwordError ? <Text style={styles.errorMessage}>{Locals.formatString(Locals.braces, this.state.passwordErrorMessage)}</Text> : null
-                    }
-                  </View>
-                  :
-                  <View style={styles.titleContainer}>
-                    {
-                      this.state.passwordError ? <Text style={styles.errorMessage}>{Locals.formatString(Locals.braces, this.state.passwordErrorMessage)}</Text> : null
-                    }
-                    <Text style={styles.textFieldLabel}>{Locals.PASSWORD_PLACEHOLDER}</Text>
-                  </View>
-              }
-
+            <View style={[styles.elementContainer, { marginTop: 30 }]}>
+              <View style={[styles.labelContainer]}>
+                <Text style={[styles.textFieldLabel, {}]}>{Locals.PROFILE_PAGE_EMAIL}</Text>
+                {/* {
+                this.state.emailError ? <Text style={[styles.errorMessage, { marginTop: 30 }]}>{Locals.formatString(Locals.braces, this.state.emailErrorMessage)}</Text> : null
+              } */}
+              </View>
+              <TextInput
+                selectionColor={Colors.SUB_COLOR}
+                style={[styles.inputFields, this.state.emailError ? styles.inputFieldsError : null]}
+                underlineColorAndroid={'transparent'}
+                returnKeyType={'done'}
+                // placeholder={Locals.EMAIL_PLACEHOLDER}
+                // placeholderTextColor={Colors.TEXT_COLOR}
+                // placeholderStyle={styles.inputFieldsPlaceholder}
+                autoCapitalize='none'
+                autoCorrect={false}
+                value={this.state.email}
+                onChangeText={email => {
+                  this.setState({ email: email });
+                }} />
             </View>
 
-            <TextInput
-              selectionColor={Colors.SUB_COLOR}
-              style={[styles.inputFields, this.state.passwordError ? styles.inputFieldsError : null]}
-              underlineColorAndroid={'transparent'}
-              returnKeyType={'done'}
-              // placeholder={Locals.PASSWORD_PLACEHOLDER}
-              // placeholderTextColor={Colors.TEXT_COLOR}
-              // placeholderStyle={{fontFamily: Fonts.MAIN_FONT}}
-              secureTextEntry={true}
-              autoCorrect={false}
-              value={this.state.password}
-              onChangeText={password => {
-                this.setState({ password: password });
-              }} />
+            <View style={[styles.elementContainer, {}]}>
+              <View style={[styles.labelContainer]}>
+                <Text style={[styles.textFieldLabel]}>{Locals.PASSWORD_PLACEHOLDER}</Text>
+                {/* {
+                      this.state.passwordError ? <Text style={styles.errorMessage}>{Locals.formatString(Locals.braces, this.state.passwordErrorMessage)}</Text> : null
+                    } */}
+              </View>
+              <TextInput
+                selectionColor={Colors.SUB_COLOR}
+                style={[styles.inputFields, this.state.passwordError ? styles.inputFieldsError : null]}
+                underlineColorAndroid={'transparent'}
+                returnKeyType={'done'}
+                // placeholder={Locals.PASSWORD_PLACEHOLDER}
+                // placeholderTextColor={Colors.TEXT_COLOR}
+                // placeholderStyle={{fontFamily: Fonts.MAIN_FONT}}
+                secureTextEntry={true}
+                autoCorrect={false}
+                value={this.state.password}
+                onChangeText={password => {
+                  this.setState({ password: password });
+                }} />
+            </View>
           </View>
 
           <View style={{ flexDirection: 'row', marginBottom: 30, marginHorizontal: 20 }}>
@@ -345,7 +322,7 @@ export default class Login extends Component {
             </TouchableOpacity>
           </View>
         </View>
-      </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView >
     )
   }
 }
@@ -400,7 +377,9 @@ const styles = StyleSheet.create({
   textFieldLabel: {
     color: Colors.TEXT_COLOR,
     fontFamily: Fonts.MAIN_FONT,
-    marginBottom: 5
+    marginBottom: 5,
+    marginRight: 10,
+    width: 100,
   },
   inputFields: {
     color: Colors.TEXT_COLOR,
@@ -408,11 +387,12 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.MAIN_FONT,
     fontSize: 11,
     backgroundColor: '#4c4c4c',
-    width: Dimensions.get('screen').width - 120,
+    flex: 1,
+    // width: Dimensions.get('screen').width - 120,
     borderRadius: 10,
     // paddingLeft: 15,
     paddingVertical: 0,
-    marginBottom: Dimensions.get('screen').height / 13,
+    marginBottom: 30,
     height: 40,
   },
   inputFieldsError: {
@@ -465,5 +445,16 @@ const styles = StyleSheet.create({
     right: -67,
     bottom: 0,
     overflow: 'hidden'
+  },
+  elementContainer: {
+    width: '100%',
+    paddingHorizontal: 10,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  labelContainer: {
+    height: 40,
+    justifyContent: 'center'
   }
 });
