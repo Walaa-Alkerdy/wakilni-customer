@@ -248,7 +248,7 @@ export function postFormDataWithAuthentication(url, token, data, onSuccess, onFa
             onSuccess(json);
         }
     }).catch((error) => {
-        console.log(error)
+        // console.log(error)
         if (error.message) {
             onFailure(error.message)
         } else {
@@ -289,19 +289,30 @@ export function postJSONData(url, data, onSuccess, onFailure) {
 
                 console.log(err)
 
-                if (err.message) {
+                // if (err.errors != {}) {
 
-                    return onFailure(err.message);
-                } else if (err.error) {
+                //     if(err.errors.users){
 
-                    return onFailure(err.error);
-                } else if (err.errors) {
+                //     }
 
-                    return onFailure(err.errors);
-                } else {
+                //     let temp = err.errors[0].split('.')[0]
+                //     return onFailure(temp)
 
-                    return onFailure('something went wrong');
-                }
+                // } else {
+                    if (err.message) {
+
+                        return onFailure(err.message);
+                    } else if (err.error) {
+
+                        return onFailure(err.error);
+                    } else if (err.errors) {
+
+                        return onFailure(err.errors);
+                    } else {
+
+                        return onFailure('something went wrong');
+                    }
+                // }
             });
 
             return null;
@@ -344,7 +355,7 @@ export function postJSONDataWithAuthentication(url, token, data, onSuccess, onFa
             }
         } else {
 
-            console.log(result)
+            // console.log(result)
 
             if (result.status == 401 || result.status == 403) {
                 localStorage.saveAuthStatus("true")
@@ -399,7 +410,7 @@ export function putJSONDataWithAuthentication(url, token, data, onSuccess, onFai
         body: JSON.stringify(data)
     }).then((result) => {
 
-        console.log(result)
+        // console.log(result)
 
         if (isSuccess(result)) {
             if (result.status == 204) {

@@ -367,7 +367,7 @@ export default class ProfilePage extends Component {
 
         if (newProps.appState.state === STATE.SUCCESS && newProps.appState.action === ACTION_USER.GET_USER_INFO) {
 
-            console.log(newProps)
+            // console.log(newProps)
             this.props.resetState();
             this.setState({
                 firstName: newProps.appState.user ? newProps.appState.user.userInfo.firstName : '',
@@ -402,7 +402,7 @@ export default class ProfilePage extends Component {
         // }
 
         if (newProps.appState.state === STATE.SUCCESS && newProps.appState.action === ACTION_USER.UPDATE_USER_INFO) {
-            console.log(newProps)
+            // console.log(newProps)
             this.props.resetState();
             this.setState({
                 firstName: newProps.appState.user ? newProps.appState.user.userInfo.firstName : '',
@@ -479,7 +479,7 @@ export default class ProfilePage extends Component {
                         password: this.state.newPassword,
                     }
 
-                    console.log('i am here')
+                    // console.log('i am here')
 
                     this.props.changePassword(this.props.appState.user.tokenData.accessToken, values);
                     // this.props.updateDriverInformation(this.props.appState.user.tokenData.accessToken, this.props.appState.user.userInfo.driverId, this.props.appState.user.userInfo.email, this.state.password, null, this.state.firstName, this.state.lastName, dobToSubmit, this.state.phone, this.state.isEnglish ? '5' : '4')

@@ -50,7 +50,7 @@ export default class CreateOrderPage extends Component {
                         <View style={{ paddingHorizontal: navigation.state.params ? (navigation.state.params.cameFromMainPage == true) ? 10 : 10 : 0 }}>
                             {
                                 <Buttons.HomeButton language={Locals.getLanguage()} buttonPressed={() => {
-                                    console.log('here')
+                                    // console.log('here')
                                     navigation.goBack()
                                 }} />
                             }

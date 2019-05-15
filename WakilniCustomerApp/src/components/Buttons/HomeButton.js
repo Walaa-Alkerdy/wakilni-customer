@@ -11,7 +11,7 @@ export default class HomeButton extends Component {
             buttonDisabled: false,
         }
 
-        console.log(this.props)
+        // console.log(this.props)
     }
     render() {
         return (

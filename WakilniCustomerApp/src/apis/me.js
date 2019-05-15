@@ -157,7 +157,7 @@ export function getUserInfo(values, onSuccess, onFailure) {
 
     network.fetchJSONDataWithAuthentication(routes.Me.userInfo, values.accessToken, (result) => {
 
-        console.log(result)
+        // console.log(result)
 
         let roleData = { id: -1, name: '' }
         if (result.data.roles.length > 0) {
@@ -275,7 +275,7 @@ export function updateUserInfo(accessToken, driverId, email, password, pattern, 
 
     network.putJSONDataWithAuthentication(routes.Me.userInfo, accessToken, body, (result) => {
 
-        console.log(result)
+        // console.log(result)
 
         helpers.getUser((user) => {
 
@@ -388,7 +388,7 @@ export function changePassword(accessToken, values, onSuccess, onFailure) {
 
         onSuccess({ data: result.data, meta: result.meta })
     }, (error) => {
-        console.log(error)
+        // console.log(error)
         if (onFailure) {
             onFailure(error);
         }

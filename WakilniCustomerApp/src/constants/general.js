@@ -15,3 +15,11 @@ export const Fonts = {
     MAIN_FONT: Platform.OS === 'ios' ? 'OpenSans-Bold' : 'openSansBold',
     SUB_FONT: Platform.OS === 'ios' ? 'OpenSans-Semibold': 'openSansSemibold'
 }
+
+export const RegistrationPickerTypes = {
+    CUSTOMER_TYPE: 0,
+    DELIVERY_PAYMENT_METHODS: 1,
+    LOCATION_TYPES: 2,
+    AREAS: 3,
+    GENDER: 4,
+}

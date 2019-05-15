@@ -88,7 +88,7 @@ export default class SinglePicker extends Component {
 
     render() {
 
-        console.log(this.state.options)
+        // console.log(this.state.options)
         return (
             <Modal
                 animationType={'slide'}

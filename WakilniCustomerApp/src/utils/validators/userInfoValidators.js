@@ -22,9 +22,9 @@ export function isEmailValid(email) {
  * @param {string} password User password
  */
 export function isPasswordValid(password) {
-    // if (password.length <= 5) {
-    //     return false;
-    // }
+    if (password.length <= 5) {
+        return false;
+    }
     return true;
 }
 

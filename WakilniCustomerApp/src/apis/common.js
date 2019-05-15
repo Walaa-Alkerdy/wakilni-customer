@@ -20,7 +20,7 @@ export function uploadFile(values, accessToken, onSuccess, onFailure) {
     }
     body.append('file', JSON.stringify(tempImage))
 
-    console.log(body)
+    // console.log(body)
 
     network.postFormDataWithAuthentication(routes.Upload.uploadFile, accessToken, body, (result) => {
         onSuccess(result);

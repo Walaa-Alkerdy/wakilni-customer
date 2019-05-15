@@ -21,7 +21,7 @@ export function getDriverTasks(values, onlyCompleted, isSubmitted, onSuccess, on
     }
 
     network.fetchJSONDataWithAuthentication(url, values.accessToken, (result) => {
-        console.log(result)
+        // console.log(result)
         var tasks = result.data.map((item) => {
             return TaskUtils.Task(item);
         })
@@ -144,14 +144,14 @@ export function trackDriverLocation(accessToken, values, onSuccess, onFailure) {
 
     let body = values;
 
-    console.log(body)
+    // console.log(body)
 
     network.postJSONDataWithAuthentication(routes.Driver.trackLocation, accessToken, body, (result) => {
 
-        console.log(result)
+        // console.log(result)
         onSuccess(result);
     }, (error) => {
-        console.log(error)
+        // console.log(error)
         if (onFailure) {
             onFailure(error);
         }

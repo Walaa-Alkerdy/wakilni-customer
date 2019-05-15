@@ -227,7 +227,7 @@ export default class NotificationsPage extends Component {
                 this.props.updateAlertsToRead(this.props.appState.user ? this.props.appState.user.tokenData.accessToken : '')
                 this.setState({ listRefreshing: false })
             } else {
-                console.log('nothing to update all are read')
+                // console.log('nothing to update all are read')
                 this.setState({ listRefreshing: false, isLoadingAlerts: false, isLoadingMore: false })
             }
             // this.props.resetState();
@@ -383,8 +383,8 @@ export default class NotificationsPage extends Component {
 
     refreshAlertsList(isRefreshing, isLoadingMore) {
 
-        console.log(isLoadingMore)
-        console.log(this.props.appState.canLoadMoreAlerts)
+        // console.log(isLoadingMore)
+        // console.log(this.props.appState.canLoadMoreAlerts)
         if (isLoadingMore) {
 
             if (this.props.appState.canLoadMoreAlerts || this.state.alertsPageNumber == 0) {//is initial load or i can load more

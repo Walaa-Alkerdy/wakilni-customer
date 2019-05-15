@@ -79,7 +79,7 @@ export default class Login extends Component {
     })
 
     this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, (token) => {
-      console.log(token)
+      // console.log(token)
       // fcm token may not be available on first load, catch it here
       this.setState({ fcmToken: token })
     });
