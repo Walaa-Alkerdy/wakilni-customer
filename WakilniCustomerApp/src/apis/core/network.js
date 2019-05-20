@@ -287,18 +287,22 @@ export function postJSONData(url, data, onSuccess, onFailure) {
 
             result.json().then(function (err) {
 
-                console.log(err)
+                if (err.errors) {
 
-                // if (err.errors != {}) {
+                    let tempErrors = []
+                    Object.keys(err.errors).map((key, value) => {
+                        tempErrors.push({
+                            msg: err.errors[key][0]
+                        });
+                    })
 
-                //     if(err.errors.users){
+                    if (tempErrors.length > 0) {
+                        return onFailure(tempErrors[0].msg)
+                    } else {
+                        return onFailure('Something went wrong')
+                    }
 
-                //     }
-
-                //     let temp = err.errors[0].split('.')[0]
-                //     return onFailure(temp)
-
-                // } else {
+                } else {
                     if (err.message) {
 
                         return onFailure(err.message);
@@ -312,7 +316,7 @@ export function postJSONData(url, data, onSuccess, onFailure) {
 
                         return onFailure('something went wrong');
                     }
-                // }
+                }
             });
 
             return null;
