@@ -11,13 +11,56 @@ import * as generalHelpers from '../utils/helpers/generalHelpers';
 export function getOrders(values, onSuccess, onFailure) {
 
     let url = String.format(routes.Orders.getOrders, values.id)
+
+    if (values.isFiltering) {
+        url = routes.Orders.createOrder + '?search='
+
+        if (values.wayBill != '') {
+            url = url + 'waybill:' + values.wayBill + ';'
+        }
+
+        if (values.selectedRecipient) {
+            url = url + 'orderDetails.receiverable_id:' + values.selectedRecipient.id + ';'
+        }
+
+        if (values.selectedOrderType) {
+            url = url + 'orderDetails.type_id:' + values.selectedOrderType.key + ';'
+        }
+
+        if (values.selectedStatus) {
+            url = url + 'status:' + values.selectedStatus.key + ';'
+        }
+
+        if (values.createdOn) {
+            url = url + 'from_created_at:' + values.createdOn + ';'
+        }
+
+        if (values.createdTill) {
+            url = url + 'to_created_at:' + values.createdTill + ';'
+        }
+
+        if (values.completedOn) {
+            url = url + 'from_completed_on:' + values.completedOn + ';'
+        }
+
+        if (values.completedTill) {
+            url = url + 'to_completed_on:' + values.completedTill + ';'
+        }
+
+        url = url + `orderDetails.customer_id:${values.id}&searchJoin=and`;
+    }
+
     if (values.pageNumber != null) {
         url = url + '&page=' + values.pageNumber
     } else {
         url = url + '&page=0'
     }
 
+    console.log(url)
+
     network.fetchJSONDataWithAuthentication(url, values.accessToken, (result) => {
+
+        console.log(result)
 
         var orders = result.data.map((item) => {
             return OrderUtils.OrderForCustomer(item);
@@ -25,6 +68,7 @@ export function getOrders(values, onSuccess, onFailure) {
         onSuccess({ data: orders, meta: result.meta })
 
     }, (error) => {
+        console.log(error)
         onFailure(error)
     })
 }

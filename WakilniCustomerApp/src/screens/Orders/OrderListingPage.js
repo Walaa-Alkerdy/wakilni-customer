@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Platform, RefreshControl, StyleSheet, Text, View, FlatList, Image, Dimensions } from 'react-native';
-import { Loaders, BadgeButton, Buttons, OrdersPageSections, NoResultsPage } from '../../components';
+import { Platform, Dimensions, RefreshControl, StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
+import { Loaders, BadgeButton, Buttons, OrdersPageSections, NoResultsPage, Alerts } from '../../components';
 import Orientation from 'react-native-orientation';
 import { Colors, Fonts } from '../../constants/general';
-import { STATE, ACTION_ORDER } from '../../constants/states';
+import { STATE, ACTION_ORDER, ACTION_CONSTANTS, ACTION_CUSTOMER } from '../../constants/states';
 import Locals from '../../localization/local';
+import { OrderStatus } from '../../constants/server_states';
 
 var moment = require('moment');
 
@@ -60,6 +61,56 @@ export default class OrderListingPage extends Component {
             ordersPageNumber: 0,
             isLoadingMore: false,
 
+            // filter related 
+            wayBill: '',
+            statuses: [
+                {
+                    key: -1,
+                    value: 'All'
+                },
+                {
+                    key: OrderStatus.ORDER_STATUS_PENDING.key,
+                    value: OrderStatus.ORDER_STATUS_PENDING.label
+                },
+                {
+                    key: OrderStatus.ORDER_STATUS_CONFIRMED.key,
+                    value: OrderStatus.ORDER_STATUS_CONFIRMED.label
+                },
+                {
+                    key: OrderStatus.ORDER_STATUS_DECLINED.key,
+                    value: OrderStatus.ORDER_STATUS_DECLINED.label
+                },
+                {
+                    key: OrderStatus.ORDER_STATUS_CANCELED.key,
+                    value: OrderStatus.ORDER_STATUS_CANCELED.label
+                },
+                {
+                    key: OrderStatus.ORDER_STATUS_PROCESSING.key,
+                    value: OrderStatus.ORDER_STATUS_PROCESSING.label
+                },
+                {
+                    key: OrderStatus.ORDER_STATUS_SUCCESS.key,
+                    value: OrderStatus.ORDER_STATUS_SUCCESS.label
+                },
+                {
+                    key: OrderStatus.ORDER_STATUS_FAILED.key,
+                    value: OrderStatus.ORDER_STATUS_FAILED.label
+                },
+                {
+                    key: OrderStatus.ORDER_STATUS_CLOSED_FAILED.key,
+                    value: OrderStatus.ORDER_STATUS_CLOSED_FAILED.label
+                }
+            ],
+            selectedStatus: null,
+            orderTypes: [],
+            selectedOrderType: null,
+            recipients: [],
+            selectedRecipient: null,
+            createdOn: null,
+            createdTill: null,
+            completedOn: null,
+            completedTill: null,
+
             listRefreshing: false,
             isInitalLoading: true
         }
@@ -77,7 +128,17 @@ export default class OrderListingPage extends Component {
         Orientation.lockToPortrait();
         this.props.navigation.setParams({ handleNotificationPress: this.goToNotifications, badgeCount: this.props.appState.badgeCount, language: this.props.appState.lang })
 
+        if (this.props.appState.constantsList.length > 0) {
+            this.setState({ orderTypes: this.props.appState.constantsList.orderTypes })
+        }
+
         this.refreshList(false, true, this.state.selectedStartDate, this.state.selectedEndDate);
+        // let values = {
+        //     accessToken: this.props.appState.user.tokenData.accessToken,
+        //     customerId: this.props.appState.user.userInfo.customerId,
+        // }
+        // this.props.getCustomerRecipients(values)
+
     }
 
     renderFooterComponent = () => {
@@ -95,21 +156,81 @@ export default class OrderListingPage extends Component {
         if (isLoadingMore) {
 
             if (this.props.appState.canLoadMoreOrders || this.state.ordersPageNumber == 0) {//is initial load or i can load more
-                this.setState({ listRefreshing: isRefreshing, ordersPageNumber: this.state.ordersPageNumber + 1, isLoadingMore: this.props.appState.canLoadMoreOrders ? isLoadingMore : false }, () => {
+                this.setState({ isFiltering: false, listRefreshing: isRefreshing, ordersPageNumber: this.state.ordersPageNumber + 1, isLoadingMore: this.props.appState.canLoadMoreOrders ? isLoadingMore : false }, () => {
                     let values = {
                         accessToken: this.props.appState.user.tokenData.accessToken,
                         id: this.props.appState.user.userInfo.customerId,
-                        pageNumber: this.state.ordersPageNumber
+                        pageNumber: this.state.ordersPageNumber,
                     }
                     this.props.getOrders(values)
                 })
             }
 
         } else {
-            this.setState({ listRefreshing: isRefreshing, ordersPageNumber: 0, isLoadingMore: false }, () => {
+            this.setState({
+
+                //reset
+                wayBill: '',
+                selectedStatus: null,
+                selectedOrderType: null,
+                selectedRecipient: null,
+                createdOn: null,
+                createdTill: null,
+                completedOn: null,
+                completedTill: null,
+
+                isFiltering: false,
+                listRefreshing: isRefreshing,
+                ordersPageNumber: 0,
+                isLoadingMore: false
+            }, () => {
                 let values = {
                     accessToken: this.props.appState.user.tokenData.accessToken,
                     id: this.props.appState.user.userInfo.customerId,
+                }
+                this.props.getOrders(values)
+            })
+        }
+    }
+
+    refreshListWithFilter(isRefreshing, isLoadingMore, fromDate, toDate) {
+
+        if (isLoadingMore) {
+
+            if (this.props.appState.canLoadMoreOrders || this.state.ordersPageNumber == 0) {//is initial load or i can load more
+                this.setState({ isFiltering: true, listRefreshing: isRefreshing, ordersPageNumber: this.state.ordersPageNumber + 1, isLoadingMore: this.props.appState.canLoadMoreOrders ? isLoadingMore : false }, () => {
+                    let values = {
+                        accessToken: this.props.appState.user.tokenData.accessToken,
+                        id: this.props.appState.user.userInfo.customerId,
+                        pageNumber: this.state.ordersPageNumber,
+                        wayBill: this.state.wayBill,
+                        selectedOrderType: this.state.selectedOrderType,
+                        selectedStatus: this.state.selectedStatus,
+                        selectedRecipient: this.state.selectedRecipient,
+                        createdOn: this.state.createdOn ? moment(this.state.createdOn).format('YYYY-MM-D') : null,
+                        createdTill: this.state.createdTill ? moment(this.state.createdTill).format('YYYY-MM-D') : null,
+                        completedOn: this.state.completedOn ? moment(this.state.completedOn).format('YYYY-MM-D') : null,
+                        completedTill: this.state.completedTill ? moment(this.state.completedTill).format('YYYY-MM-D') : null,
+                        isFiltering: true
+                    }
+                    this.props.getOrders(values)
+                })
+            }
+
+        } else {
+            this.setState({ isFiltering: true, listRefreshing: isRefreshing, ordersPageNumber: 0, isLoadingMore: false }, () => {
+                let values = {
+                    accessToken: this.props.appState.user.tokenData.accessToken,
+                    id: this.props.appState.user.userInfo.customerId,
+                    wayBill: this.state.wayBill,
+                    selectedOrderType: this.state.selectedOrderType,
+                    selectedStatus: this.state.selectedStatus,
+                    selectedRecipient: this.state.selectedRecipient,
+                    createdOn: this.state.createdOn ? moment(this.state.createdOn).format('YYYY-MM-D') : null,
+                    createdTill: this.state.createdTill ? moment(this.state.createdTill).format('YYYY-MM-D') : null,
+                    completedOn: this.state.completedOn ? moment(this.state.completedOn).format('YYYY-MM-D') : null,
+                    completedTill: this.state.completedTill ? moment(this.state.completedTill).format('YYYY-MM-D') : null,
+                    isFiltering: true,
                 }
                 this.props.getOrders(values)
             })
@@ -140,6 +261,9 @@ export default class OrderListingPage extends Component {
             this.props.resetState();
         }
 
+        if (this.state.orderTypes.length == 0) {
+            this.setState({ orderTypes: newProps.appState.constantsList.orderTypes })
+        }
         if (newProps.appState.customerOrders != this.state.ordersList && this.state.ordersList.length > 0) {
             this.setState({ ordersList: newProps.appState.customerOrders })
         }
@@ -150,6 +274,15 @@ export default class OrderListingPage extends Component {
         return (
             <View style={[styles.mainContainer, { overflow: 'hidden', justifyContent: this.props.appState.state == STATE.LOADING ? 'flex-start' : 'center' }]}>
                 <Image style={styles.motoIconStyle} source={require('../../images/common/motoIconHelp.png')} />
+
+                <Buttons.RoundCornerButton
+                    buttonStyle={[styles.button]}
+                    textStyle={{ color: '#ffffff', fontFamily: Fonts.MAIN_FONT, fontSize: 15 }}
+                    label={Locals.BUTTON_FILTER}
+                    sectionPressed={() => {
+                        this.orderFilter.show(this.state.wayBill, this.state.statuses, this.state.orderTypes, this.state.selectedStatus, this.state.selectedOrderType, this.state.selectedRecipient, this.state.createdOn, this.state.createdTill, this.state.completedOn, this.state.completedTill)
+                    }}
+                />
 
                 <FlatList
                     style={{ marginTop: 20, marginBottom: 20 }}
@@ -177,7 +310,7 @@ export default class OrderListingPage extends Component {
                         />
                     }
                     ListFooterComponent={this.renderFooterComponent}
-                    onEndReached={() => { this.refreshList(false, true, this.state.selectedStartDate, this.state.selectedEndDate) }}
+                    onEndReached={() => { this.state.isFiltering ? this.refreshListWithFilter(false, true, this.state.selectedStartDate, this.state.selectedEndDate) : this.refreshList(false, true, this.state.selectedStartDate, this.state.selectedEndDate) }}
                     onEndReachedThreshold={0.5}
                 />
 
@@ -189,13 +322,50 @@ export default class OrderListingPage extends Component {
                 }
 
                 {
-                    this.state.isInitalLoading == false && this.state.ordersList.length == 0 ?
+                    this.state.isInitalLoading == false && this.state.ordersList.length == 0 && this.state.isFiltering != true ?
                         <NoResultsPage messageToShow={this.props.appState.errorMessage != '' ? this.props.appState.errorMessage : Locals.NO_RESULTS} />
                         :
                         null
                 }
+
+                <Alerts.OrderFiltersPopUp
+                    ref={orderFilter => this.orderFilter = orderFilter}
+                    confirmPressed={this.filterConfirmPressed}
+                    selectedRecipient={this.state.selectedRecipient}
+                    onRecipientPress={this.moveToRecipientPage}
+                />
             </View>
         );
+    }
+
+    moveToRecipientPage = () => {
+
+        this.props.navigation.navigate({ routeName: 'RecipientsContainer', params: { onRecipientPageReturn: this.onRecipientPageReturn } })
+    }
+
+    onRecipientPageReturn = (selectedRecipient) => {
+        this.setState({ selectedRecipient: selectedRecipient })
+    }
+
+    filterConfirmPressed = (values) => {
+
+        if (values.waybill == '' && values.selectedOrderType == null && values.selectedStatus == null && values.selectedRecipient == null && values.fromCreatedDate == null && values.toCreatedDate == null && values.fromCompletedDate == null && values.toCompletedDate == null) {
+            return;
+        }
+
+        this.setState({
+            wayBill: values.waybill,
+            selectedOrderType: values.selectedOrderType == -1 ? null : values.selectedOrderType,
+            selectedStatus: values.selectedStatus == -1 ? null : values.selectedStatus,
+            selectedRecipient: values.selectedRecipient,
+            createdOn: values.fromCreatedDate,
+            createdTill: values.toCreatedDate,
+            completedOn: values.fromCompletedDate,
+            completedTill: values.toCompletedDate,
+        }, () => {
+            // send filter request
+            this.refreshListWithFilter(true, false, this.state.selectedStartDate, this.state.selectedEndDate)
+        })
     }
 }
 
@@ -270,5 +440,21 @@ const styles = StyleSheet.create({
         right: -67,
         bottom: -2,
         overflow: 'hidden'
+    },
+    button: {
+        backgroundColor: Colors.SUB_COLOR,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '90%',
+        borderColor: Colors.SUB_COLOR,
+        // width: Dimensions.get('screen').width - 90,
+        height: 45,
+        marginVertical: 5,
+        borderRadius: 11,
+        shadowColor: Colors.SUB_COLOR,
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 0.5,
+        shadowRadius: 3,
+        elevation: 1,
     },
 })

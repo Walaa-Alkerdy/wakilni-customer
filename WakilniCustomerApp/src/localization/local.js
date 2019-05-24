@@ -371,6 +371,9 @@ let locals = new LocalizedStrings({
         RECIPIENT_ALLOW_DRIVER_CONTACT: 'Allow Driver Contact',
         RECIPIENT_NOTE: 'Note',
 
+
+        BUTTON_FILTER: 'FILTER',
+
         message_sent_successfully: 'Message sent successfully',
         message_signature_captured_successfully: 'Your signature has been captured',
 
@@ -720,6 +723,8 @@ let locals = new LocalizedStrings({
 
         message_sent_successfully: 'تم إرسال الرسالة بنجاح',
         message_signature_captured_successfully: 'تم التقاط توقيعك',
+
+        BUTTON_FILTER: 'FILTER',
 
         //Errors Section
         error_all_options_are_empty: 'يرجى إختيار على الأقل واحد من الخيارات التالية',

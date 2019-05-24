@@ -12,7 +12,15 @@ export default class RecipientsCell extends Component {
     render() {
 
         return (
-            <View style={styles.mainContainer}>
+            <TouchableOpacity
+                activeOpacity={this.props.canSelect ? 0.5 : 1}
+                style={styles.mainContainer}
+                onPress={() => {
+                    if (this.props.canSelect) {
+                        this.props.onCellPress()
+                    }
+                }}
+            >
                 <View style={styles.dataContainer}>
                     <Text numberOfLines={2} style={styles.titleText}>{Locals.RECIPIENT_NAME}</Text>
                     <Text numberOfLines={2} style={styles.normalText}>{this.props.recipient.name}</Text>
@@ -44,7 +52,7 @@ export default class RecipientsCell extends Component {
                             null
                     }
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 }

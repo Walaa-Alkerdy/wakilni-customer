@@ -22,7 +22,12 @@ export default class RecipientsPage extends Component {
                     Locals.getLanguage() == 'en' ?
 
                         <View>
-                            <Buttons.HomeButton language={Locals.getLanguage()} buttonPressed={() => navigation.goBack()} />
+                            {
+                                navigation.state.params.mustBeBack ?
+                                    <Buttons.BackButton language={Locals.getLanguage()} buttonPressed={() => navigation.goBack()} />
+                                    :
+                                    <Buttons.HomeButton language={Locals.getLanguage()} buttonPressed={() => navigation.goBack()} />
+                            }
                         </View>
                         :
                         <View>
@@ -53,6 +58,7 @@ export default class RecipientsPage extends Component {
 
         this.state = {
             recipientsList: [],
+            canSelectRecipient: false,
 
             recipientsPageNumber: 0,
             isLoadingMore: false,
@@ -72,7 +78,15 @@ export default class RecipientsPage extends Component {
 
     componentDidMount() {
         Orientation.lockToPortrait();
-        this.props.navigation.setParams({ handleNotificationPress: this.goToNotifications, badgeCount: this.props.appState.badgeCount, language: this.props.appState.lang })
+
+        if (this.props.navigation.state.params) {
+            if (this.props.navigation.state.params.onRecipientPageReturn) {
+                this.setState({ canSelectRecipient: true })
+                this.props.navigation.setParams({ handleNotificationPress: this.goToNotifications, badgeCount: this.props.appState.badgeCount, language: this.props.appState.lang, mustBeBack: true })
+            }
+        } else {
+            this.props.navigation.setParams({ handleNotificationPress: this.goToNotifications, badgeCount: this.props.appState.badgeCount, language: this.props.appState.lang })
+        }
 
         this.refreshList(false, true);
     }
@@ -165,7 +179,12 @@ export default class RecipientsPage extends Component {
                     renderItem={({ item, index }) =>
                         <RecipientsCell
                             key={index}
+                            canSelect={this.state.canSelectRecipient}
                             recipient={item}
+                            onCellPress={() => {
+                                this.props.navigation.state.params.onRecipientPageReturn(item)
+                                this.props.navigation.goBack()
+                            }}
                         />
                     }
                     ListFooterComponent={this.renderFooterComponent}
