@@ -372,7 +372,7 @@ let locals = new LocalizedStrings({
         RECIPIENT_NOTE: 'Note',
 
 
-        BUTTON_FILTER: 'FILTER',
+        BUTTON_FILTER: 'CHOOSE FILTERS',
         CLEAR_FILTERS: 'CLEAR FILTERS',
 
         message_sent_successfully: 'Message sent successfully',
@@ -725,7 +725,7 @@ let locals = new LocalizedStrings({
         message_sent_successfully: 'تم إرسال الرسالة بنجاح',
         message_signature_captured_successfully: 'تم التقاط توقيعك',
 
-        BUTTON_FILTER: 'FILTER',
+        BUTTON_FILTER: 'CHOOSE FILTERS',
         CLEAR_FILTERS: 'CLEAR FILTERS',
 
         //Errors Section

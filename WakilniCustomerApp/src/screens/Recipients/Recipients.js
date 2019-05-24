@@ -23,10 +23,14 @@ export default class RecipientsPage extends Component {
 
                         <View>
                             {
-                                navigation.state.params.mustBeBack ?
-                                    <Buttons.BackButton language={Locals.getLanguage()} buttonPressed={() => navigation.goBack()} />
+                                navigation.state.params ?
+                                    navigation.state.params.mustBeBack ?
+                                        <Buttons.BackButton language={Locals.getLanguage()} buttonPressed={() => navigation.goBack()} />
+                                        :
+                                        <Buttons.HomeButton language={Locals.getLanguage()} buttonPressed={() => navigation.goBack()} />
                                     :
                                     <Buttons.HomeButton language={Locals.getLanguage()} buttonPressed={() => navigation.goBack()} />
+
                             }
                         </View>
                         :
@@ -83,9 +87,11 @@ export default class RecipientsPage extends Component {
             if (this.props.navigation.state.params.onRecipientPageReturn) {
                 this.setState({ canSelectRecipient: true })
                 this.props.navigation.setParams({ handleNotificationPress: this.goToNotifications, badgeCount: this.props.appState.badgeCount, language: this.props.appState.lang, mustBeBack: true })
+            } else {
+                this.props.navigation.setParams({ handleNotificationPress: this.goToNotifications, badgeCount: this.props.appState.badgeCount, language: this.props.appState.lang, mustBeBack: false })
             }
         } else {
-            this.props.navigation.setParams({ handleNotificationPress: this.goToNotifications, badgeCount: this.props.appState.badgeCount, language: this.props.appState.lang })
+            this.props.navigation.setParams({ handleNotificationPress: this.goToNotifications, badgeCount: this.props.appState.badgeCount, language: this.props.appState.lang, mustBeBack: false })
         }
 
         this.refreshList(false, true);

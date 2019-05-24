@@ -290,7 +290,7 @@ export default class OrderListingPage extends Component {
                 <View style={{ flexDirection: 'row', width: '100%', marginTop: 20, paddingHorizontal: 20 }}>
                     <Buttons.RoundCornerButton
                         buttonStyle={[styles.button, { width: null, flex: 1, shadowColor: '#919191', backgroundColor: '#919191', borderWidth: 0 }]}
-                        textStyle={{ color: '#ffffff', fontFamily: Fonts.MAIN_FONT, fontSize: 15 }}
+                        textStyle={{ color: '#ffffff', fontFamily: Fonts.MAIN_FONT, fontSize: 14 }}
                         label={Locals.CLEAR_FILTERS}
                         sectionPressed={() => {
                             if (this.state.isFiltering) {
@@ -300,7 +300,7 @@ export default class OrderListingPage extends Component {
                     />
                     <Buttons.RoundCornerButton
                         buttonStyle={[styles.button, { width: null, flex: 1, marginLeft: 8 }]}
-                        textStyle={{ color: '#ffffff', fontFamily: Fonts.MAIN_FONT, fontSize: 15 }}
+                        textStyle={{ color: '#ffffff', fontFamily: Fonts.MAIN_FONT, fontSize: 14 }}
                         label={Locals.BUTTON_FILTER}
                         sectionPressed={() => {
                             this.orderFilter.show(this.state.wayBill, this.state.statuses, this.state.orderTypes, this.state.selectedStatus, this.state.selectedOrderType, this.state.selectedRecipient, this.state.createdOn, this.state.createdTill, this.state.completedOn, this.state.completedTill)
