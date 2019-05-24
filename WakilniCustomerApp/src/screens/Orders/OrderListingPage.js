@@ -379,8 +379,8 @@ export default class OrderListingPage extends Component {
 
         this.setState({
             wayBill: values.waybill,
-            selectedOrderType: values.selectedOrderType == -1 ? null : values.selectedOrderType,
-            selectedStatus: values.selectedStatus == -1 ? null : values.selectedStatus,
+            selectedOrderType: values.selectedOrderType ? values.selectedOrderType.key == -1 ? null : values.selectedOrderType : null,
+            selectedStatus: values.selectedStatus ? values.selectedStatus.key == -1 ? null : values.selectedStatus : null,
             selectedRecipient: values.selectedRecipient,
             createdOn: values.fromCreatedDate,
             createdTill: values.toCreatedDate,

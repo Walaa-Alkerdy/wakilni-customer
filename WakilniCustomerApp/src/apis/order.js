@@ -29,25 +29,28 @@ export function getOrders(values, onSuccess, onFailure) {
 
         if (values.selectedStatus) {
             url = url + 'status:' + values.selectedStatus.key + ';'
-        }
-
-        if (values.createdOn) {
-            url = url + 'from_created_at:' + values.createdOn + ';'
-        }
-
-        if (values.createdTill) {
-            url = url + 'to_created_at:' + values.createdTill + ';'
-        }
-
-        if (values.completedOn) {
-            url = url + 'from_completed_on:' + values.completedOn + ';'
-        }
-
-        if (values.completedTill) {
-            url = url + 'to_completed_on:' + values.completedTill + ';'
+        } else {
+            url = url + 'status:1,2,3,5;'//all
         }
 
         url = url + `orderDetails.customer_id:${values.id}&searchJoin=and`;
+
+        if (values.createdOn) {
+            url = url + '&from_created_at=' + values.createdOn
+        }
+
+        if (values.createdTill) {
+            url = url + '&to_created_at=' + values.createdTill
+        }
+
+        if (values.completedOn) {
+            url = url + '&from_completed_on=' + values.completedOn
+        }
+
+        if (values.completedTill) {
+            url = url + '&to_completed_on=' + values.completedTill
+        }
+
     }
 
     if (values.pageNumber != null) {
