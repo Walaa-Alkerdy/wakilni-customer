@@ -373,6 +373,7 @@ let locals = new LocalizedStrings({
 
 
         BUTTON_FILTER: 'FILTER',
+        CLEAR_FILTERS: 'CLEAR FILTERS',
 
         message_sent_successfully: 'Message sent successfully',
         message_signature_captured_successfully: 'Your signature has been captured',
@@ -725,6 +726,7 @@ let locals = new LocalizedStrings({
         message_signature_captured_successfully: 'تم التقاط توقيعك',
 
         BUTTON_FILTER: 'FILTER',
+        CLEAR_FILTERS: 'CLEAR FILTERS',
 
         //Errors Section
         error_all_options_are_empty: 'يرجى إختيار على الأقل واحد من الخيارات التالية',

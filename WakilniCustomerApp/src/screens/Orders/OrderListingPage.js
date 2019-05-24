@@ -101,9 +101,15 @@ export default class OrderListingPage extends Component {
                     value: OrderStatus.ORDER_STATUS_CLOSED_FAILED.label
                 }
             ],
-            selectedStatus: null,
+            selectedStatus: {
+                key: -1,
+                value: 'All'
+            },
             orderTypes: [],
-            selectedOrderType: null,
+            selectedOrderType: {
+                key: -1,
+                value: 'All'
+            },
             recipients: [],
             selectedRecipient: null,
             createdOn: null,
@@ -171,8 +177,14 @@ export default class OrderListingPage extends Component {
 
                 //reset
                 wayBill: '',
-                selectedStatus: null,
-                selectedOrderType: null,
+                selectedStatus: {
+                    key: -1,
+                    value: 'All'
+                },
+                selectedOrderType: {
+                    key: -1,
+                    value: 'All'
+                },
                 selectedRecipient: null,
                 createdOn: null,
                 createdTill: null,
@@ -275,14 +287,26 @@ export default class OrderListingPage extends Component {
             <View style={[styles.mainContainer, { overflow: 'hidden', justifyContent: this.props.appState.state == STATE.LOADING ? 'flex-start' : 'center' }]}>
                 <Image style={styles.motoIconStyle} source={require('../../images/common/motoIconHelp.png')} />
 
-                <Buttons.RoundCornerButton
-                    buttonStyle={[styles.button]}
-                    textStyle={{ color: '#ffffff', fontFamily: Fonts.MAIN_FONT, fontSize: 15 }}
-                    label={Locals.BUTTON_FILTER}
-                    sectionPressed={() => {
-                        this.orderFilter.show(this.state.wayBill, this.state.statuses, this.state.orderTypes, this.state.selectedStatus, this.state.selectedOrderType, this.state.selectedRecipient, this.state.createdOn, this.state.createdTill, this.state.completedOn, this.state.completedTill)
-                    }}
-                />
+                <View style={{ flexDirection: 'row', width: '100%', marginTop: 20, paddingHorizontal: 20 }}>
+                    <Buttons.RoundCornerButton
+                        buttonStyle={[styles.button, { width: null, flex: 1, shadowColor: '#919191', backgroundColor: '#919191', borderWidth: 0 }]}
+                        textStyle={{ color: '#ffffff', fontFamily: Fonts.MAIN_FONT, fontSize: 15 }}
+                        label={Locals.CLEAR_FILTERS}
+                        sectionPressed={() => {
+                            if (this.state.isFiltering) {
+                                this.refreshList(true, false, this.state.selectedStartDate, this.state.selectedEndDate)
+                            }
+                        }}
+                    />
+                    <Buttons.RoundCornerButton
+                        buttonStyle={[styles.button, { width: null, flex: 1, marginLeft: 8 }]}
+                        textStyle={{ color: '#ffffff', fontFamily: Fonts.MAIN_FONT, fontSize: 15 }}
+                        label={Locals.BUTTON_FILTER}
+                        sectionPressed={() => {
+                            this.orderFilter.show(this.state.wayBill, this.state.statuses, this.state.orderTypes, this.state.selectedStatus, this.state.selectedOrderType, this.state.selectedRecipient, this.state.createdOn, this.state.createdTill, this.state.completedOn, this.state.completedTill)
+                        }}
+                    />
+                </View>
 
                 <FlatList
                     style={{ marginTop: 20, marginBottom: 20 }}
@@ -315,7 +339,7 @@ export default class OrderListingPage extends Component {
                 />
 
                 {
-                    this.state.isInitalLoading ?
+                    this.state.isInitalLoading || this.state.isRefreshing || this.props.appState.state == STATE.LOADING ?
                         <Loaders.Loader />
                         :
                         null
