@@ -168,7 +168,8 @@ export default class RecipientsPage extends Component {
                 <Image style={styles.motoIconStyle} source={require('../../images/common/motoIconHelp.png')} />
 
                 <FlatList
-                    style={{ width: '100%', padding: 20, marginBottom: 40, }}
+                    style={{ width: '100%', marginBottom: 20 }}
+                    contentContainerStyle={{ padding: 20 }}
                     refreshControl={
                         <RefreshControl
                             tintColor={Colors.SUB_COLOR}
