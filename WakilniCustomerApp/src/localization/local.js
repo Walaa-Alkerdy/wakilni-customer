@@ -313,7 +313,8 @@ let locals = new LocalizedStrings({
 
         //step 2
         CREATE_ORDER_STEP2_SUBTITLE: 'RECEIVER INFO',
-        CREATE_ORDER_RECEIVER_LOCATION: 'Receiver Location',
+        // CREATE_ORDER_RECEIVER_LOCATION: 'Receiver Location',
+        CREATE_ORDER_RECEIVER_LOCATION: 'Deliver To',
         CREATE_ORDER_DESCRIPTION: 'Description',
         CREATE_ORDER_CHOOSE_DESCRIPTION: 'Choose Description',
         CREATE_ORDER_CURRENCY: 'Currency',
@@ -325,8 +326,9 @@ let locals = new LocalizedStrings({
         CREATE_ORDER_COLLECTION_TYPE3: 'Paid',
         CREATE_ORDER_QUANTITY: 'Quantity',
         CREATE_ORDER_PACKAGE_TYPE: 'Package Type',
-        CREATE_ORDER_ADD_NEW_DELIVER_PACKAGE: '+ ADD NEW DELIVER PACKAGE',
-        CREATE_ORDER_ADD_NEW_RETURN_PACKAGE: '+ ADD NEW RETURN PACKAGE',
+        // CREATE_ORDER_ADD_NEW_DELIVER_PACKAGE: '+ ADD NEW DELIVER PACKAGE',
+        CREATE_ORDER_ADD_NEW_DELIVER_PACKAGE: '+ ADD MORE DELIVER PACKAGES',
+        CREATE_ORDER_ADD_NEW_RETURN_PACKAGE: '+ ADD MORE RETURN PACKAGES',
         CREATE_ORDER_ADD_NEW_RECEIVER: '+ ADD NEW RECEIVER',
 
         // step 3
@@ -362,7 +364,8 @@ let locals = new LocalizedStrings({
         CREATE_RECEIVER_NOTE: 'Note',
         CREATE_RECEIVER_ALLOW_DRIVER_CONTACT: 'Allow Driver Contact',
         CREATE_RECEIVER_ALLOW_DRIVER_CONTACT2: 'Allow driver to contact receiver',
-        CREATE_RECEIVER_ALLOW_SENDING_DIRECT_MESSAGE: 'Send direct message to receiver',
+        // CREATE_RECEIVER_ALLOW_SENDING_DIRECT_MESSAGE: 'Send direct message to receiver',
+        CREATE_RECEIVER_ALLOW_SENDING_DIRECT_MESSAGE: 'Send tracking SMS message to the recipient',        
 
         // recipients page
         RECIPIENT_NAME: 'Name',

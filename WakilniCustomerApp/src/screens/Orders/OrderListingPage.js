@@ -66,7 +66,7 @@ export default class OrderListingPage extends Component {
             statuses: [
                 {
                     key: -1,
-                    value: 'All'
+                    value: 'All Statuses'
                 },
                 {
                     key: OrderStatus.ORDER_STATUS_PENDING.key,
@@ -103,12 +103,12 @@ export default class OrderListingPage extends Component {
             ],
             selectedStatus: {
                 key: -1,
-                value: 'All'
+                value: 'All Statuses'
             },
             orderTypes: [],
             selectedOrderType: {
                 key: -1,
-                value: 'All'
+                value: 'All Types'
             },
             recipients: [],
             selectedRecipient: null,
@@ -179,11 +179,11 @@ export default class OrderListingPage extends Component {
                 wayBill: '',
                 selectedStatus: {
                     key: -1,
-                    value: 'All'
+                    value: 'All Statuses'
                 },
                 selectedOrderType: {
                     key: -1,
-                    value: 'All'
+                    value: 'All Types'
                 },
                 selectedRecipient: null,
                 createdOn: null,

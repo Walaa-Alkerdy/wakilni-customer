@@ -48,8 +48,8 @@ export default class MainComponent extends Component {
             packagesToDeliverList: [],
             packagesToReturnList: [],
 
-            allowDriverContact: false,
-            allowSendingDirectMessage: false,
+            allowDriverContact: true,
+            allowSendingDirectMessage: true,
         }
     }
 
@@ -176,8 +176,8 @@ export default class MainComponent extends Component {
             selectedDescription: data.receivedData ? data.receivedData.selectedDescription ? data.receivedData.selectedDescription : null : null,
             customNote: data.receivedData ? data.receivedData.customNote ? data.receivedData.customNote : '' : '',
             orderTypeId: data.orderTypeId,
-            allowDriverContact: data.receivedData ? data.receivedData.allowDriverContact : false,
-            allowSendingDirectMessage: data.receivedData ? data.receivedData.allowSendingDirectMessage : false
+            allowDriverContact: data.receivedData ? data.receivedData.allowDriverContact : true,
+            allowSendingDirectMessage: data.receivedData ? data.receivedData.allowSendingDirectMessage : true
         }, () => {
             // this.props.onChangeData(this.state)
         })

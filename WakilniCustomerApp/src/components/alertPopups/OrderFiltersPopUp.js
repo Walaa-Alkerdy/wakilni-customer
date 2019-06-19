@@ -39,7 +39,7 @@ export default class OrderFiltersPopUp extends Component {
         let temp = [
             {
                 key: -1,
-                value: 'All'
+                value: 'All Types'
             }
         ]
 

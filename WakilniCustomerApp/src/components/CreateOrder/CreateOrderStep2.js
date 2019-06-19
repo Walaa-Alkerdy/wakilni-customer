@@ -40,8 +40,8 @@ export default class CreateOrderStep2 extends Component {
                     packagesToDeliverList: [],
                     packagesToReturnList: [],
                     orderTypeId: props.orderTypeId,
-                    allowDriverContact: false,
-                    allowSendingDirectMessage: false
+                    allowDriverContact: true,
+                    allowSendingDirectMessage: true
                 }
             ],
         }
