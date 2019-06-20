@@ -34,7 +34,15 @@ export function fetchDriversOfLocation(locationId, accessToken, onSuccess, onFai
  */
 export function getLocations(values, onSuccess, onFailure) {
 
-    network.fetchJSONDataWithAuthentication(String.format(routes.Location.getLocations, values.customerId), values.accessToken, (result) => {
+    let url = String.format(routes.Location.getLocations, values.customerId)
+
+    if (values.queryString) {
+        url = url + '&name=' + values.queryString
+    } else {
+        url = url + '&just_customer=true'
+    }
+
+    network.fetchJSONDataWithAuthentication(url, values.accessToken, (result) => {
 
         var Locations = [];
         if (result && result.data && Array.isArray(result.data)) {

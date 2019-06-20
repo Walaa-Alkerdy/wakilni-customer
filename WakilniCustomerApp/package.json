@@ -20,6 +20,7 @@
     "react": "^16.8.6",
     "react-native": "0.59.1",
     "react-native-animatable": "^1.2.4",
+    "react-native-autocomplete-input": "^4.1.0",
     "react-native-calendars": "^1.17.7",
     "react-native-collapsible": "^0.10.0",
     "react-native-fcm": "^14.2.0",

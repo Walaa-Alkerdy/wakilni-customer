@@ -92,7 +92,7 @@ export default class CreateOrderStep2 extends Component {
             if (data.oldPageData) {
                 let temp = data.oldPageData
                 if (data.selectedReceiverLocation) {
-                    temp[this.props.selectedReceiverIndex].selectedReceiverLocation = { key: data.selectedReceiverLocation.id, value: data.selectedReceiverLocation.location }
+                    temp[data.selectedReceiverIndex].selectedReceiverLocation = { key: data.selectedReceiverLocation.id, value: data.selectedReceiverLocation.location }
                 }
                 this.setState({ accordionData: temp })
             }
@@ -152,6 +152,7 @@ export default class CreateOrderStep2 extends Component {
                                                     orderTypeId={items.orderTypeId}
                                                     receivedData={items}
                                                     onChangeData={(data) => this.mainComponentDataChanged(items.key, data)}
+                                                    fetchLocations={this.props.fetchLocations}
                                                     openPopUp={() => {
                                                         this.newLocationPopUp.show(this.props.constantsList ? this.props.constantsList.locationTypes : [], this.props.areaList, index)
                                                     }}
@@ -168,6 +169,7 @@ export default class CreateOrderStep2 extends Component {
                                             orderTypeId={this.state.accordionData[0].orderTypeId}
                                             receivedData={this.state.accordionData[0]}
                                             onChangeData={(data) => this.mainComponentDataChanged(0, data)}
+                                            fetchLocations={this.props.fetchLocations}
                                             openPopUp={() => {
                                                 this.newLocationPopUp.show(this.props.constantsList ? this.props.constantsList.locationTypes : [], this.props.areaList, 0)
                                             }}

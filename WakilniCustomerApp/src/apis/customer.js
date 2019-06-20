@@ -2,6 +2,7 @@ import * as routes from './core/routes';
 import * as network from './core/network';
 import * as ServerStatus from '../constants/server_states';
 import * as RecipientUtils from '../models/Recipients';
+import * as LocationUtils from '../models/location';
 import * as helpers from '../utils/helpers/localStorage';
 import Locals from '../localization/local';
 
@@ -143,7 +144,19 @@ export function createNewReceiver(values, onSuccess, onFailure) {
     // console.log(body)
 
     network.postJSONDataWithAuthentication(String.format(routes.Customers.createNewReceiver, values.customerId), values.accessToken, body, (result) => {
-        onSuccess(result);
+
+        console.log(result, 'here')
+
+        let newReceiverLocation = null
+
+        if (result.data) {
+
+            if (result.data.default_address) {
+                newReceiverLocation = LocationUtils.LocationCustomer(result.data.default_address)
+            }
+        }
+
+        onSuccess({ newReceiverLocation });
     }, (error) => {
         onFailure(error);
     });

@@ -4,6 +4,7 @@ import { Fonts, Colors } from '../../constants/general';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 // import { Calendar } from 'react-native-calendars';
+import Autocomplete from 'react-native-autocomplete-input';
 import { Pickers, Alerts, Buttons } from '../../components';
 import Locals from '../../localization/local';
 import * as objectTypes from '../../constants/object_types';
@@ -16,6 +17,8 @@ export default class CreateOrderStep1 extends Component {
         super(props);
 
         this.state = {
+            query: '',
+            mustHideLocationsDropList: true,
             paymentTypes: [],
             deliveryPaymentTypes: [],
             preferredDate: new Date(),
@@ -115,9 +118,9 @@ export default class CreateOrderStep1 extends Component {
                 key: data.selectedPickUpLocation.id ? data.selectedPickUpLocation.id : data.selectedPickUpLocation.key ? data.selectedPickUpLocation.key : -1,
                 value: data.selectedPickUpLocation.location ? data.selectedPickUpLocation.location : data.selectedPickUpLocation.value ? data.selectedPickUpLocation.value : ''
             } : null,
-            preferredDate: data.step1Data ? data.step1Data.selectedDate : new Date(),
-            preferredFrom: data.step1Data ? data.step1Data.selectedFromTime : new Date(),
-            preferredTo: data.step1Data ? data.step1Data.selectedToTime : new Date(),
+            preferredDate: data.step1Data ? data.step1Data.selectedDate ? data.step1Data.selectedDate : new Date() : new Date(),
+            preferredFrom: data.step1Data ? data.step1Data.selectedFromTime ? data.step1Data.selectedFromTime : new Date() : new Date(),
+            preferredTo: data.step1Data ? data.step1Data.selectedToTime ? data.step1Data.selectedToTime : new Date() : new Date(),
             isInitialPreferredFrom: data.step1Data ? data.step1Data.selectedFromTime ? false : true : true,
             isInitialPreferredTo: data.step1Data ? data.step1Data.selectedToTime ? false : true : true,
         }, () => {
@@ -342,15 +345,41 @@ export default class CreateOrderStep1 extends Component {
 
                                 {/* Pickup Location section */}
                                 <Text style={styles.subHeaders}>{Locals.CREATE_ORDER_PICKUP_LOCATION}</Text>
-                                <View style={[{ flexDirection: 'row', height: 50, width: '100%', justifyContent: 'center', alignItems: 'center' },]}>
-                                    <TouchableOpacity activeOpacity={this.state.pickUpLocations.length > 0 ? 0.5 : 1} style={[{ flex: 1, marginRight: 15, backgroundColor: this.state.pickUpLocations.length > 0 ? '#f0f0f0' : '#919191', borderRadius: 5, justifyContent: 'center', height: 40 }, this.state.isPickUpError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]} onPress={() => {
+                                <View style={[{ zIndex: 100, flexDirection: 'row', minHeight: 50, width: '100%', justifyContent: 'center', alignItems: 'center' },]}>
+                                    <Autocomplete
+                                        inputContainerStyle={{ borderColor: 'transparent', borderWidth: 0, width: Dimensions.get('screen').width - 110 }}
+                                        style={[{ paddingHorizontal: 10, width: '100%', marginRight: 15, backgroundColor: '#f0f0f0', borderRadius: 5, justifyContent: 'center', height: 40, fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', fontSize: 14 }, this.state.isPickUpError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]}
+                                        listStyle={{ maxHeight: 150, backgroundColor: '#f0f0f0', borderBottomRightRadius: 5, borderBottomLeftRadius: 5, borderWidth: 1 }}
+                                        // data={this.state.pickUpLocations.filter((location) => { return location.value.includes(this.state.query) })}
+                                        data={this.state.pickUpLocations}
+                                        hideResults={this.state.mustHideLocationsDropList ? true : false}
+                                        defaultValue={this.state.selectedPickUpLocation ? this.state.selectedPickUpLocation.value : ''}
+                                        placeholder={Locals.CREATE_ORDER_START_TYPING}
+                                        onChangeText={text => this.setState({ query: text, mustHideLocationsDropList: false }, () => {
+                                            if (this.state.query.length > 2) {
+                                                this.props.fetchLocations(this.state.query.trim())
+                                            }
+                                        })}
+                                        renderItem={({ item, i }) => (
+                                            <TouchableOpacity
+                                                key={item.key}
+                                                style={{ paddingHorizontal: 10, borderBottomColor: 'black', borderBottomWidth: 0.5, height: 40, justifyContent: 'center', alignItems: 'flex-start', width: '100%' }}
+                                                onPress={() => { this.setState({ selectedPickUpLocation: item, query: item.value, mustHideLocationsDropList: true }) }}
+                                            >
+                                                <Text>{item.value}</Text>
+                                            </TouchableOpacity>
+                                        )}
+                                        flatListProps={{ bounces: false }}
+                                    />
+
+                                    {/* <TouchableOpacity activeOpacity={this.state.pickUpLocations.length > 0 ? 0.5 : 1} style={[{ flex: 1, marginRight: 15, backgroundColor: this.state.pickUpLocations.length > 0 ? '#f0f0f0' : '#919191', borderRadius: 5, justifyContent: 'center', height: 40 }, this.state.isPickUpError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]} onPress={() => {
                                         // must open picker
                                         if (this.state.pickUpLocations.length > 0) {
                                             this.singlePicker.show()
                                         }
                                     }}>
                                         <Text style={{ fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', paddingLeft: 10 }}>{this.state.selectedPickUpLocation ? this.state.selectedPickUpLocation.value : Locals.CREATE_ORDER_CHOOSE_LOCATION}</Text>
-                                    </TouchableOpacity>
+                                    </TouchableOpacity> */}
                                     <TouchableOpacity style={{ width: 50, height: 50, justifyContent: 'center', alignItems: 'center' }} onPress={() => {
                                         // must open location component
                                         this.newLocationPopUp.show(this.props.constantsList ? this.props.constantsList.locationTypes : [], this.props.areaList)

@@ -69,6 +69,8 @@ export default class CreateOrderPage extends Component {
             isLoadingAreas: true,
             getLocationsError: '',
             getAreasError: '',
+            didCreateNewPickUpLocation: false,
+            didCreateNewReceiverLocation: false,
 
             //step 1
             selectedPickUpLocation: null,
@@ -95,11 +97,7 @@ export default class CreateOrderPage extends Component {
     componentWillMount() {
         Orientation.lockToPortrait();
         this.props.navigation.setParams({ language: this.props.appState.lang })
-        let values = {
-            customerId: this.props.appState.user.userInfo.customerId,
-            accessToken: this.props.appState.user.tokenData.accessToken,
-        }
-        this.props.getLocations(values)
+        this.fetchLocations('')
 
         if (this.props.appState.areas.length == 0) {
             this.setState({ isLoadingAreas: false }, () => {
@@ -116,12 +114,18 @@ export default class CreateOrderPage extends Component {
 
             if (!this.state.isLoadingLocations) {
 
-                let selectedPickUpLocation = newProps.appState.pickUpLocations.length > 0 ? newProps.appState.pickUpLocations[newProps.appState.pickUpLocations.length - 1] : null
-                let selectedReceiverLocation = newProps.appState.receiverLocations.length > 0 ? newProps.appState.receiverLocations[newProps.appState.receiverLocations.length - 1] : null
+                let tempLastPickUpLocations = newProps.appState.pickUpLocations.length > 0 ? newProps.appState.pickUpLocations[newProps.appState.pickUpLocations.length - 1] : null
+                let tempLastReceiverLocations = newProps.appState.receiverLocations.length > 0 ? newProps.appState.receiverLocations[newProps.appState.receiverLocations.length - 1] : null
+                // let selectedPickUpLocation = this.state.selectedPickUpLocation ? this.state.selectedPickUpLocation : newProps.appState.pickUpLocations.length > 0 ? newProps.appState.pickUpLocations[newProps.appState.pickUpLocations.length - 1] : null
+                // let selectedReceiverLocation = this.state.selectedReceiverLocation ? this.state.selectedReceiverLocation : newProps.appState.receiverLocations.length > 0 ? newProps.appState.receiverLocations[newProps.appState.receiverLocations.length - 1] : null
+                let selectedPickUpLocation = (tempLastPickUpLocations && this.state.didCreateNewPickUpLocation) ? tempLastPickUpLocations : this.state.selectedPickUpLocation ? this.state.selectedPickUpLocation : null
+                let selectedReceiverLocation = (tempLastReceiverLocations && this.state.didCreateNewReceiverLocation) ? tempLastReceiverLocations : this.state.selectedReceiverLocation ? this.state.selectedReceiverLocation : null
                 this.setState({
                     isLoadingLocations: false,
                     selectedPickUpLocation: selectedPickUpLocation,
                     selectedReceiverLocation: selectedReceiverLocation,
+                    didCreateNewPickUpLocation: false,
+                    didCreateNewReceiverLocation: false,
                 })
             } else {
                 this.setState({ isLoadingLocations: false })
@@ -141,11 +145,8 @@ export default class CreateOrderPage extends Component {
 
         if (newProps.appState.state === STATE.SUCCESS && newProps.appState.action === ACTION_LOCATION.CREATE_LOCATION) {
 
-            let values = {
-                customerId: this.props.appState.user.userInfo.customerId,
-                accessToken: this.props.appState.user.tokenData.accessToken,
-            }
-            this.props.getLocations(values)
+            this.setState({ selectedPickUpLocation: null, didCreateNewPickUpLocation: true })
+            this.fetchLocations('')
 
         } else if (newProps.appState.state === STATE.FAILED && newProps.appState.action === ACTION_LOCATION.CREATE_LOCATION) {
             this.notification.showNotification(newProps.appState.errorMessage, true)
@@ -153,11 +154,9 @@ export default class CreateOrderPage extends Component {
 
         if (newProps.appState.state === STATE.SUCCESS && newProps.appState.action === ACTION_CUSTOMER.CREATE_NEW_RECEIVER) {
 
-            let values = {
-                customerId: this.props.appState.user.userInfo.customerId,
-                accessToken: this.props.appState.user.tokenData.accessToken,
-            }
-            this.props.getLocations(values)
+            this.setState({ selectedReceiverLocation: newProps.appState.newReceiverLocation })
+            // this.setState({ selectedReceiverLocation: null, didCreateNewReceiverLocation: true })
+            // this.fetchLocations('')
 
         } else if (newProps.appState.state === STATE.FAILED && newProps.appState.action === ACTION_CUSTOMER.CREATE_NEW_RECEIVER) {
             this.notification.showNotification(newProps.appState.errorMessage, true)
@@ -220,8 +219,24 @@ export default class CreateOrderPage extends Component {
         this.props.createNewReceiver(values)
     }
 
-
     //general
+    fetchLocations = (text) => {
+
+        let values = {
+            customerId: this.props.appState.user.userInfo.customerId,
+            accessToken: this.props.appState.user.tokenData.accessToken,
+        }
+
+        if (text != '') {//came from autocomplete
+            values = {
+                ...values,
+                queryString: text
+            }
+        }
+
+        this.props.getLocations(values)
+    }
+
     backPressed() {
         switch (this.state.mainTabSelectedIndex) {
             case 0://Step 1                
@@ -377,6 +392,7 @@ export default class CreateOrderPage extends Component {
                         pickUpLocations={this.props.appState.pickUpLocations}
                         selectedPickUpLocation={this.state.selectedPickUpLocation}
                         step1Data={this.state.step1Data}
+                        fetchLocations={this.fetchLocations}
                         createCustomerLocationPressed={(receivedData) => { this.createCustomerLocationPressed(receivedData) }}
                         nextPressed={(receivedData) => { this.nextPressed(receivedData) }}
                     />
@@ -392,6 +408,7 @@ export default class CreateOrderPage extends Component {
                         orderTypeId={this.state.step1Data.selectedPaymentType.id}
                         step2Data={this.state.step2Data ? this.state.step2Data.selectedData : null}
                         oldPageData={this.state.oldPageData ? this.state.oldPageData : null}
+                        fetchLocations={this.fetchLocations}
                         backPressed={() => { this.backPressed() }}
                         selectedReceiverIndex={this.state.selectedReceiverIndex}
                         createReceiverPressed={(receivedData, receiverIndex, oldPageData) => { this.createReceiverPressed(receivedData, receiverIndex, oldPageData) }}

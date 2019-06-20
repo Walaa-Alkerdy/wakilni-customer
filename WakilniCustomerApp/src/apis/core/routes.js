@@ -55,7 +55,8 @@ export const Location = {
     list: 'zones',
     // listDrivers: 'zones/{0}/drivers', // {0} = Zone Id (int)
     listDrivers: 'drivers?search={0}', // {0} = location Id (int)
-    getLocations: 'locations?customer_id={0}' // {0} = customer Id (int)
+    // getLocations: 'locations?customer_id={0}', // {0} = customer Id (int)
+    getLocations: 'locations/names?customer_id={0}' // {0} = customer Id (int)
 }
 
 

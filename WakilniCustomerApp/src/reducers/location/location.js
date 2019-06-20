@@ -17,7 +17,14 @@ export default (state, action) => {
         case ACTION_LOCATION.GET_LOCATIONS:
             switch (action.state) {
                 case STATE.SUCCESS:
-                    return { ...state, pickUpLocations: action.data.filter((location) => { return location.personable ? location.personable.viewer == null : false }), receiverLocations: action.data.filter((location) => { return location.personable ? location.personable.viewer != null : false }), state: action.state, action: action.type }
+                    return { ...state, 
+                        // pickUpLocations: action.data.filter((location) => { return location.personable ? location.personable.viewer == null : false }), 
+                        // receiverLocations: action.data.filter((location) => { return location.personable ? location.personable.viewer != null : false }), 
+                        pickUpLocations: action.data, 
+                        receiverLocations: action.data, 
+                        state: action.state, 
+                        action: action.type 
+                    }
                 case STATE.FAILED:
                     return { ...state, errorMessage: action.data, state: action.state, action: action.type }
                 case STATE.LOADING:

@@ -4,6 +4,7 @@ import { Fonts, Colors } from '../../../constants/general';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 // import { Calendar } from 'react-native-calendars';
 import { Pickers, Alerts, Buttons, RadioButton } from '../../../components';
+import Autocomplete from 'react-native-autocomplete-input';
 import Locals from '../../../localization/local';
 import * as objectTypes from '../../../constants/object_types';
 import PackagesComponent from './PackagesComponent';
@@ -16,6 +17,8 @@ export default class MainComponent extends Component {
         super(props);
 
         this.state = {
+            mustHideLocationsDropList: true,
+            query: '',
             step1OrderTypeId: props.orderTypeId,
 
             preferredDate: new Date(),
@@ -280,15 +283,44 @@ export default class MainComponent extends Component {
 
                 {/* Receiver Location section */}
                 <Text style={styles.subHeaders}>{Locals.CREATE_ORDER_RECEIVER_LOCATION}</Text>
-                <View style={[{ flexDirection: 'row', height: 50, width: '100%', justifyContent: 'center', alignItems: 'center' },]}>
-                    <TouchableOpacity activeOpacity={this.state.receiverLocations.length > 0 ? 0.5 : 1} style={[{ flex: 1, marginRight: 15, backgroundColor: this.state.receiverLocations.length > 0 ? '#f0f0f0' : '#919191', borderRadius: 5, justifyContent: 'center', height: 40 }, this.state.isReceiverLocationError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]} onPress={() => {
+                <View style={[{ zIndex: 100, flexDirection: 'row', height: 50, width: '100%', justifyContent: 'center', alignItems: 'center' },]}>
+                    <Autocomplete
+                        inputContainerStyle={{ borderColor: 'transparent', borderWidth: 0, width: Dimensions.get('screen').width - 110 }}
+                        style={[{ paddingHorizontal: 10, width: '100%', marginRight: 15, backgroundColor: '#f0f0f0', borderRadius: 5, justifyContent: 'center', height: 40, fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', fontSize: 14 }, this.state.isReceiverLocationError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]}
+                        listStyle={{ maxHeight: 150, backgroundColor: '#f0f0f0', borderBottomRightRadius: 5, borderBottomLeftRadius: 5, borderWidth: 1 }}
+                        // data={this.state.pickUpLocations.filter((location) => { return location.value.includes(this.state.query) })}
+                        data={this.state.receiverLocations}
+                        hideResults={this.state.mustHideLocationsDropList ? true : false}
+                        defaultValue={this.state.selectedReceiverLocation ? this.state.selectedReceiverLocation.value : ''}
+                        placeholder={Locals.CREATE_ORDER_START_TYPING}
+                        onChangeText={text => this.setState({ query: text, mustHideLocationsDropList: false }, () => {
+                            if (this.state.query.length > 2) {
+                                this.props.fetchLocations(this.state.query.trim())
+                            }
+                        })}
+                        renderItem={({ item, i }) => (
+                            <TouchableOpacity
+                                key={item.key}
+                                style={{ paddingHorizontal: 10, borderBottomColor: 'black', borderBottomWidth: 0.5, height: 40, justifyContent: 'center', alignItems: 'flex-start', width: '100%' }}
+                                onPress={() => {
+                                    this.setState({ selectedReceiverLocation: item, query: item.value, mustHideLocationsDropList: true }, () => {
+                                        this.props.onChangeData(this.state)
+                                    })
+                                }}
+                            >
+                                <Text>{item.value}</Text>
+                            </TouchableOpacity>
+                        )}
+                        flatListProps={{ bounces: false }}
+                    />
+                    {/* <TouchableOpacity activeOpacity={this.state.receiverLocations.length > 0 ? 0.5 : 1} style={[{ flex: 1, marginRight: 15, backgroundColor: this.state.receiverLocations.length > 0 ? '#f0f0f0' : '#919191', borderRadius: 5, justifyContent: 'center', height: 40 }, this.state.isReceiverLocationError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]} onPress={() => {
                         // must open picker
                         if (this.state.receiverLocations.length > 0) {
                             this.singlePickerLocation.show()
                         }
                     }}>
                         <Text style={{ fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', paddingLeft: 10 }}>{this.state.selectedReceiverLocation ? this.state.selectedReceiverLocation.value : Locals.CREATE_ORDER_CHOOSE_LOCATION}</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <TouchableOpacity style={{ width: 50, height: 50, justifyContent: 'center', alignItems: 'center' }} onPress={() => {
                         this.props.openPopUp()
                     }}>

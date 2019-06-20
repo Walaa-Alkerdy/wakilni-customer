@@ -72,37 +72,48 @@ export function LocationForTask(data) {
 
 export function LocationCustomer(data) {
 
+    let locationFinal = data.full_location
+    // if (data.full_location && data.full_location != '') {
+    //     let tempArray = data.full_location.split("-")
+    //     if (tempArray.length > 2) {
+    //         locationFinal = tempArray[1] + ' - ' + tempArray[2]
+    //     } else if (tempArray.length > 1) {
+    //         locationFinal = tempArray[1]
+    //     }
+    // }
+
     return {
         id: data.id,
-        isActive: data.is_active,
-        location: data.location,
-        building: data.building,
-        floor: data.floor,
-        directions: data.directions,
-        longitude: data.longitude,
-        latitude: data.latitude,
+        // isActive: data.is_active,
+        location: locationFinal.trim(),
+        allowDriverContact: data.allow_driver_contact,
+        // building: data.building,
+        // floor: data.floor,
+        // directions: data.directions,
+        // longitude: data.longitude,
+        // latitude: data.latitude,
         area: data.area ? {
             id: data.area.id,
-            name: data.area.name,
-            zone: data.area.zone ? {
-                id: data.area.zone.id,
-                label: data.area.zone.label,
-                withinGBA: data.area.zone.within_gba
-            } : null,
+            // name: data.area.name,
+            // zone: data.area.zone ? {
+            //     id: data.area.zone.id,
+            //     label: data.area.zone.label,
+            //     withinGBA: data.area.zone.within_gba
+            // } : null,
         } : null,
-        type: data.type ? {
-            id: data.type.id,
-            type: data.type.type,
-            label: data.type.label,
-        } : null,
-        personable: data.personable ? {
-            id: data.personable.id,
-            name: data.personable.name,
-            phoneNumber: data.personable.phone_number,
-            isActive: data.personable.is_active,
-            secondaryPhoneNumber: data.personable.secondary_phone_number,
-            allowDriverContant: data.personable.allowDriverContant,
-            viewer: data.personable.viewer
-        } : null
+        // type: data.type ? {
+        //     id: data.type.id,
+        //     type: data.type.type,
+        //     label: data.type.label,
+        // } : null,
+        // personable: data.personable ? {
+        //     id: data.personable.id,
+        //     name: data.personable.name,
+        //     phoneNumber: data.personable.phone_number,
+        //     isActive: data.personable.is_active,
+        //     secondaryPhoneNumber: data.personable.secondary_phone_number,
+        //     allowDriverContant: data.personable.allowDriverContant,
+        //     viewer: data.personable.viewer
+        // } : null
     }
 }
