@@ -207,10 +207,11 @@ export function createOrder(values, onSuccess, onFailure) {
     network.postJSONDataWithAuthentication(routes.Orders.createOrder, values.accessToken, body, (result) => {
 
         // console.log(result, 'create Order')
+        console.log(result);
         onSuccess(result)
 
     }, (error) => {
-
+        console.log(error);
         onFailure(error)
     })
 }

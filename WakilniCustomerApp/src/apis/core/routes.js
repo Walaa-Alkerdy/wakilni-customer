@@ -140,7 +140,7 @@ export const Constants = {
  */
 export const Orders = {
     createOrder: 'orders',
-    fetchActiveOrders: 'orders?search=completed_on:null&searchJoin=and&page={0}',
-    fetchOrderHistory: 'orders?page=3&search=completed_on:not null&searchJoin=and',
+    fetchActiveOrders: 'active/orders?search=completed_on:null&searchJoin=and&page={0}',
+    fetchOrderHistory: 'history/orders?page=3&search=completed_on:not null&searchJoin=and',
     getOrders: 'orders?search=orderDetails.customer_id:{0}&with_pagination=true', // {0} user id
 }

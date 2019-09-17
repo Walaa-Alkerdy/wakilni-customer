@@ -53,9 +53,9 @@ export function OrderForCustomer(data) {
     let tasks = []
     let packages = []
 
-    data.t.forEach((task) => { // Tasks
-        tasks.push(TaskUtils.Task(task))
-    })
+    // data.t.forEach((task) => { // Tasks
+    //     tasks.push(TaskUtils.Task(task))
+    // })
 
     if (data.oD.p) {
         data.oD.p.forEach((packageItem) => { // packages
@@ -162,7 +162,7 @@ export function OrderForCustomer(data) {
                 label: data.oD.t.label,
                 type: data.oD.t.type,
                 createdAt: data.oD.t.created_at
-            } : null,
+            } : { id: '' },
         } : null,
         orderNumber: data.o_n,// order number
         packageStatus: data.pk_s, // package status

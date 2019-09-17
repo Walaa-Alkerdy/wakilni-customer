@@ -127,6 +127,22 @@ export default class CreateOrderStep4 extends Component {
         }
     }
 
+    getCollectionTypeId = (collectionTypes) => {
+        var item = collectionTypes.find((type) => { return type.isSelected == true });
+        if (!item) {
+            return 0;
+        }
+        return item.id
+    }
+
+    getCollectionLabel = (collectionTypes) => {
+        var item = collectionTypes.find((type) => { return type.isSelected == true });
+        if(item){
+            return item.label;
+        }
+        return "Not available"
+    }
+
     render() {
 
         return (
@@ -253,8 +269,8 @@ export default class CreateOrderStep4 extends Component {
                                                         }
 
                                                         <View style={[styles.parentSubStyle, { paddingTop: 0 }]}>
-                                                            <Image source={this.getImage(2, receiver.collectionTypes.find((type) => { return type.isSelected == true }).id)} style={{ width: 15, height: 15, resizeMode: 'contain' }} />
-                                                            <Text style={styles.normalTextStyle}>{receiver.collectionTypes.find((type) => { return type.isSelected == true }).label}</Text>
+                                                            <Image source={this.getImage(2, this.getCollectionTypeId(receiver.collectionTypes))} style={{ width: 15, height: 15, resizeMode: 'contain' }} />
+                                                            <Text style={styles.normalTextStyle}>{this.getCollectionLabel(receiver.collectionTypes)}</Text>
                                                         </View>
                                                         <View style={[styles.parentSubStyle, { paddingTop: 0, paddingBottom: 10 }]}>
                                                             <View style={[styles.parentSubSubStyle, { flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }]}>

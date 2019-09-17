@@ -85,7 +85,7 @@ export function LocationCustomer(data) {
     return {
         id: data.id,
         // isActive: data.is_active,
-        location: locationFinal.trim(),
+        location: locationFinal ? locationFinal.trim() : '',
         allowDriverContact: data.allow_driver_contact,
         // building: data.building,
         // floor: data.floor,
