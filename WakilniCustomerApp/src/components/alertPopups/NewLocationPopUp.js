@@ -317,9 +317,9 @@ export default class NewLocationPopUp extends Component {
 
         var typeValid = true, areaValid = true, pinValid = true, buildingValid = true, floorValid = true, directionsValid = true
 
-        if (!this.state.selectedCoordinates) {
-            pinValid = false
-        }
+        // if (!this.state.selectedCoordinates) {
+        //     pinValid = false
+        // }
 
         if (!this.state.selectedType) {
             typeValid = false

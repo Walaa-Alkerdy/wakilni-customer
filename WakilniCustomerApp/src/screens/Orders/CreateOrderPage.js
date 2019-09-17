@@ -322,7 +322,7 @@ export default class CreateOrderPage extends Component {
                 packages: tempPackages
             })
         })
-
+        var locationArea = this.props.appState.pickUpLocations.find((location) => { return location.id == this.state.step1Data.selectedPickUpLocation.key }) || { area: { id: 0 } };
 
         let values = {
             customerId: this.props.appState.user.userInfo.customerId,
@@ -336,7 +336,7 @@ export default class CreateOrderPage extends Component {
                 customerId: this.props.appState.user.userInfo.customerId,
                 paymentTypeId: this.state.step1Data.selectedDeliveryPaymentType.id,
                 senderLocationId: this.state.step1Data.selectedPickUpLocation.key,
-                senderLocationAreaId: this.props.appState.pickUpLocations.find((location) => { return location.id == this.state.step1Data.selectedPickUpLocation.key }).area.id,
+                senderLocationAreaId: locationArea.area.id,
                 receiveData: tempReceiveData,
                 requireSignature: this.state.step3Data.isSignatureRequired,
                 requirePicture: this.state.step3Data.isPictureRequired
