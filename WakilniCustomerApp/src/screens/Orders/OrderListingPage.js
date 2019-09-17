@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Platform, Dimensions, RefreshControl, StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
-import { Loaders, BadgeButton, Buttons, OrdersPageSections, NoResultsPage, Alerts } from '../../components';
+import {
+    Loaders, BadgeButton, Buttons, OrdersPageSections,
+    NoResultsPage, Alerts, RadioButton
+} from '../../components';
 import Orientation from 'react-native-orientation';
 import { Colors, Fonts } from '../../constants/general';
 import { STATE, ACTION_ORDER, ACTION_CONSTANTS, ACTION_CUSTOMER } from '../../constants/states';
@@ -53,6 +56,7 @@ export default class OrderListingPage extends Component {
         super(props);
 
         this.state = {
+            filterIndex: 0,
             ordersList: [],
 
             selectedStartDate: moment(new Date()).format("DD/MM/YYYY"),
@@ -164,11 +168,12 @@ export default class OrderListingPage extends Component {
             if (this.props.appState.canLoadMoreOrders || this.state.ordersPageNumber == 0) {//is initial load or i can load more
                 this.setState({ isFiltering: false, listRefreshing: isRefreshing, ordersPageNumber: this.state.ordersPageNumber + 1, isLoadingMore: this.props.appState.canLoadMoreOrders ? isLoadingMore : false }, () => {
                     let values = {
+                        isHistory: this.state.filterIndex == 1,
                         accessToken: this.props.appState.user.tokenData.accessToken,
                         id: this.props.appState.user.userInfo.customerId,
                         pageNumber: this.state.ordersPageNumber,
                     }
-                    this.props.getOrders(values)
+                    this.props.getOrdersOrHistory(values)
                 })
             }
 
@@ -197,10 +202,11 @@ export default class OrderListingPage extends Component {
                 isLoadingMore: false
             }, () => {
                 let values = {
+                    isHistory: this.state.filterIndex == 1,
                     accessToken: this.props.appState.user.tokenData.accessToken,
                     id: this.props.appState.user.userInfo.customerId,
                 }
-                this.props.getOrders(values)
+                this.props.getOrdersOrHistory(values)
             })
         }
     }
@@ -212,6 +218,7 @@ export default class OrderListingPage extends Component {
             if (this.props.appState.canLoadMoreOrders || this.state.ordersPageNumber == 0) {//is initial load or i can load more
                 this.setState({ isFiltering: true, listRefreshing: isRefreshing, ordersPageNumber: this.state.ordersPageNumber + 1, isLoadingMore: this.props.appState.canLoadMoreOrders ? isLoadingMore : false }, () => {
                     let values = {
+                        isHistory: this.state.filterIndex == 1,
                         accessToken: this.props.appState.user.tokenData.accessToken,
                         id: this.props.appState.user.userInfo.customerId,
                         pageNumber: this.state.ordersPageNumber,
@@ -225,13 +232,14 @@ export default class OrderListingPage extends Component {
                         completedTill: this.state.completedTill ? moment(this.state.completedTill).format('YYYY-MM-D') : null,
                         isFiltering: true
                     }
-                    this.props.getOrders(values)
+                    this.props.getOrdersOrHistory(values)
                 })
             }
 
         } else {
             this.setState({ isFiltering: true, listRefreshing: isRefreshing, ordersPageNumber: 0, isLoadingMore: false }, () => {
                 let values = {
+                    isHistory: this.state.filterIndex == 1,
                     accessToken: this.props.appState.user.tokenData.accessToken,
                     id: this.props.appState.user.userInfo.customerId,
                     wayBill: this.state.wayBill,
@@ -244,7 +252,7 @@ export default class OrderListingPage extends Component {
                     completedTill: this.state.completedTill ? moment(this.state.completedTill).format('YYYY-MM-D') : null,
                     isFiltering: true,
                 }
-                this.props.getOrders(values)
+                this.props.getOrdersOrHistory(values)
             })
         }
     }
@@ -304,6 +312,35 @@ export default class OrderListingPage extends Component {
                         label={Locals.BUTTON_FILTER}
                         sectionPressed={() => {
                             this.orderFilter.show(this.state.wayBill, this.state.statuses, this.state.orderTypes, this.state.selectedStatus, this.state.selectedOrderType, this.state.selectedRecipient, this.state.createdOn, this.state.createdTill, this.state.completedOn, this.state.completedTill)
+                        }}
+                    />
+                </View>
+
+                <View style={{ flexDirection: 'row', width: '100%', marginTop: 20, paddingHorizontal: 20, justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
+                    <RadioButton
+                        buttonStyle={[{ width: '50%', shadowColor: '#919191', backgroundColor: '#919191', borderWidth: 0 }]}
+                        textStyle={{ color: '#333333', fontFamily: Fonts.MAIN_FONT, fontSize: 14 }}
+                        label={Locals.ACTIVE_ORDERS}
+                        isSelected={this.state.filterIndex == 0}
+                        onPress={() => {
+                            if (this.state.filterIndex != 0) {
+                                this.setState({ filterIndex: 0 }, () => {
+                                    this, this.refreshList(true, false, Date(), Date());
+                                })
+                            }
+                        }}
+                    />
+                    <RadioButton
+                        buttonStyle={[{ width: '50%', marginLeft: 8 }]}
+                        textStyle={{ color: '#333333', fontFamily: Fonts.MAIN_FONT, fontSize: 14 }}
+                        label={Locals.ORDER_HISTORY}
+                        isSelected={this.state.filterIndex == 1}
+                        onPress={() => {
+                            if (this.state.filterIndex != 1) {
+                                this.setState({ filterIndex: 1 }, () => {
+                                    this, this.refreshList(true, false, Date(), Date());
+                                });
+                            }
                         }}
                     />
                 </View>

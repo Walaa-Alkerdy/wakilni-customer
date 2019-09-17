@@ -289,23 +289,26 @@ export default class CreateOrderPage extends Component {
             let tempPackages = []
 
             item.packagesToDeliverList.forEach((pack) => {
+                var packages = pack.packages.find((packa) => { return packa.isSelected == true }) || { id: 58 };
                 tempPackages.push({
                     new: true,
                     quantity: pack.quantity,
-                    typeId: pack.packages.find((packa) => { return packa.isSelected == true }).id,
+                    typeId: packages.id,
                     tripNumber: 1
                 })
             })
 
             item.packagesToReturnList.forEach((pack) => {
+                var packages = pack.packages.find((packa) => { return packa.isSelected == true }) || { id: 58 };
                 tempPackages.push({
                     new: true,
                     quantity: pack.quantity,
-                    typeId: pack.packages.find((packa) => { return packa.isSelected == true }).id,
+                    typeId: packages.id,
                     tripNumber: 2
                 })
             })
-
+            var collectionType = item.collectionTypes.find((cType) => { return cType.isSelected == true }) || { id: 52 }
+            var selectedPayment = this.state.step1Data.selectedPaymentType || { id: 21 }
             tempReceiveData.push({
                 receiverLocationId: item.selectedReceiverLocation.key,
                 preferredReceiverDate: moment(item.preferredDate).format('YYYY-MM-DD'),
@@ -313,16 +316,16 @@ export default class CreateOrderPage extends Component {
                 preferredReceiverToTime: item.preferredTo ? moment(item.preferredTo).format('hh:mm:ss') : null,
                 description: item.customNote,
                 collectionCurrency: item.selectedCurrencyId,
-                collectionTypeId: item.collectionTypes.find((cType) => { return cType.isSelected == true }).id,
+                collectionTypeId: collectionType.id,
                 collectionAmount: item.collectionAmount,
                 allowReceiverContact: item.allowDriverContact,
                 sendReceiverMsg: item.allowSendingDirectMessage,
                 wayBill: item.wayBill,
-                isSamePackage: this.state.step1Data.selectedPaymentType.id != objectTypes.ORDER.RETURN_TRIP.id ? false : this.state.step2Data.selectedData.filter((item) => { return item.packagesToReturnList.length > 0 }).length > 0 ? true : false,
+                isSamePackage: selectedPayment.id != objectTypes.ORDER.RETURN_TRIP.id ? false : this.state.step2Data.selectedData.filter((item) => { return item.packagesToReturnList.length > 0 }).length > 0 ? true : false,
                 packages: tempPackages
             })
         })
-
+        var locationArea = this.props.appState.pickUpLocations.find((location) => { return location.id == this.state.step1Data.selectedPickUpLocation.key }) || { area: { id: 0 } };
 
         let values = {
             customerId: this.props.appState.user.userInfo.customerId,
@@ -336,7 +339,7 @@ export default class CreateOrderPage extends Component {
                 customerId: this.props.appState.user.userInfo.customerId,
                 paymentTypeId: this.state.step1Data.selectedDeliveryPaymentType.id,
                 senderLocationId: this.state.step1Data.selectedPickUpLocation.key,
-                senderLocationAreaId: this.props.appState.pickUpLocations.find((location) => { return location.id == this.state.step1Data.selectedPickUpLocation.key }).area.id,
+                senderLocationAreaId: locationArea.area.id,
                 receiveData: tempReceiveData,
                 requireSignature: this.state.step3Data.isSignatureRequired,
                 requirePicture: this.state.step3Data.isPictureRequired

@@ -515,10 +515,10 @@ export default class ProfilePage extends Component {
                 lastNameError = Locals.error_last_name_empty;
             }
 
-            if (validators.isEmpty(this.state.dob)) {
-                dobValid = false;
-                dobError = Locals.error_dob_empty;
-            }
+            // if (validators.isEmpty(this.state.dob)) {
+            //     dobValid = false;
+            //     dobError = Locals.error_dob_empty;
+            // }
 
             if (!validators.isEmpty(this.state.phone)) {
 
@@ -740,7 +740,7 @@ export default class ProfilePage extends Component {
                             }
                         }} />
 
-                    {
+                    {/* {
                         this.props.appState.lang == 'en' ?
                             <View style={styles.titleContainer}>
                                 <Text style={styles.textFieldLabel}>{Locals.PROFILE_PAGE_DOB}</Text>
@@ -755,11 +755,11 @@ export default class ProfilePage extends Component {
                                 }
                                 <Text style={styles.textFieldLabel}>{Locals.PROFILE_PAGE_DOB}</Text>
                             </View>
-                    }
+                    } */}
 
-                    <TouchableOpacity style={styles.dateButtons} onPress={() => this.setState({ isDateTimePickerVisible: true })}>
+                    {/* <TouchableOpacity style={styles.dateButtons} onPress={() => this.setState({ isDateTimePickerVisible: true })}>
                         <Text style={{ minWidth: 90, textAlign: 'center', fontFamily: Fonts.SUB_FONT, color: '#a1a1a1' }}>{this.state.dob != '' ? this.state.dob : Locals.CHOOSE_DATE}</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                     {/* <View style={styles.radioButtonMainView}>
                         <View style={styles.radioButtonView}>

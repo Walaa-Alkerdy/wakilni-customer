@@ -155,7 +155,7 @@ export function createNewReceiver(values, onSuccess, onFailure) {
                 newReceiverLocation = LocationUtils.LocationCustomer(result.data.default_address)
             }
         }
-
+        console.log(newReceiverLocation);
         onSuccess({ newReceiverLocation });
     }, (error) => {
         onFailure(error);

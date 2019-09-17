@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import OrderListingPage from '../../screens/Orders/OrderListingPage';
 import { resetState } from '../../actions/common';
-import { getOrders } from '../../actions/order';
+import { getOrders, getOrdersOrHistoryAPI } from '../../actions/order';
 import { getCustomerRecipients } from '../../actions/customer';
 
 const mapStateToProps = state => ({
@@ -14,6 +14,9 @@ const mapDispatchToProps = dispatch => ({
     },
     getOrders: (values) => {
         dispatch(getOrders(values))
+    },
+    getOrdersOrHistory: (values) => {
+        dispatch(getOrdersOrHistoryAPI(values))
     },
     resetState: () => {
         dispatch(resetState())

@@ -85,7 +85,7 @@ export default class CreateOrderStep2 extends Component {
     }
 
     prepareData(data) {
-
+        console.log(data)
         if (data.step2Data) {
             this.setState({ accordionData: data.step2Data })
         } else {
@@ -261,6 +261,8 @@ export default class CreateOrderStep2 extends Component {
                 locationValid = false
             }
         })
+
+        console.log(temp);
 
         this.setState({ accordionData: temp })
 
