@@ -8,14 +8,14 @@
 #import "AppDelegate.h"
 
 //#import "Orientation.h"//for orientation library
-#import <React/RCTBundleURLProvider.h>
-#import <React/RCTRootView.h>
 // #if __has_include(<React/RNSentry.h>)
 // #import <React/RNSentry.h> // This is used for versions of react >= 0.40
 // #else
 // #import "RNSentry.h" // This is used for versions of react < 0.40
 // #endif
 #import "RNFIRMessaging.h"
+#import <React/RCTBundleURLProvider.h>
+#import <React/RCTRootView.h>
 //#import <GoogleMaps/GoogleMaps.h>
 
 @implementation AppDelegate
