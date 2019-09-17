@@ -128,7 +128,7 @@ export function getOrdersOrHistory(url, values, onSuccess, onFailure) {
     if (values.pageNumber != null) {
         url = url + '&page=' + values.pageNumber
     } else {
-        url = url + '&page=0'
+        url = url + `&page=${values.pageNumber || 0}`
     }
 
     console.log(url)
