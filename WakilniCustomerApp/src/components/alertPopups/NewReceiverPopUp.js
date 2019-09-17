@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, Dimensions, StyleSheet, TextInput, Text, TouchableOpacity, View, Animated, Easing } from 'react-native';
+import { Platform, Dimensions, StyleSheet, TextInput, Text, TouchableOpacity, View, Animated, Easing, ScrollView, PermissionsAndroid } from 'react-native';
 import Locals from '../../localization/local';
 import { Fonts, Colors } from '../../constants/general';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -144,6 +144,7 @@ export default class NewReceiverPopUp extends Component {
                     >
 
                         <KeyboardAwareScrollView
+                            ref={scroll => this.scrollView = scroll}
                             // resetScrollToCoords={{ x: 0, y: 0 }}
                             style={{ width: '100%' }}
                             contentContainerStyle={{ flexGrow: 1 }}
@@ -155,12 +156,18 @@ export default class NewReceiverPopUp extends Component {
                                 <View style={[styles.mainInnerContainer, { justifyContent: 'flex-start', backgroundColor: 'transparent', marginBottom: 30, marginTop: 30 }]}>
 
                                     <MapView
-                                        style={{ height: 200, width: Dimensions.get('screen').width - 90, marginBottom: 15 }}
+                                        style={{ height: 200, width: Dimensions.get('screen').width - 90, marginBottom: 15, paddingTop: this.state.marginBottom }}
                                         initialRegion={{
                                             latitude: 33.8938,
                                             longitude: 35.5018,
                                             latitudeDelta: 0.0922,
                                             longitudeDelta: 0.0421,
+                                        }}
+                                        showsUserLocation={true}
+                                        showsMyLocationButton={true}
+                                        followsUserLocation={true}
+                                        onUserLocationChange={(e) => {
+                                            this.setState({ selectedCoordinates: { latitude: e.nativeEvent.coordinate.latitude, longitude: e.nativeEvent.coordinate.longitude } })
                                         }}
                                         onPress={(e) => {
                                             this.setState({ selectedCoordinates: { latitude: e.nativeEvent.coordinate.latitude, longitude: e.nativeEvent.coordinate.longitude } })
@@ -487,7 +494,7 @@ export default class NewReceiverPopUp extends Component {
                     // buttonAcceptStyle={{ paddingRight: 10, fontFamily: Fonts.MAIN_FONT }}
                     >
                     </Pickers.SinglePicker>
-                </View>
+                </View >
             );
         } else {
             return null

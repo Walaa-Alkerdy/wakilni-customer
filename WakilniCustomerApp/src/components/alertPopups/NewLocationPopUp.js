@@ -10,6 +10,7 @@ import { Pickers, Buttons } from '../../components';
 export default class NewLocationPopUp extends Component {
 
     state = {
+        marginBottom: 1,
         animatedValue: new Animated.Value(0),
         selectedCoordinates: null,
         typesList: [],
@@ -137,11 +138,19 @@ export default class NewLocationPopUp extends Component {
 
                                     <MapView
                                         style={{ height: 200, width: Dimensions.get('screen').width - 90, marginBottom: 15 }}
+                                        followsUserLocation={true}
+                                        showsUserLocation={true}
                                         initialRegion={{
                                             latitude: 33.8938,
                                             longitude: 35.5018,
                                             latitudeDelta: 0.0922,
                                             longitudeDelta: 0.0421,
+                                        }}
+                                        onUserLocationChange={(e) => {
+                                            this.setState({ selectedCoordinates: { latitude: e.nativeEvent.coordinate.latitude, longitude: e.nativeEvent.coordinate.longitude } }, () => {
+                                                this.map.animateToCoordinate(e.nativeEvent.coordinate)
+                                            })
+
                                         }}
                                         onPress={(e) => {
                                             this.setState({ selectedCoordinates: { latitude: e.nativeEvent.coordinate.latitude, longitude: e.nativeEvent.coordinate.longitude } })

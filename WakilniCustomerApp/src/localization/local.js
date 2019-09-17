@@ -378,6 +378,8 @@ let locals = new LocalizedStrings({
 
         BUTTON_FILTER: 'CHOOSE FILTERS',
         CLEAR_FILTERS: 'CLEAR FILTERS',
+        ACTIVE_ORDERS: 'Active',
+        ORDER_HISTORY: 'History',
 
         message_sent_successfully: 'Message sent successfully',
         message_signature_captured_successfully: 'Your signature has been captured',
@@ -731,6 +733,8 @@ let locals = new LocalizedStrings({
 
         BUTTON_FILTER: 'CHOOSE FILTERS',
         CLEAR_FILTERS: 'CLEAR FILTERS',
+        ACTIVE_ORDERS: 'Active',
+        ORDER_HISTORY: 'History',
 
         //Errors Section
         error_all_options_are_empty: 'يرجى إختيار على الأقل واحد من الخيارات التالية',

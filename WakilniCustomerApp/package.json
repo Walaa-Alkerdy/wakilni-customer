@@ -39,9 +39,13 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
-    "babel-jest": "23.6.0",
-    "jest": "23.6.0",
-    "react-test-renderer": "16.5.0"
+    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
+    "babel-jest": "22.2.0",
+    "babel-preset-react-native": "5.0.0",
+    "jest": "22.2.1",
+    "react-test-renderer": "16.2.0",
+    "schedule": "0.4.0",
+    "scheduler": "^0.15.0"
   },
   "jest": {
     "preset": "react-native"
