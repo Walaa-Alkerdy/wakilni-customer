@@ -1,6 +1,6 @@
 // export const BASE_URL = 'http://34.239.129.110/api/';
 export const BASE_URL = 'https://api.wakilni.com/api/';
-// export const BASE_URL = 'http://api-dev.wakilni.com/api/';
+// export const BASE_URL = 'http://api-dev1.wakilni.com/api/';
 // export const BASE_URL = 'https://2e7f412d.ngrok.io/wakilni/public/api/'
 // export const BASE_URL = 'http://172.17.5.5/wakilni/public/api/';
 

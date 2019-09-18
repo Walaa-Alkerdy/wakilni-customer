@@ -283,11 +283,11 @@ export default class MainComponent extends Component {
 
                 {/* Receiver Location section */}
                 <Text style={styles.subHeaders}>{Locals.CREATE_ORDER_RECEIVER_LOCATION}</Text>
-                <View style={[{ zIndex: 100, flexDirection: 'row', height: 50, width: '100%', justifyContent: 'center', alignItems: 'center' },]}>
+                <View style={[{ zIndex: 100, flexDirection: 'row', minHeight: 50, width: '100%', justifyContent: 'center', alignItems: 'center' },]}>
                     <Autocomplete
                         inputContainerStyle={{ borderColor: 'transparent', borderWidth: 0, width: Dimensions.get('screen').width - 110 }}
-                        style={[{ paddingHorizontal: 10, width: '100%', marginRight: 15, backgroundColor: '#f0f0f0', borderRadius: 5, justifyContent: 'center', height: 40, fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', fontSize: 14 }, this.state.isReceiverLocationError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]}
-                        listStyle={{ maxHeight: 150, backgroundColor: '#f0f0f0', borderBottomRightRadius: 5, borderBottomLeftRadius: 5, borderWidth: 1 }}
+                        style={[{ zIndex: 99999, paddingHorizontal: 10, width: '100%', marginRight: 15, backgroundColor: '#f0f0f0', borderRadius: 5, justifyContent: 'center', height: 40, fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', fontSize: 14 }, this.state.isReceiverLocationError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]}
+                        listStyle={{ maxHeight: 150, backgroundColor: '#f0f0f0', borderBottomRightRadius: 5, borderBottomLeftRadius: 5, borderWidth: 1, zIndex: 999 }}
                         // data={this.state.pickUpLocations.filter((location) => { return location.value.includes(this.state.query) })}
                         data={this.state.receiverLocations}
                         hideResults={this.state.mustHideLocationsDropList ? true : false}
@@ -870,7 +870,7 @@ export default class MainComponent extends Component {
                 // buttonAcceptStyle={{ paddingRight: 10, fontFamily: Fonts.MAIN_FONT }}
                 >
                 </Pickers.SinglePicker>
-            </View>
+            </View >
         )
     }
 }
