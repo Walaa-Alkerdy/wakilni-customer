@@ -2,8 +2,8 @@ export const CASH_COLLECTION = {
     PAID_BY_CARD: { id: 56, type: 'CASH_COLLECTION', label: 'Paid by card' },
     PAID_BY_CASH: { id: 55, type: 'CASH_COLLECTION', label: 'Paid by cash' },
     PAID: { id: 54, type: 'CASH_COLLECTION', label: 'Paid' },
-    COLLECT_ON_DELIVERY: { id: 53, type: 'CASH_COLLECTION', label: 'Collect on pickup' },
-    COLLECT_ON_PICKUP: { id: 52, type: 'CASH_COLLECTION', label: 'Collect on delivery' },
+    COLLECT_ON_PICKUP: { id: 53, type: 'CASH_COLLECTION', label: 'Collect on pickup' },
+    COLLECT_ON_DELIVERY: { id: 52, type: 'CASH_COLLECTION', label: 'Collect on delivery' },
 }
 
 export const PAYMENT_METHOD = {

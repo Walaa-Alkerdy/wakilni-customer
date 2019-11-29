@@ -136,7 +136,9 @@ export default class CreateOrderStep4 extends Component {
     }
 
     getCollectionLabel = (collectionTypes) => {
+        // console.log(collectionTypes, 'AAADDAA1')
         var item = collectionTypes.find((type) => { return type.isSelected == true });
+        // console.log(item, 'AAADDAA2')
         if(item){
             return item.label;
         }

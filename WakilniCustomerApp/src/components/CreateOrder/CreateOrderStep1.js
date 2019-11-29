@@ -331,7 +331,7 @@ export default class CreateOrderStep1 extends Component {
                                                                 type.isSelected = true
                                                             }
                                                         })
-
+                                                        // LOG HERE
                                                         this.setState({ deliveryPaymentTypes: temp })
                                                     }}
                                                 >
@@ -547,16 +547,21 @@ export default class CreateOrderStep1 extends Component {
     }
 
     nextPressed() {
-
+        console.log(this.state.deliveryPaymentTypes.find((item) => { return item.isSelected == true }), 'AAAADDDDZZZ')
         if (this.isInputValid()) {
 
             //move to step two
             let values = {
                 selectedPaymentType: this.state.paymentTypes.find((item) => { return item.isSelected == true }),
+
                 selectedDeliveryPaymentType: this.state.deliveryPaymentTypes.find((item) => { return item.isSelected == true }),
+                
                 selectedPickUpLocation: this.state.selectedPickUpLocation,
+                
                 selectedDate: this.state.preferredDate,
+                
                 selectedFromTime: this.state.isInitialPreferredFrom ? null : this.state.preferredFrom,
+                
                 selectedToTime: this.state.isInitialPreferredTo ? null : this.state.preferredTo,
             }
 
