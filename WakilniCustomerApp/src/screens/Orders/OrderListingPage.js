@@ -358,8 +358,16 @@ export default class OrderListingPage extends Component {
                             refreshing={this.state.listRefreshing && this.props.appState.state == STATE.LOADING}
                         />
                     }
+                    ListEmptyComponent={() => {
+                        var message = this.props.appState.errorMessage;
+                        if (this.props.appState.errorMessage == '') {
+                            message = Locals.NO_RESULTS
+                        }
+                        return <NoResultsPage messageToShow={message} />
+                    }}
                     bounces={true}
-                    data={this.state.ordersList.length != 0 ? this.state.ordersList : []}
+                    centerContent={this.state.ordersList.length == 0}
+                    data={this.state.ordersList}
                     keyExtractor={item => JSON.stringify(item.id)}//key for each cell most probably will use the id
                     renderItem={({ item, index }) =>
                         <OrdersPageSections
@@ -381,14 +389,6 @@ export default class OrderListingPage extends Component {
                         :
                         null
                 }
-
-                {
-                    this.state.isInitalLoading == false && this.state.ordersList.length == 0 && this.state.isFiltering != true ?
-                        <NoResultsPage messageToShow={this.props.appState.errorMessage != '' ? this.props.appState.errorMessage : Locals.NO_RESULTS} />
-                        :
-                        null
-                }
-
                 <Alerts.OrderFiltersPopUp
                     ref={orderFilter => this.orderFilter = orderFilter}
                     confirmPressed={this.filterConfirmPressed}
