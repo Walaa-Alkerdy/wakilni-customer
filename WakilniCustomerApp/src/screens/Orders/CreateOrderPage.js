@@ -176,13 +176,19 @@ export default class CreateOrderPage extends Component {
 
     //step 1 actions
     createCustomerLocationPressed(receivedData) {
+        var longitude = 0;
+        var latitude = 0;
+        if (receivedData.selectedCoordinates) {
+            longitude = receivedData.selectedCoordinates.longitude || 0;
+            latitude = receivedData.selectedCoordinates.latitude || 0;
+        }
         let values = {
             accessToken: this.props.appState.user.tokenData.accessToken,
             customerId: this.props.appState.user.userInfo.customerId,
             areaId: receivedData.selectedArea.key,
             typeId: receivedData.selectedType.key,
             building: receivedData.building ? receivedData.building : '',
-            coordinates: { latitude: receivedData.selectedCoordinates.latitude, longitude: receivedData.selectedCoordinates.longitude },
+            coordinates: { latitude, longitude },
             floor: receivedData.floor ? receivedData.floor : '',
             directions: receivedData.directions ? receivedData.directions : '',
             picture: ''

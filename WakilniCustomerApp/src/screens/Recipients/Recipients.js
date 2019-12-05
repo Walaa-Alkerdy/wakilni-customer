@@ -35,7 +35,14 @@ export default class RecipientsPage extends Component {
                         </View>
                         :
                         <View>
-                            <BadgeButton badgeCount={navigation.state.params ? navigation.state.params.badgeCount : 0} position='topLeft' url={require('../../images/common/notificationIconMain.png')} buttonPressed={() => navigation.state.params.handleNotificationPress ? navigation.state.params.handleNotificationPress() : null} />
+                            <BadgeButton badgeCount={navigation.state.params ? navigation.state.params.badgeCount : 0} position='topLeft' url={require('../../images/common/notificationIconMain.png')} buttonPressed={() => {
+                                if (navigation
+                                    && navigation.state
+                                    && navigation.state.params
+                                    && navigation.state.params.handleNotificationPress) {
+                                    navigation.state.params.handleNotificationPress()
+                                }
+                            }} />
                         </View>
                 }
             </View>
