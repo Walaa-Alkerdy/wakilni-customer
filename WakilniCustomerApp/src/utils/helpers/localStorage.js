@@ -70,11 +70,10 @@ export function getAuthStatus(onSuccess, onFailure) {
     AsyncStorage.getItem('UnAuthenticated').then((result) => {
 
         if (result) {
-
-            onSuccess(JSON.parse(result));
+            onSuccess(result);
         } else {
 
-            onFailure(JSON.stringify('false'));
+            onFailure('false');
         }
     }).catch((error) => {
 

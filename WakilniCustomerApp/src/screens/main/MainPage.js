@@ -150,18 +150,7 @@ export default class MainPage extends Component {
         } else if (newProps.appState.state === STATE.FAILED && newProps.appState.action === ACTION_AUTH.IS_TOKEN_VALID) {
 
             // if (newProps.appState.errorMessage.toString() == "401") {
-            this.setState({ isInitialLoad: false }, () => {
-                // this.stopTimers()
-                generalHelpers.clearCache()
-                let resetNavigation = NavigationActions.reset({
-                    index: 0,
-                    actions: [
-                        NavigationActions.navigate({ routeName: 'LoginContainer' }),
-                    ],
-                });
-                newProps.navigation.dispatch(resetNavigation);
-                this.props.resetState();
-            })
+            this.logout();
             // } else {
             //     this.setState({ isInitialLoad: false }, () => {
             //         this.preparePage()
@@ -187,26 +176,38 @@ export default class MainPage extends Component {
                 this.props.getMessages({ accessToken: newProps.appState.user.tokenData.accessToken }, false, false)
             }
         }
+        localStorage.getAuthStatus((result) => {
+            if (result == "true") {
+                if (localStorage.removeAuthStatus()) {
+                    this.stopTimers()
+                    let resetNavigation = NavigationActions.reset({
+                        index: 0,
+                        actions: [
+                            NavigationActions.navigate({ routeName: 'LoginContainer' }),
+                        ],
+                    });
+                    newProps.navigation.dispatch(resetNavigation);
+                    this.props.resetState();
+                }
+            }
+        }, (error) => {
 
-        // localStorage.getAuthStatus((result) => {
+        })
+    }
 
-        //     if (result == true) {
-
-        //         if (localStorage.removeAuthStatus()) {
-        // this.stopTimers()
-
-        // let resetNavigation = NavigationActions.reset({
-        //     index: 0,
-        //     actions: [
-        //         NavigationActions.navigate({ routeName: 'LoginContainer' }),
-        //     ],
-        // });
-        // newProps.navigation.dispatch(resetNavigation);
-        // this.props.resetState();
-        //         }
-        //     }
-
-        // }, (error) => { })
+    logout() {
+        this.setState({ isInitialLoad: false }, () => {
+            // this.stopTimers()
+            generalHelpers.clearCache();
+            let resetNavigation = NavigationActions.reset({
+                index: 0,
+                actions: [
+                    NavigationActions.navigate({ routeName: 'LoginContainer' }),
+                ],
+            });
+            this.props.navigation.dispatch(resetNavigation);
+            this.props.resetState();
+        });
     }
 
     //was will mount when tested
