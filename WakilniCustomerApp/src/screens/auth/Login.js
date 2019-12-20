@@ -9,7 +9,7 @@ import { Colors, Fonts } from '../../constants/general';
 import * as validators from '../../utils/validators/userInfoValidators';
 import Orientation from 'react-native-orientation';
 import * as ServerStatus from '../../constants/server_states';
-
+import * as localStorage from '../../utils/helpers/localStorage'
 const headerTitlePadding = (Platform.OS === "ios" ? 0 : Dimensions.get('screen').width / 1.5);
 const headerIconWidth = (Platform.OS === "ios" ? '60%' : '35%');
 const headerIconHeight = (Platform.OS === "ios" ? '60%' : '35%');
@@ -138,7 +138,7 @@ export default class Login extends Component {
     if (newProps.appState.user && newProps.appState.state === STATE.SUCCESS && newProps.appState.action === ACTION_AUTH.LOGIN) {
 
       this.props.resetState();
-
+      localStorage.saveAuthStatus("false")
       // if (newProps.appState.user.userInfo.isLastLogin) {
       this.props.navigation.navigate("MainPageContainer");
       // } else {
