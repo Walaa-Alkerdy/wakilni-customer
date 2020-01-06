@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, Dimensions, StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { Platform, Dimensions, StyleSheet, View, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import { Fonts, Colors } from '../../constants/general';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import DateTimePicker from 'react-native-modal-datetime-picker';
@@ -8,6 +8,7 @@ import Autocomplete from 'react-native-autocomplete-input';
 import { Pickers, Alerts, Buttons } from '../../components';
 import Locals from '../../localization/local';
 import * as objectTypes from '../../constants/object_types';
+import { SelectionType } from '../alertPopups/LocationPrompt';
 
 var moment = require('moment')
 
@@ -212,6 +213,25 @@ export default class CreateOrderStep1 extends Component {
 
     }
 
+    showLocationDialog = () => {
+        this.locationPrompt.show()
+        return
+        Alert.alert("New Location", "What would you like to add?", [
+            {
+                text: 'My location',
+                onPress: () => {
+                    this.newLocationPopUp.show(this.props.constantsList ? this.props.constantsList.locationTypes : [], this.props.areaList)
+                }
+            },
+            {
+                text: 'Other',
+                onPress: () => {
+                    this.newReceiverPopup.show(this.props.constantsList ? this.props.constantsList.locationTypes : [], this.props.areaList)
+                }
+            }
+        ], 'default')
+    }
+
     render() {
 
         return (
@@ -381,8 +401,9 @@ export default class CreateOrderStep1 extends Component {
                                         <Text style={{ fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', paddingLeft: 10 }}>{this.state.selectedPickUpLocation ? this.state.selectedPickUpLocation.value : Locals.CREATE_ORDER_CHOOSE_LOCATION}</Text>
                                     </TouchableOpacity> */}
                                     <TouchableOpacity style={{ width: 50, height: 50, justifyContent: 'center', alignItems: 'center' }} onPress={() => {
-                                        // must open location component
-                                        this.newLocationPopUp.show(this.props.constantsList ? this.props.constantsList.locationTypes : [], this.props.areaList)
+                                        // must open location component 0000000
+                                        // this.newLocationPopUp.show(this.props.constantsList ? this.props.constantsList.locationTypes : [], this.props.areaList)
+                                        this.showLocationDialog()
                                     }}>
                                         <View style={{
                                             backgroundColor: Colors.SUB_COLOR,
@@ -512,16 +533,34 @@ export default class CreateOrderStep1 extends Component {
                 >
                 </Pickers.SinglePicker>
 
+                <Alerts.NewReceiverPopUp
+                    ref={newLocationPopUp => this.newReceiverPopup = newLocationPopUp}
+                    typesList={this.props.constantsList ? this.props.constantsList.locationTypes : []}
+                    areasList={this.props.areaList}
+                    onCreatePress={(receivedData) => {
+
+                        this.props.createReceiverPressed(receivedData, index, this.state.accordionData)
+                    }}
+                />
+                <Alerts.LocationPrompt
+                    ref={newLocationPopUp => this.locationPrompt = newLocationPopUp}
+                    personName={`${this.props.appState.user.userInfo.firstName} ${this.props.appState.user.userInfo.lastName}`}
+                    onCreatePress={(type) => {
+                        if (type == SelectionType.Personal) {
+                            this.newLocationPopUp.show(this.props.constantsList ? this.props.constantsList.locationTypes : [], this.props.areaList)
+                        } else {
+                            this.newReceiverPopup.show(this.props.constantsList ? this.props.constantsList.locationTypes : [], this.props.areaList)
+                        }
+                    }}
+                />
                 <Alerts.NewLocationPopUp
                     ref={newLocationPopUp => this.newLocationPopUp = newLocationPopUp}
                     typesList={this.props.constantsList ? this.props.constantsList.locationTypes : []}
                     areasList={this.props.areaList}
                     onCreatePress={(receivedData) => {
-
                         this.props.createCustomerLocationPressed(receivedData)
                     }}
                 />
-
             </View>
         )
     }
@@ -555,13 +594,13 @@ export default class CreateOrderStep1 extends Component {
                 selectedPaymentType: this.state.paymentTypes.find((item) => { return item.isSelected == true }),
 
                 selectedDeliveryPaymentType: this.state.deliveryPaymentTypes.find((item) => { return item.isSelected == true }),
-                
+
                 selectedPickUpLocation: this.state.selectedPickUpLocation,
-                
+
                 selectedDate: this.state.preferredDate,
-                
+
                 selectedFromTime: this.state.isInitialPreferredFrom ? null : this.state.preferredFrom,
-                
+
                 selectedToTime: this.state.isInitialPreferredTo ? null : this.state.preferredTo,
             }
 

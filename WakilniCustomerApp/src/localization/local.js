@@ -230,6 +230,9 @@ let locals = new LocalizedStrings({
         COMPLETE_TASK_PAGE_SIGN_HERE_SAVE: 'CONFIRM',
         COMPLETE_TASK_PAGE_DONE: 'DONE',
 
+
+        MESSAGE_ADD_ADDRESS: 'What would you like to add?',
+
         //Cash Account Page
         CASH_ACCOUNT_PAGE_FROM: 'from',
         CASH_ACCOUNT_PAGE_ORDER_NUMBER: 'Order №:',
@@ -285,6 +288,9 @@ let locals = new LocalizedStrings({
         NOTIFICATION_DETAILS_REPLY_PAGE_VOICE_START_RECORDING: 'Start recording',
         NOTIFICATION_DETAILS_REPLY_PAGE_VOICE_RECORDING: 'Recording...',
         NOTIFICATION_DETAILS_REPLY_PAGE_SUBMIT_BUTTON: 'Send',
+
+        CREATE_NEW_RECEIVER_ADDRESS: 'A Receiver Address',
+        CREATE_NEW_PERSONAL_ADDRESS: 'A %NAME% Address',
 
         //Create Order
         CREATE_ORDER_STEP1: 'STEP I',
@@ -366,7 +372,7 @@ let locals = new LocalizedStrings({
         CREATE_RECEIVER_ALLOW_DRIVER_CONTACT: 'Allow Driver Contact',
         CREATE_RECEIVER_ALLOW_DRIVER_CONTACT2: 'Allow driver to contact receiver',
         // CREATE_RECEIVER_ALLOW_SENDING_DIRECT_MESSAGE: 'Send direct message to receiver',
-        CREATE_RECEIVER_ALLOW_SENDING_DIRECT_MESSAGE: 'Send tracking SMS message to the recipient',        
+        CREATE_RECEIVER_ALLOW_SENDING_DIRECT_MESSAGE: 'Send tracking SMS message to the recipient',
 
         // recipients page
         RECIPIENT_NAME: 'Name',

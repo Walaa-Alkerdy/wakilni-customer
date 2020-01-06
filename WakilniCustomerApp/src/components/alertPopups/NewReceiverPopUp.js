@@ -625,6 +625,7 @@ const styles = StyleSheet.create({
     animatedContainer: {
         height: '95%',
         width: '95%',
+        marginBottom: 64,
         backgroundColor: 'white',
     },
     mainInnerContainer: {

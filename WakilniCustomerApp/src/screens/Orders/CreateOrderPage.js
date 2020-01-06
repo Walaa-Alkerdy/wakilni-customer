@@ -400,11 +400,13 @@ export default class CreateOrderPage extends Component {
                     <CreateOrder.CreateOrderStep1
                         ref={step1View => this.step1View = step1View}
                         areaList={this.props.appState.areas}
+                        appState={this.props.appState}
                         constantsList={this.props.appState.constantsList}
                         pickUpLocations={this.props.appState.pickUpLocations}
                         selectedPickUpLocation={this.state.selectedPickUpLocation}
                         step1Data={this.state.step1Data}
                         fetchLocations={this.fetchLocations}
+                        createReceiverPressed={(receivedData, receiverIndex, oldPageData) => { this.createReceiverPressed(receivedData, receiverIndex, oldPageData) }}
                         createCustomerLocationPressed={(receivedData) => { this.createCustomerLocationPressed(receivedData) }}
                         nextPressed={(receivedData) => { this.nextPressed(receivedData) }}
                     />
