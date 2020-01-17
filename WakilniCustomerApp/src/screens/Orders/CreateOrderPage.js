@@ -265,8 +265,17 @@ export default class CreateOrderPage extends Component {
         switch (this.state.mainTabSelectedIndex) {
             case 0://Step 1
                 if (receivedData) {
+                    var paymentId = '';
+                    var stepData = null;
+                    if (this.state.step1Data
+                        && this.state.step1Data.selectedPaymentType) {
+                        paymentId = this.state.step1Data.selectedPaymentType.id
+                    }
+                    if (paymentId == receivedData.selectedPaymentType.id) {
+                        stepData = this.state.step2Data;
+                    }
                     this.setState({
-                        step1Data: receivedData, step2Data: this.state.step1Data ? this.state.step1Data.selectedPaymentType.id != receivedData.selectedPaymentType.id ? null : this.state.step2Data : null,
+                        step1Data: receivedData, step2Data: stepData,
                         mainTabSelectedIndex: this.state.mainTabSelectedIndex + 1, selectedReceiverIndex: 0, oldPageData: null
                     })
                 }
@@ -335,7 +344,11 @@ export default class CreateOrderPage extends Component {
             })
         })
         var locationArea = this.props.appState.pickUpLocations.find((location) => { return location.id == this.state.step1Data.selectedPickUpLocation.key }) || { area: { id: 0 } };
-
+        var paymentId = null;
+        if (this.state.step1Data
+            && this.state.step1Data.selectedPaymentType) {
+            paymentId = this.state.step1Data.selectedPaymentType.id
+        }
         let values = {
             customerId: this.props.appState.user.userInfo.customerId,
             accessToken: this.props.appState.user.tokenData.accessToken,
@@ -343,7 +356,7 @@ export default class CreateOrderPage extends Component {
                 senderData: moment(this.state.step1Data.selectedDate).format('YYYY-MM-DD'),
                 senderFromTime: this.state.step1Data.selectedFromTime ? moment(this.state.step1Data.selectedFromTime).format('hh:mm:ss') : null,
                 senderToTime: this.state.step1Data.selectedToTime ? moment(this.state.step1Data.selectedToTime).format('hh:mm:ss') : null,
-                typeId: this.state.step1Data.selectedPaymentType.id,
+                typeId: paymentId,
                 // isSamePackage: this.state.step1Data.selectedPaymentType.id != objectTypes.ORDER.RETURN_TRIP.id ? false : this.state.step2Data.selectedData.filter((item) => { return item.packagesToReturnList.length > 0 }).length > 0 ? true : false,
                 customerId: this.props.appState.user.userInfo.customerId,
                 paymentTypeId: this.state.step1Data.selectedDeliveryPaymentType.id,
@@ -412,6 +425,11 @@ export default class CreateOrderPage extends Component {
                     />
                 )
             case 1://Step 2
+                var paymentId = null;
+                if (this.state.step1Data
+                    && this.state.step1Data.selectedPaymentType) {
+                    paymentId = this.state.step1Data.selectedPaymentType.id;
+                }
                 return (
                     <CreateOrder.CreateOrderStep2
                         ref={step2View => this.step2View = step2View}
@@ -419,7 +437,7 @@ export default class CreateOrderPage extends Component {
                         constantsList={this.props.appState.constantsList}
                         receiverLocations={this.props.appState.receiverLocations}
                         selectedReceiverLocation={this.state.selectedReceiverLocation}
-                        orderTypeId={this.state.step1Data.selectedPaymentType.id}
+                        orderTypeId={paymentId}
                         step2Data={this.state.step2Data ? this.state.step2Data.selectedData : null}
                         oldPageData={this.state.oldPageData ? this.state.oldPageData : null}
                         fetchLocations={this.fetchLocations}

@@ -537,8 +537,7 @@ export default class CreateOrderStep1 extends Component {
                     ref={newLocationPopUp => this.newReceiverPopup = newLocationPopUp}
                     typesList={this.props.constantsList ? this.props.constantsList.locationTypes : []}
                     areasList={this.props.areaList}
-                    onCreatePress={(receivedData) => {
-
+                    onCreatePress={(receivedData, index) => {
                         this.props.createReceiverPressed(receivedData, index, this.state.accordionData)
                     }}
                 />

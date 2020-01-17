@@ -31,12 +31,18 @@ export function startTask(accessToken, orderId, taskId, nowDrivingId, onSuccess,
  * @param {function} onFailure Failure callback
  */
 export function completeTask(accessToken, orderId, taskId, signature, image, itemsCollected, note, failReason, myCoordinates, onSuccess, onFailure) {
+    var latitude = 0.0
+    var longitude = 0.0
 
+    if (myCoordinates) {
+        latitude = myCoordinates.latitude;
+        longitude = myCoordinates.longitude;
+    }
     let body = {
         action: 'complete',
         collections: itemsCollected,
-        latitude: myCoordinates.latitude,
-        longitude: myCoordinates.longitude,
+        latitude: latitude,
+        longitude: longitude,
     }
 
     if (signature) {

@@ -48,7 +48,14 @@ export default class OrderListingPage extends Component {
                     Locals.getLanguage() == 'en' ?
 
                         <View>
-                            <BadgeButton badgeCount={navigation.state.params ? navigation.state.params.badgeCount : 0} position='topLeft' url={require('../../images/common/notificationIconMain.png')} buttonPressed={() => navigation.state.params.handleNotificationPress ? navigation.state.params.handleNotificationPress() : null} />
+                            <BadgeButton badgeCount={navigation.state.params ? navigation.state.params.badgeCount : 0} position='topLeft' url={require('../../images/common/notificationIconMain.png')} buttonPressed={() => {
+                                if (navigation
+                                    && navigation.state
+                                    && navigation.state.params
+                                    && navigation.state.params.handleNotificationPress) {
+                                    navigation.state.params.handleNotificationPress()
+                                }
+                            }} />
                         </View>
                         :
                         <View>
@@ -147,7 +154,7 @@ export default class OrderListingPage extends Component {
 
         if (this.props.appState
             && this.props.appState.constantsList
-            && this.props.appState.constantsList.length > 0) {
+            && this.props.appState.constantsList.orderTypes) {
             this.setState({ orderTypes: this.props.appState.constantsList.orderTypes })
         }
 
@@ -291,7 +298,11 @@ export default class OrderListingPage extends Component {
         }
 
         if (this.state.orderTypes.length == 0) {
-            this.setState({ orderTypes: newProps.appState.constantsList.orderTypes })
+            if (newProps.appState
+                && newProps.appState.constantsList
+                && newProps.appState.constantsList.orderTypes) {
+                this.setState({ orderTypes: newProps.appState.constantsList.orderTypes })
+            }
         }
         if (newProps.appState.customerOrders != this.state.ordersList && this.state.ordersList.length > 0) {
             this.setState({ ordersList: newProps.appState.customerOrders })
