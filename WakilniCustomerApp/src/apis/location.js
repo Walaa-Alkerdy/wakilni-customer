@@ -49,6 +49,11 @@ export function getLocations(values, onSuccess, onFailure) {
             Locations = result.data.map((item) => {
                 return LocationUtils.LocationCustomer(item);
             })
+            try {
+                Locations = Locations.sort((a, b) => {
+                    return a.location > b.location
+                })
+            } catch (e) { }
         }
         onSuccess(Locations)
     }, (error) => {

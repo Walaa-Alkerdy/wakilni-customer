@@ -20,6 +20,7 @@ import NotificationsPageContainer from './src/containers/Notifications/Notificat
 import CreateOrderContainer from './src/containers/Orders/CreateOrderContainer';
 import OrderListingPageContainer from './src/containers/Orders/OrderListingPageContainer';
 import RecipientsContainer from './src/containers/Recipients/RecipientsContainer';
+import Support from './src/containers/Support/Support';
 
 
 const getInitialState = () => {
@@ -96,6 +97,7 @@ const MainScreenNavigatorNotLoggedIn = StackNavigator({
   CreateOrderContainer: { screen: CreateOrderContainer, navigationOptions: commonNavOptions },
   OrderListingPageContainer: { screen: OrderListingPageContainer, navigationOptions: commonNavOptions },
   RecipientsContainer: { screen: RecipientsContainer, navigationOptions: commonNavOptions },
+  Support: { screen: Support, navigationOptions: commonNavOptions },
 
 }, {
     initialRouteName: 'LoginContainer',
@@ -115,7 +117,7 @@ const MainScreenNavigatorLoggedIn = StackNavigator({
   CreateOrderContainer: { screen: CreateOrderContainer, navigationOptions: commonNavOptions },
   OrderListingPageContainer: { screen: OrderListingPageContainer, navigationOptions: commonNavOptions },
   RecipientsContainer: { screen: RecipientsContainer, navigationOptions: commonNavOptions },
-
+  Support: { screen: Support, navigationOptions: commonNavOptions },
 }, {
     initialRouteName: 'MainPageContainer',
     headerMode: 'screen',

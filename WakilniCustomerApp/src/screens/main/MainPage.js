@@ -278,6 +278,9 @@ export default class MainPage extends Component {
             case 12://Customer Recipients
                 this.props.navigation.navigate("RecipientsContainer");
                 break;
+            case 13://Customer Support
+                this.props.navigation.navigate("Support");
+                break;
         }
     }
 
@@ -301,15 +304,18 @@ export default class MainPage extends Component {
                 {
                     this.props.appState.lang == 'ar' ?
                         <View style={styles.subSection}>
-                            <MainPageSections language={this.props.appState.lang} isLast={true} label={Locals.PROFILE} url={require('../../images/mainpage/profileMain.png')} sectionPressed={() => this.sectionPressed(9)} />
                             <MainPageSections language={this.props.appState.lang} label={Locals.RECIPIENTS} url={require('../../images/mainpage/recipientsMain.png')} sectionPressed={() => this.sectionPressed(12)} />
+                            <MainPageSections language={this.props.appState.lang} isLast={true} label={Locals.PROFILE} url={require('../../images/mainpage/profileMain.png')} sectionPressed={() => this.sectionPressed(9)} />
                         </View>
                         :
                         <View style={styles.subSection}>
-                            <MainPageSections language={this.props.appState.lang} isLast={true} label={Locals.PROFILE} url={require('../../images/mainpage/profileMain.png')} sectionPressed={() => this.sectionPressed(9)} />
                             <MainPageSections language={this.props.appState.lang} label={Locals.RECIPIENTS} url={require('../../images/mainpage/recipientsMain.png')} sectionPressed={() => this.sectionPressed(12)} />
+                            <MainPageSections language={this.props.appState.lang} isLast={true} label={Locals.PROFILE} url={require('../../images/mainpage/profileMain.png')} sectionPressed={() => this.sectionPressed(9)} />
                         </View>
                 }
+                <View style={styles.subSection}>
+                    <MainPageSections language={this.props.appState.lang} label={Locals.SUPPORT} url={require('../../images/mainpage/profileMainOld.png')} sectionPressed={() => this.sectionPressed(13)} />
+                </View>
 
                 {
                     this.props.appState.state == STATE.LOADING ? <Loaders.Loader /> : null
@@ -344,7 +350,13 @@ export default class MainPage extends Component {
         } else {
             if (this.props.appState.user) {
                 return (
-                    this.renderMainView()
+                    <ScrollView style={{ flex: 1 }}
+                        showsHorizontalScrollIndicator={false}
+                        bounces={false}
+                        showsVerticalScrollIndicator={false}
+                    >
+                        {this.renderMainView()}
+                    </ScrollView>
                 )
             } else {
                 return (
