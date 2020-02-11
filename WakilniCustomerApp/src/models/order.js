@@ -64,7 +64,7 @@ export function OrderForCustomer(data) {
     }
 
     return {
-        additionalCharges: data.aC, //additional Charges
+        additionalCharges: [],//data.aC, //additional Charges
         childrenCount: data.c_c, // children count
         commentId: data.c_i,// comment id
         comments: data.c, // comments

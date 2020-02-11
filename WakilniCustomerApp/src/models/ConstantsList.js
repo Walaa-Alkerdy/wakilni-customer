@@ -20,9 +20,9 @@ export function ConstantsListMain(data) {
     let taskTypes = data.taskTypes.map((item) => {
         return ConstantsListSub(item);
     })
-    let additionalChargesTypes = data.additionalChargesTypes.map((item) => {
-        return ConstantsListSub(item);
-    })
+    // let additionalChargesTypes = data.additionalChargesTypes.map((item) => {
+    //     return ConstantsListSub(item);
+    // })
     let customerTypes = data.customerTypes.map((item) => {
         return ConstantsListSub(item);
     })
@@ -62,7 +62,7 @@ export function ConstantsListMain(data) {
         vehicleTypes: vehicleTypes,
         orderTypes: orderTypes,
         taskTypes: taskTypes,
-        additionalChargesTypes: additionalChargesTypes,
+        additionalChargesTypes: [],// additionalChargesTypes,
         customerTypes: customerTypes,
         paymentMethodTypes: paymentMethodTypes,
         subscriptionTypes: subscriptionTypes,

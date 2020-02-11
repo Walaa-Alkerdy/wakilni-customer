@@ -585,7 +585,7 @@ export default class CreateOrderStep1 extends Component {
     }
 
     nextPressed() {
-        console.log(this.state.deliveryPaymentTypes.find((item) => { return item.isSelected == true }), 'AAAADDDDZZZ')
+        // console.log(this.state.deliveryPaymentTypes.find((item) => { return item.isSelected == true }), 'AAAADDDDZZZ')
         if (this.isInputValid()) {
 
             //move to step two
