@@ -107,7 +107,7 @@ export default class CreateOrderStep1 extends Component {
                 value: location.location
             })
         })
-
+        console.log(pickUpLocations);
         this.setState({
             deliveryPaymentTypes: deliveryPaymentTypes,
             paymentTypes: paymentTypes,
@@ -237,12 +237,12 @@ export default class CreateOrderStep1 extends Component {
         return (
             <View style={styles.mainContainer}>
                 <KeyboardAwareScrollView
+                    nestedScrollEnabled
                     // resetScrollToCoords={{ x: 0, y: 0 }}
                     style={{ backgroundColor: '#f0f0f0', height: '100%', width: '100%', padding: 20 }}
                     contentContainerStyle={{ flexGrow: 1 }}
                     bounces={false}
-                    showsVerticalScrollIndicator={false}
-                    keyboardShouldPersistTaps='always'>
+                    showsVerticalScrollIndicator={false}>
 
                     <View style={[styles.mainContainer, { flex: 1, height: '100%', justifyContent: 'space-between', alignContent: 'center', overflow: 'hidden' }, Platform.OS == 'ios' ? {} : { marginBottom: 30 }]}>
 
@@ -368,7 +368,9 @@ export default class CreateOrderStep1 extends Component {
                                 <View style={[{ zIndex: 100, flexDirection: 'row', minHeight: 50, width: '100%', justifyContent: 'center', alignItems: 'center' },]}>
                                     <Autocomplete
                                         inputContainerStyle={{ borderColor: 'transparent', borderWidth: 0, width: Dimensions.get('screen').width - 110 }}
-                                        style={[{ paddingHorizontal: 10, width: '100%', marginRight: 15, backgroundColor: '#f0f0f0', borderRadius: 5, justifyContent: 'center', height: 40, fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', fontSize: 14 }, this.state.isPickUpError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]}
+                                        style={[{
+                                            paddingHorizontal: 10, width: '100%', marginRight: 15, backgroundColor: '#f0f0f0', borderRadius: 5, justifyContent: 'center', height: 40, fontFamily: Fonts.SUB_FONT, color: '#c4c4c4', fontSize: 14
+                                        }, this.state.isPickUpError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]}
                                         listStyle={{ maxHeight: 150, backgroundColor: '#f0f0f0', borderBottomRightRadius: 5, borderBottomLeftRadius: 5, borderWidth: 1 }}
                                         // data={this.state.pickUpLocations.filter((location) => { return location.value.includes(this.state.query) })}
                                         data={this.state.pickUpLocations}
@@ -383,13 +385,20 @@ export default class CreateOrderStep1 extends Component {
                                         renderItem={({ item, i }) => (
                                             <TouchableOpacity
                                                 key={item.key}
-                                                style={{ paddingHorizontal: 10, borderBottomColor: 'black', borderBottomWidth: 0.5, height: 40, justifyContent: 'center', alignItems: 'flex-start', width: '100%' }}
+                                                style={{
+                                                    paddingHorizontal: 10, borderBottomColor: 'black', borderBottomWidth: 0.5, height: 55,
+                                                    marginBottom: 8,
+                                                    justifyContent: 'center', alignItems: 'flex-start', width: '100%'
+                                                }}
                                                 onPress={() => { this.setState({ selectedPickUpLocation: item, query: item.value, mustHideLocationsDropList: true }) }}
                                             >
-                                                <Text>{item.value}</Text>
+                                                <Text style={{ fontSize: 13 }}>{item.value}</Text>
                                             </TouchableOpacity>
                                         )}
-                                        flatListProps={{ bounces: false }}
+                                        nestedScrollEnabled
+                                        flatListProps={{
+                                            bounces: false, nestedScrollEnabled: true
+                                        }}
                                     />
 
                                     {/* <TouchableOpacity activeOpacity={this.state.pickUpLocations.length > 0 ? 0.5 : 1} style={[{ flex: 1, marginRight: 15, backgroundColor: this.state.pickUpLocations.length > 0 ? '#f0f0f0' : '#919191', borderRadius: 5, justifyContent: 'center', height: 40 }, this.state.isPickUpError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]} onPress={() => {

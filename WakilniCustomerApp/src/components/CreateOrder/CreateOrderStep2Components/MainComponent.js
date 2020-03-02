@@ -301,17 +301,17 @@ export default class MainComponent extends Component {
                         renderItem={({ item, i }) => (
                             <TouchableOpacity
                                 key={item.key}
-                                style={{ paddingHorizontal: 10, borderBottomColor: 'black', borderBottomWidth: 0.5, height: 40, justifyContent: 'center', alignItems: 'flex-start', width: '100%' }}
+                                style={{ paddingHorizontal: 10, borderBottomColor: 'black', borderBottomWidth: 0.5, height: 55, marginBottom: 8, justifyContent: 'center', alignItems: 'flex-start', width: '100%' }}
                                 onPress={() => {
                                     this.setState({ selectedReceiverLocation: item, query: item.value, mustHideLocationsDropList: true }, () => {
                                         this.props.onChangeData(this.state)
                                     })
                                 }}
                             >
-                                <Text>{item.value}</Text>
+                                <Text style={{ fontSize: 13 }}>{item.value}</Text>
                             </TouchableOpacity>
                         )}
-                        flatListProps={{ bounces: false }}
+                        flatListProps={{ bounces: false, nestedScrollEnabled: true }}
                     />
                     {/* <TouchableOpacity activeOpacity={this.state.receiverLocations.length > 0 ? 0.5 : 1} style={[{ flex: 1, marginRight: 15, backgroundColor: this.state.receiverLocations.length > 0 ? '#f0f0f0' : '#919191', borderRadius: 5, justifyContent: 'center', height: 40 }, this.state.isReceiverLocationError ? { borderColor: Colors.BADGE_COLOR, borderWidth: 1 } : { borderColor: 'transparent', borderWidth: 1 }]} onPress={() => {
                         // must open picker

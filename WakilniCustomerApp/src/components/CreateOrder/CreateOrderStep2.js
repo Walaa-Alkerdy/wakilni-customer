@@ -113,6 +113,7 @@ export default class CreateOrderStep2 extends Component {
                     style={{ backgroundColor: '#f0f0f0', width: '100%', padding: 20 }}
                     contentContainerStyle={{ flexGrow: 1, }}
                     bounces={false}
+                    nestedScrollEnabled
                     showsVerticalScrollIndicator={false}
                     keyboardShouldPersistTaps='always'>
 
