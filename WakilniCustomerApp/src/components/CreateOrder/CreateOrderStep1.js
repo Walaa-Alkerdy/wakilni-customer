@@ -101,13 +101,12 @@ export default class CreateOrderStep1 extends Component {
         }
 
         data.pickUpLocations.forEach((location) => {
-
             pickUpLocations.push({
                 key: location.id,
                 value: location.location
             })
         })
-        console.log(pickUpLocations);
+
         this.setState({
             deliveryPaymentTypes: deliveryPaymentTypes,
             paymentTypes: paymentTypes,
@@ -379,7 +378,13 @@ export default class CreateOrderStep1 extends Component {
                                         placeholder={Locals.CREATE_ORDER_START_TYPING}
                                         onChangeText={text => this.setState({ query: text, mustHideLocationsDropList: false }, () => {
                                             if (this.state.query.length > 2) {
-                                                this.props.fetchLocations(this.state.query.trim())
+                                                if (this.timeout) {
+                                                    clearTimeout(this.timeout);
+                                                }
+                                                this.timeout = setTimeout(() => {
+                                                    this.props.fetchLocations(this.state.query.trim())
+                                                }, 400);
+
                                             }
                                         })}
                                         renderItem={({ item, i }) => (
