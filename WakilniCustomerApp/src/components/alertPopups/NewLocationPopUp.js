@@ -148,7 +148,9 @@ export default class NewLocationPopUp extends Component {
                                         }}
                                         onUserLocationChange={(e) => {
                                             this.setState({ selectedCoordinates: { latitude: e.nativeEvent.coordinate.latitude, longitude: e.nativeEvent.coordinate.longitude } }, () => {
-                                                this.map.animateToCoordinate(e.nativeEvent.coordinate)
+                                                if (this.map && e && e.nativeEvent && e.nativeEvent.coordinate) {
+                                                    this.map.animateToCoordinate(e.nativeEvent.coordinate)
+                                                }
                                             })
 
                                         }}

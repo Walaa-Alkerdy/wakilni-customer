@@ -176,9 +176,12 @@ export default class CreateOrderPage extends Component {
 
     //step 1 actions
     createCustomerLocationPressed(receivedData) {
+        if (!receivedData) {
+            return;
+        }
         var longitude = 0;
         var latitude = 0;
-        if (receivedData.selectedCoordinates) {
+        if (receivedData && receivedData.selectedCoordinates) {
             longitude = receivedData.selectedCoordinates.longitude || 0;
             latitude = receivedData.selectedCoordinates.latitude || 0;
         }
