@@ -203,11 +203,12 @@ export function createOrder(values, onSuccess, onFailure) {
             require_picture: values.orderDetails.requirePicture
         }
     }
-
+    console.log(body, "order data");
+    console.log(JSON.stringify(body), "order data");
     network.postJSONDataWithAuthentication(routes.Orders.createOrder, values.accessToken, body, (result) => {
 
-        // console.log(result, 'create Order')
-        console.log(result);
+        console.log(result, 'create Order')
+        // console.log(result);
         onSuccess(result)
 
     }, (error) => {

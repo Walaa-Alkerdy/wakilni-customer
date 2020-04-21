@@ -103,7 +103,7 @@ export default class MainComponent extends Component {
                     //     }
 
                     // } else {
-                    if (index == 1) {
+                    if (index == 0) {
                         temp.isSelected = true
                     }
                     // }

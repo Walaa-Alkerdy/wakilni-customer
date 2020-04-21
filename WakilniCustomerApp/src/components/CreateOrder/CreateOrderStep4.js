@@ -281,7 +281,7 @@ export default class CreateOrderStep4 extends Component {
                                                             </View>
                                                             <View style={[styles.parentSubSubStyle, { flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }]}>
                                                                 <Text numberOfLines={1} style={styles.boldTextStyle}>{Locals.CREATE_ORDER_COLLECTION_AMOUNT}</Text>
-                                                                <Text numberOfLines={1} style={[styles.normalTextStyle, { paddingLeft: 0 }]}>{receiver.collectionAmount != '' ? receiver.collectionAmount : 'No Collection Amount'}</Text>
+                                                                <Text numberOfLines={1} style={[styles.normalTextStyle, { paddingLeft: 0 }]}>{receiver.collectionAmount != '' ? Number(receiver.collectionAmount).toLocaleString() : 'No Collection Amount'}</Text>
                                                             </View>
                                                         </View>
                                                         {

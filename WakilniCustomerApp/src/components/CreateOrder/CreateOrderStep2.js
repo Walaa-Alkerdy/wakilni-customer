@@ -62,7 +62,7 @@ export default class CreateOrderStep2 extends Component {
                 item.customNote = data.customNote
                 item.selectedCurrencyId = data.selectedCurrencyId
                 item.wayBill = data.wayBill
-                item.collectionAmount = data.collectionAmount
+                item.collectionAmount = `${data.collectionAmount}`.replace(",", "")
                 item.collectionTypes = data.collectionTypes
                 item.packageTypes = data.packageTypes
                 item.packagesToDeliverList = data.packagesToDeliverList
@@ -85,7 +85,7 @@ export default class CreateOrderStep2 extends Component {
     }
 
     prepareData(data) {
-        console.log(data)
+        // console.log(data)
         if (data.step2Data) {
             this.setState({ accordionData: data.step2Data })
         } else {
